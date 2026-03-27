@@ -10,3 +10,4 @@ Tested using:
 """
 import numpy as np 
 
+def initialise_lattice(L, ordered=False, seed=None)
