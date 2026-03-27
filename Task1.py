@@ -25,4 +25,19 @@ def initialise_lattice(size, ordered=False, seed=1234):
 
 
 def total_energy(spins, J=1.0)
+    """
+    Computing total energy of the lattice using nearest-neighbour interactions
+    """
 
+    L = spins.shape[0]
+    energy = 0.0
+
+    for i in range(L):
+        for j in range(L):
+            s = lattice[i, j]
+
+            # periodic neighbours
+            right = lattice[i, (j + 1) % L]
+            down = lattice[(i + 1) % L, j]
+
+            energy += -j * s * (right + down)
