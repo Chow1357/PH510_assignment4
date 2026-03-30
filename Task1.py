@@ -40,4 +40,10 @@ def total_energy(spins, J=1.0)
             right = lattice[i, (j + 1) % L]
             down = lattice[(i + 1) % L, j]
 
-            energy += -j * s * (right + down)
+            energy += -J * s * (right + down)
+    return energy
+
+def delta_energy(spins, i, j, J=1.0))
+
+    L = spins.shape(0)
+    S = spins[i, j]
