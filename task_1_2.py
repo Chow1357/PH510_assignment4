@@ -255,6 +255,14 @@ if __name__ == "__main__":
         print(f"Number of sweeps: {N_SWEEPS}")
         print(f"Burn-in sweeps: {BURN_IN}")
         print(f"Number of walkers: {N_RANKS}")
-
+        # printing the global means for energy and magnetisation
+        print(
+            f"Mean energy per site: "
+            f"{global_mean_energy_per_site:.6f}"
+        )
+        print(
+            f"Mean |magnetisation| per site: "
+            f"{global_mean_abs_mag_per_site:.6f}"
+        )
 
 
