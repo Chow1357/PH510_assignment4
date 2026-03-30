@@ -3,7 +3,7 @@
 2D Ising model simulation
 
 This program implements the classical nearest-neighbour 
-2D ISing model on an L x L square lattice with 
+2D Ising model on an L x L square lattice with 
 periodic boundary conditions.
 
 Tested using:
@@ -24,7 +24,7 @@ def initialise_lattice(size, ordered=False, seed=1234):
     return rng.choice([-1, 1], (size, size))
 
 
-def total_energy(spins, J=1.0)
+def total_energy(spins, J=1.0):
     """
     Computing total energy of the lattice using nearest-neighbour interactions
     """
@@ -41,9 +41,17 @@ def total_energy(spins, J=1.0)
             down = lattice[(i + 1) % L, j]
 
             energy += -J * s * (right + down)
+
     return energy
 
-def delta_energy(spins, i, j, J=1.0))
+def delta_energy(spins, i, j, J=1.0):
 
     L = spins.shape(0)
     S = spins[i, j]
+
+    neighbour_sum = (
+        spins[(i + 1) % L, j] + 
+        spins[(i - 1) % L, j] + 
+        spins[i, (j + 1) % L] + 
+        spins[i, (j - 1) % L] 
+)
