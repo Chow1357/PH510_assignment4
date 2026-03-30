@@ -22,8 +22,8 @@
 #SBATCH --output=slurm-%j.out
 
 # choose which version to load
-
+module load mpi 
 # Modify the line below to run your program  python3 Task1-code.py
 
-perf stat -e cycles,instructions,cache-misses python3 task_1_2.py
+perf stat -e cycles,instructions,cache-misses mpirun -np 16 task_1_2.py
 
