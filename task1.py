@@ -40,7 +40,9 @@ def total_energy(lattice, j_val=1.0):
             right = lattice[i, (j + 1) % l]
             down = lattice[(i + 1) % l, j]
 
-            energy += -j_val * s * (right + down)
+            # implementing H = 0
+            h_field = 0.0
+            energy += -j_val * s * (right + down) - h_field * s
 
     return energy
 
