@@ -57,4 +57,11 @@ def delta_energy(spins, i, j, j_val=1.0):
         spins[(i - 1) % L, j] +
         spins[i, (j + 1) % L] +
         spins[i, (j - 1) % L]
-)
+    )
+  
+    return 2.0 * j_val * s * neighbour_sum
+
+def magnetisation(spins):
+    """
+    Compute the total magnitude
+    """
