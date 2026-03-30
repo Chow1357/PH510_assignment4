@@ -1,0 +1,37 @@
+Random spin lattice:
+[[ 1  1  1 -1 -1  1 -1 -1]
+ [-1 -1  1 -1  1 -1  1 -1]
+ [ 1  1  1 -1  1 -1 -1  1]
+ [ 1  1  1  1  1  1  1  1]
+ [-1  1  1 -1  1 -1  1  1]
+ [-1 -1 -1  1 -1  1 -1  1]
+ [ 1 -1 -1  1 -1 -1 -1  1]
+ [-1 -1  1 -1  1  1 -1 -1]]
+
+Total energy: 4.0
+Magnetisation: 4
+Magnetisation per site: 0.062500
+Energy per site; 0.062500
+Ordered lattice test:
+Total energy: -128.0
+Magnetisation: 64
+Metropolis simulation test:
+Temperature: 1.0
+Number of sweeps: 100
+Final energy: -128.0
+Final magnetisation: 64
+Final energy per site: -2.000000
+Final magnetisation per site: 1.000000
+
+ Performance counter stats for 'python3 task_1_2.py':
+
+         487312934      cycles:u                                                              
+         842150974      instructions:u                   #    1.73  insn per cycle            
+           1037487      cache-misses:u                                                        
+
+       0.242190756 seconds time elapsed
+
+       0.198859000 seconds user
+       0.036257000 seconds sys
+
+

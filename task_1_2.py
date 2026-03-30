@@ -10,6 +10,11 @@ Tested using:
     Python 3.10.9
 """
 import numpy as np
+from mpi4py import MPI
+
+COMM = MPI.COMM_WORLD
+RANK = COMM.Get_rank()
+N_RANKS = COMM.Get_size()
 
 #size is equivalent to L for grid size
 def initialise_lattice(size, ordered=False, seed=1234):
@@ -146,7 +151,7 @@ if __name__ == "__main__":
     # setting parameters
     L = 8
     J_VAL = 1.0
-    TEMPERATURE = 2.0
+    TEMPERATURE = 3.0
     N_SWEEPS = 100
 
     # create a random lattice with a seed so reproducible
