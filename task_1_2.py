@@ -48,7 +48,7 @@ def total_energy(lattice, j_val=1.0):
 
 def delta_energy(spins, i, j, j_val):
     """
-    function which finds the value of the system 
+    function which finds the value of the system
     upon flipping one spin
     """
     l = spins.shape[0]
@@ -78,12 +78,12 @@ def metropolis_step(lattice, temperature, rng, j_val=1.0):
     """
     Attempt one metropolis spin flip.
 
-    
+
     """
     # gets the number of rows in the lattice
     size = lattice.shape[0]
 
-    # choose a random spin site 
+    # choose a random spin site
     i = rng.integers(0, size)
     j = rng.integers(0, size)
 
@@ -97,7 +97,7 @@ def metropolis_step(lattice, temperature, rng, j_val=1.0):
         return True
 
     # sometimes accept energy increase flips
-    # based off random number compared to 
+    # based off random number compared to
     # acceptance probability
     if rng.random() < np.exp(-d_e / temperature):
         lattice[i, j] *= -1
@@ -117,27 +117,28 @@ def monte_carlo_sweep(lattice, temperature, rng, j_val=1.0):
     # adding accepted moves to counter
     for _ in range(size * size):
         if metropolis_step(lattice, temperature, rng, j_val):
-            accept_moves += 1
+            accepted_moves += 1
 
     return accepted_moves
 
-def run_simulation(size, temperature, n_sweeps, j_vsl=1.0
-                    ordered=False, seed=1234):
-
+def run_simulation(size, temperature, n_sweeps, j_val=1.0, seed=1234):
+    """
+    simulation hwich includes a loop for a selected number of sweeps
+    """
     rng = np.random.default_rng(seed)
     # sets the starting configuration of the lattice
-    lattice = initialise_lattice(size, ordered=ordered, size=size)
+    lattice = initialise_lattice(size, ordered=ordered, seed=seed)
 
     # arrays to store variables
-    energies = []
-    magnetisations = []
+    energy_history = []
+    magnetisation_history = []
     # repeats monte carlo evolution for n_sweeps
     for _ in range(n_sweeps):
         monte_carlo_sweep(lattice, temperature, rng, j_val)
-        energies.append(total_energy(lattice, j_val))
-        magnetisations.append(magnetisation(lattice))
+        energy_history.append(total_energy(lattice, j_val))
+        magnetisation_history.append(magnetisation(lattice))
 
-    return lattice, energies, magnetisations
+    return lattice, energy_history, magnetisation_history
 
 # ensuring this part will only run
 # if this file is executed directly
@@ -145,6 +146,8 @@ if __name__ == "__main__":
     # setting parameters
     L = 8
     J_VAL = 1.0
+    TEMPERATURE = 2.0
+    N_SWEEPS = 100
 
     # create a random lattice with a seed so reproducible
     spin_lattice = initialise_lattice(L, ordered=False, seed=1234)
@@ -167,25 +170,25 @@ if __name__ == "__main__":
     print(f"Total energy: {total_energy(ordered_spins, J_VAL)}")
     print(f"Magnetisation: {magnetisation(ordered_spins)}")
 
-    # task 2 tests 
+    # task 2 tests
     # running simulation
-    final_lattice, energies, magnetisations = run_simulation(
-        size=l_size
-        temperature=temperature
-        n_sweeps = n_sweeps
-        j_val = j_val
-        ordered=False
+    final_lattice, sim_energies, sim_magnetisation = run_simulation(
+        size=L,
+        temperature=TEMPERATURE,
+        n_sweeps = N_SWEEPS,
+        j_val = J_VAL,
+        ordered=False,
         seed = 1234
     )
-    
+
     # printing main results
     print("Metropolis simulation test:")
-    print(f"Temperature: {temperature}")
-    print(f"Number of sweeps: {n_sweeps}")
-    print(f"Final energy: {energies[-1]}")
-    print(f"Final magnetisation: {magnetisations[-1]}")
-    print(f"Final energy per site: {energies[-1] / (l_size * l_size):.6f}")
+    print(f"Temperature: {TEMPERATURE}")
+    print(f"Number of sweeps: {N_SWEEPS}")
+    print(f"Final energy: {sim_energies[-1]}")
+    print(f"Final magnetisation: {sim_magnetisation[-1]}")
+    print(f"Final energy per site: {sim_energies[-1] / (L * L):.6f}")
     print(
         "Final magnetisation per site: "
-        f"{magnetisations[-1] / (l_size * l_size):.6f}"
+        f"{sim_magnetisation[-1] / (L * L):.6f}"
     )
