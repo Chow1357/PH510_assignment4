@@ -168,4 +168,24 @@ if __name__ == "__main__":
     print(f"Magnetisation: {magnetisation(ordered_spins)}")
 
     # task 2 tests 
+    # running simulation
+    final_lattice, energies, magnetisations = run_simulation(
+        size=l_size
+        temperature=temperature
+        n_sweeps = n_sweeps
+        j_val = j_val
+        ordered=False
+        seed = 1234
+    )
     
+    # printing main results
+    print("Metropolis simulation test:")
+    print(f"Temperature: {temperature}")
+    print(f"Number of sweeps: {n_sweeps}")
+    print(f"Final energy: {energies[-1]}")
+    print(f"Final magnetisation: {magnetisations[-1]}")
+    print(f"Final energy per site: {energies[-1] / (l_size * l_size):.6f}")
+    print(
+        "Final magnetisation per site: "
+        f"{magnetisations[-1] / (l_size * l_size):.6f}"
+    )
