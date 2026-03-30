@@ -1,0 +1,17 @@
+Loading mpi version 2021.6.0
+Unknown option: -n
+usage: python3 [option] ... [-c cmd | -m mod | file | -] [arg] ...
+Try `python -h' for more information.
+
+ Performance counter stats for 'python3 -np 16 task_1_2.py':
+
+           1137577      cycles:u                                                              
+            944730      instructions:u                   #    0.83  insn per cycle            
+             12348      cache-misses:u                                                        
+
+       0.003141925 seconds time elapsed
+
+       0.002064000 seconds user
+       0.001079000 seconds sys
+
+

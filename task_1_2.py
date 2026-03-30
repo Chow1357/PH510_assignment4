@@ -10,7 +10,7 @@ Tested using:
     Python 3.10.9
 """
 import numpy as np
-from mpi4py import MPI
+from mpi4py import MPI # pylint: disable=no-name-in-module
 
 COMM = MPI.COMM_WORLD
 RANK = COMM.Get_rank()
@@ -139,7 +139,7 @@ def run_simulation(size, temperature, n_sweeps, j_val=1.0, seed=1234,
     energy_history = []
     magnetisation_history = []
 
-    for sweep in range(n_sweeps_:
+    for sweep in range(n_sweeps):
         monte_carlo_sweep(lattice, temperature, rng, j_val)
 
         if sweep >= burn_in:
@@ -147,7 +147,7 @@ def run_simulation(size, temperature, n_sweeps, j_val=1.0, seed=1234,
             magnetisation_history.append(magnetisation(lattice))
 
     mean_energy = np.mean(energy_history)
-    mean_abs_magnetisation = np.mean(np.abs(magnetisation(lattice))
+    mean_abs_magnetisation = np.mean(np.abs(magnetisation(lattice)))
 
     return(
         lattice,
@@ -213,7 +213,7 @@ if __name__ == "__main__":
         print()
 
     # each MPI process is assigned a different rank
-    # each rank runs one lattice, one metropolis 
+    # each rank runs one lattice, one metropolis
     # using its own seed at same temp
     local_seed = 1234 + RANK
 
@@ -235,7 +235,7 @@ if __name__ == "__main__":
     # converting to per-site quantities
     local_mean_energy_per_site = local_mean_energy / (L * L)
     local_mean_abs_mag_per_site = local_mean_abs_magnetisation / (L * L)
-    
+
     # reducing all results to rank 0
     total_energy_per_site = COMM.reduce(
         local_mean_energy_per_site, op=MPI.SUM, root=0
@@ -264,5 +264,3 @@ if __name__ == "__main__":
             f"Mean |magnetisation| per site: "
             f"{global_mean_abs_mag_per_site:.6f}"
         )
-
-
