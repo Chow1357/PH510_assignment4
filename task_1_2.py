@@ -212,7 +212,9 @@ if __name__ == "__main__":
         print(f"Magnetisation: {magnetisation(ordered_spins)}")
         print()
 
-    # 
+    # each MPI process is assigned a different rank
+    # each rank runs one lattice, one metropolis 
+    # using its own seed at same temp
     local_seed = 1234 + RANK
 
     (
