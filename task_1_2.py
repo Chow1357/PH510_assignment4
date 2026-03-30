@@ -248,4 +248,13 @@ if __name__ == "__main__":
         global_mean_energy_per_site = total_energy_per_site / N_RANKS
         global_mean_abs_mag_per_site = total_abs_mag_per_site / N_RANKS
 
+        # printing the conditions for the parallel walkers
+        print("Parallel Metropolis simulation:")
+        print(f"Lattice size: {L} x {L}")
+        print(f"Temperature: {TEMPERATURE}")
+        print(f"Number of sweeps: {N_SWEEPS}")
+        print(f"Burn-in sweeps: {BURN_IN}")
+        print(f"Number of walkers: {N_RANKS}")
+
+
 
