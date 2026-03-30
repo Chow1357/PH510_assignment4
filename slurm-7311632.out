@@ -1,0 +1,24 @@
+Loading mpi version 2021.6.0
+[proxy:0:0@wee13.hpc.strath.ac.uk] HYD_spawn (../../../../../src/pm/i_hydra/libhydra/spawn/intel/hydra_spawn.c:151): execvp error on file task_1_2.py (No such file or directory)
+[proxy:0:0@wee13.hpc.strath.ac.uk] HYD_spawn (../../../../../src/pm/i_hydra/libhydra/spawn/intel/hydra_spawn.c:151): execvp error on file task_1_2.py (No such file or directory)
+[proxy:0:0@wee13.hpc.strath.ac.uk] HYD_spawn (../../../../../src/pm/i_hydra/libhydra/spawn/intel/hydra_spawn.c:151): execvp error on file task_1_2.py (No such file or directory)
+[proxy:0:0@wee13.hpc.strath.ac.uk] HYD_spawn (../../../../../src/pm/i_hydra/libhydra/spawn/intel/hydra_spawn.c:151): execvp error on file task_1_2.py (No such file or directory)
+[proxy:0:0@wee13.hpc.strath.ac.uk] HYD_spawn (../../../../../src/pm/i_hydra/libhydra/spawn/intel/hydra_spawn.c:151): execvp error on file task_1_2.py (No such file or directory)
+[proxy:0:0@wee13.hpc.strath.ac.uk] HYD_spawn (../../../../../src/pm/i_hydra/libhydra/spawn/intel/hydra_spawn.c:151): execvp error on file task_1_2.py (No such file or directory)
+[proxy:0:0@wee13.hpc.strath.ac.uk] HYD_spawn (../../../../../src/pm/i_hydra/libhydra/spawn/intel/hydra_spawn.c:151): execvp error on file task_1_2.py (No such file or directory)
+[proxy:0:0@wee13.hpc.strath.ac.uk] HYD_spawn (../../../../../src/pm/i_hydra/libhydra/spawn/intel/hydra_spawn.c:151): execvp error on file task_1_2.py (No such file or directory)
+[proxy:0:0@wee13.hpc.strath.ac.uk] HYD_spawn (../../../../../src/pm/i_hydra/libhydra/spawn/intel/hydra_spawn.c:151): execvp error on file task_1_2.py (No such file or directory)
+[proxy:0:0@wee13.hpc.strath.ac.uk] HYD_spawn (../../../../../src/pm/i_hydra/libhydra/spawn/intel/hydra_spawn.c:151): execvp error on file task_1_2.py (No such file or directory)
+
+ Performance counter stats for 'mpirun -np 16 task_1_2.py':
+
+          26982239      cycles:u                                                              
+          34592853      instructions:u                   #    1.28  insn per cycle            
+            182778      cache-misses:u                                                        
+
+       0.175641155 seconds time elapsed
+
+       0.034326000 seconds user
+       0.151215000 seconds sys
+
+

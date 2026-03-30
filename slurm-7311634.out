@@ -1,0 +1,313 @@
+Loading mpi version 2021.6.0
+Random spin lattice:
+[[ 1  1  1 -1 -1  1 -1 -1]
+ [-1 -1  1 -1  1 -1  1 -1]
+ [ 1  1  1 -1  1 -1 -1  1]
+ [ 1  1  1  1  1  1  1  1]
+ [-1  1  1 -1  1 -1  1  1]
+ [-1 -1 -1  1 -1  1 -1  1]
+ [ 1 -1 -1  1 -1 -1 -1  1]
+ [-1 -1  1 -1  1  1 -1 -1]]
+
+Total energy: 4.0
+Magnetisation: 4
+Magnetisation per site: 0.062500
+Energy per site; 0.062500
+Ordered lattice test:
+Total energy: -128.0
+Magnetisation: 64
+Random spin lattice:
+[[ 1  1  1 -1 -1  1 -1 -1]
+ [-1 -1  1 -1  1 -1  1 -1]
+ [ 1  1  1 -1  1 -1 -1  1]
+ [ 1  1  1  1  1  1  1  1]
+ [-1  1  1 -1  1 -1  1  1]
+ [-1 -1 -1  1 -1  1 -1  1]
+ [ 1 -1 -1  1 -1 -1 -1  1]
+ [-1 -1  1 -1  1  1 -1 -1]]
+
+Total energy: 4.0
+Magnetisation: 4
+Magnetisation per site: 0.062500
+Energy per site; 0.062500
+Ordered lattice test:
+Total energy: -128.0
+Magnetisation: 64
+Random spin lattice:
+[[ 1  1  1 -1 -1  1 -1 -1]
+ [-1 -1  1 -1  1 -1  1 -1]
+ [ 1  1  1 -1  1 -1 -1  1]
+ [ 1  1  1  1  1  1  1  1]
+ [-1  1  1 -1  1 -1  1  1]
+ [-1 -1 -1  1 -1  1 -1  1]
+ [ 1 -1 -1  1 -1 -1 -1  1]
+ [-1 -1  1 -1  1  1 -1 -1]]
+
+Total energy: 4.0
+Magnetisation: 4
+Magnetisation per site: 0.062500
+Energy per site; 0.062500
+Ordered lattice test:
+Total energy: -128.0
+Magnetisation: 64
+Random spin lattice:
+[[ 1  1  1 -1 -1  1 -1 -1]
+ [-1 -1  1 -1  1 -1  1 -1]
+ [ 1  1  1 -1  1 -1 -1  1]
+ [ 1  1  1  1  1  1  1  1]
+ [-1  1  1 -1  1 -1  1  1]
+ [-1 -1 -1  1 -1  1 -1  1]
+ [ 1 -1 -1  1 -1 -1 -1  1]
+ [-1 -1  1 -1  1  1 -1 -1]]
+
+Total energy: 4.0
+Magnetisation: 4
+Magnetisation per site: 0.062500
+Energy per site; 0.062500
+Ordered lattice test:
+Total energy: -128.0
+Magnetisation: 64
+Random spin lattice:
+[[ 1  1  1 -1 -1  1 -1 -1]
+ [-1 -1  1 -1  1 -1  1 -1]
+ [ 1  1  1 -1  1 -1 -1  1]
+ [ 1  1  1  1  1  1  1  1]
+ [-1  1  1 -1  1 -1  1  1]
+ [-1 -1 -1  1 -1  1 -1  1]
+ [ 1 -1 -1  1 -1 -1 -1  1]
+ [-1 -1  1 -1  1  1 -1 -1]]
+
+Total energy: 4.0
+Magnetisation: 4
+Magnetisation per site: 0.062500
+Energy per site; 0.062500
+Ordered lattice test:
+Total energy: -128.0
+Magnetisation: 64
+Random spin lattice:
+[[ 1  1  1 -1 -1  1 -1 -1]
+ [-1 -1  1 -1  1 -1  1 -1]
+ [ 1  1  1 -1  1 -1 -1  1]
+ [ 1  1  1  1  1  1  1  1]
+ [-1  1  1 -1  1 -1  1  1]
+ [-1 -1 -1  1 -1  1 -1  1]
+ [ 1 -1 -1  1 -1 -1 -1  1]
+ [-1 -1  1 -1  1  1 -1 -1]]
+
+Total energy: 4.0
+Magnetisation: 4
+Magnetisation per site: 0.062500
+Energy per site; 0.062500
+Ordered lattice test:
+Total energy: -128.0
+Magnetisation: 64
+Random spin lattice:
+[[ 1  1  1 -1 -1  1 -1 -1]
+ [-1 -1  1 -1  1 -1  1 -1]
+ [ 1  1  1 -1  1 -1 -1  1]
+ [ 1  1  1  1  1  1  1  1]
+ [-1  1  1 -1  1 -1  1  1]
+ [-1 -1 -1  1 -1  1 -1  1]
+ [ 1 -1 -1  1 -1 -1 -1  1]
+ [-1 -1  1 -1  1  1 -1 -1]]
+
+Total energy: 4.0
+Magnetisation: 4
+Magnetisation per site: 0.062500
+Energy per site; 0.062500
+Ordered lattice test:
+Total energy: -128.0
+Magnetisation: 64
+Random spin lattice:
+[[ 1  1  1 -1 -1  1 -1 -1]
+ [-1 -1  1 -1  1 -1  1 -1]
+ [ 1  1  1 -1  1 -1 -1  1]
+ [ 1  1  1  1  1  1  1  1]
+ [-1  1  1 -1  1 -1  1  1]
+ [-1 -1 -1  1 -1  1 -1  1]
+ [ 1 -1 -1  1 -1 -1 -1  1]
+ [-1 -1  1 -1  1  1 -1 -1]]
+
+Total energy: 4.0
+Magnetisation: 4
+Magnetisation per site: 0.062500
+Energy per site; 0.062500
+Ordered lattice test:
+Total energy: -128.0
+Magnetisation: 64
+Random spin lattice:
+[[ 1  1  1 -1 -1  1 -1 -1]
+ [-1 -1  1 -1  1 -1  1 -1]
+ [ 1  1  1 -1  1 -1 -1  1]
+ [ 1  1  1  1  1  1  1  1]
+ [-1  1  1 -1  1 -1  1  1]
+ [-1 -1 -1  1 -1  1 -1  1]
+ [ 1 -1 -1  1 -1 -1 -1  1]
+ [-1 -1  1 -1  1  1 -1 -1]]
+
+Total energy: 4.0
+Magnetisation: 4
+Magnetisation per site: 0.062500
+Energy per site; 0.062500
+Ordered lattice test:
+Total energy: -128.0
+Magnetisation: 64
+Random spin lattice:
+[[ 1  1  1 -1 -1  1 -1 -1]
+ [-1 -1  1 -1  1 -1  1 -1]
+ [ 1  1  1 -1  1 -1 -1  1]
+ [ 1  1  1  1  1  1  1  1]
+ [-1  1  1 -1  1 -1  1  1]
+ [-1 -1 -1  1 -1  1 -1  1]
+ [ 1 -1 -1  1 -1 -1 -1  1]
+ [-1 -1  1 -1  1  1 -1 -1]]
+
+Total energy: 4.0
+Magnetisation: 4
+Magnetisation per site: 0.062500
+Energy per site; 0.062500
+Ordered lattice test:
+Total energy: -128.0
+Magnetisation: 64
+Random spin lattice:
+[[ 1  1  1 -1 -1  1 -1 -1]
+ [-1 -1  1 -1  1 -1  1 -1]
+ [ 1  1  1 -1  1 -1 -1  1]
+ [ 1  1  1  1  1  1  1  1]
+ [-1  1  1 -1  1 -1  1  1]
+ [-1 -1 -1  1 -1  1 -1  1]
+ [ 1 -1 -1  1 -1 -1 -1  1]
+ [-1 -1  1 -1  1  1 -1 -1]]
+
+Total energy: 4.0
+Magnetisation: 4
+Magnetisation per site: 0.062500
+Energy per site; 0.062500
+Ordered lattice test:
+Total energy: -128.0
+Magnetisation: 64
+Random spin lattice:
+[[ 1  1  1 -1 -1  1 -1 -1]
+ [-1 -1  1 -1  1 -1  1 -1]
+ [ 1  1  1 -1  1 -1 -1  1]
+ [ 1  1  1  1  1  1  1  1]
+ [-1  1  1 -1  1 -1  1  1]
+ [-1 -1 -1  1 -1  1 -1  1]
+ [ 1 -1 -1  1 -1 -1 -1  1]
+ [-1 -1  1 -1  1  1 -1 -1]]
+
+Total energy: 4.0
+Magnetisation: 4
+Magnetisation per site: 0.062500
+Energy per site; 0.062500
+Ordered lattice test:
+Total energy: -128.0
+Magnetisation: 64
+Random spin lattice:
+[[ 1  1  1 -1 -1  1 -1 -1]
+ [-1 -1  1 -1  1 -1  1 -1]
+ [ 1  1  1 -1  1 -1 -1  1]
+ [ 1  1  1  1  1  1  1  1]
+ [-1  1  1 -1  1 -1  1  1]
+ [-1 -1 -1  1 -1  1 -1  1]
+ [ 1 -1 -1  1 -1 -1 -1  1]
+ [-1 -1  1 -1  1  1 -1 -1]]
+
+Total energy: 4.0
+Magnetisation: 4
+Magnetisation per site: 0.062500
+Energy per site; 0.062500
+Ordered lattice test:
+Total energy: -128.0
+Magnetisation: 64
+Random spin lattice:
+[[ 1  1  1 -1 -1  1 -1 -1]
+ [-1 -1  1 -1  1 -1  1 -1]
+ [ 1  1  1 -1  1 -1 -1  1]
+ [ 1  1  1  1  1  1  1  1]
+ [-1  1  1 -1  1 -1  1  1]
+ [-1 -1 -1  1 -1  1 -1  1]
+ [ 1 -1 -1  1 -1 -1 -1  1]
+ [-1 -1  1 -1  1  1 -1 -1]]
+
+Total energy: 4.0
+Magnetisation: 4
+Magnetisation per site: 0.062500
+Energy per site; 0.062500
+Ordered lattice test:
+Total energy: -128.0
+Magnetisation: 64
+Random spin lattice:
+[[ 1  1  1 -1 -1  1 -1 -1]
+ [-1 -1  1 -1  1 -1  1 -1]
+ [ 1  1  1 -1  1 -1 -1  1]
+ [ 1  1  1  1  1  1  1  1]
+ [-1  1  1 -1  1 -1  1  1]
+ [-1 -1 -1  1 -1  1 -1  1]
+ [ 1 -1 -1  1 -1 -1 -1  1]
+ [-1 -1  1 -1  1  1 -1 -1]]
+
+Total energy: 4.0
+Magnetisation: 4
+Magnetisation per site: 0.062500
+Energy per site; 0.062500
+Ordered lattice test:
+Total energy: -128.0
+Magnetisation: 64
+Random spin lattice:
+[[ 1  1  1 -1 -1  1 -1 -1]
+ [-1 -1  1 -1  1 -1  1 -1]
+ [ 1  1  1 -1  1 -1 -1  1]
+ [ 1  1  1  1  1  1  1  1]
+ [-1  1  1 -1  1 -1  1  1]
+ [-1 -1 -1  1 -1  1 -1  1]
+ [ 1 -1 -1  1 -1 -1 -1  1]
+ [-1 -1  1 -1  1  1 -1 -1]]
+
+Total energy: 4.0
+Magnetisation: 4
+Magnetisation per site: 0.062500
+Energy per site: 0.062500
+
+Ordered lattice test:
+Total energy: -128.0
+Magnetisation: 64
+
+Parallel Metropolis simulation:
+Lattice size: 8 x 8
+Temperature: 3.0
+Number of sweeps: 100
+Burn-in sweeps: 20
+Number of walkers: 16
+Mean energy per site: -0.828955
+Mean |magnetisation| per site: 0.343750
+Random spin lattice:
+[[ 1  1  1 -1 -1  1 -1 -1]
+ [-1 -1  1 -1  1 -1  1 -1]
+ [ 1  1  1 -1  1 -1 -1  1]
+ [ 1  1  1  1  1  1  1  1]
+ [-1  1  1 -1  1 -1  1  1]
+ [-1 -1 -1  1 -1  1 -1  1]
+ [ 1 -1 -1  1 -1 -1 -1  1]
+ [-1 -1  1 -1  1  1 -1 -1]]
+
+Total energy: 4.0
+Magnetisation: 4
+Magnetisation per site: 0.062500
+Energy per site; 0.062500
+Ordered lattice test:
+Total energy: -128.0
+Magnetisation: 64
+
+ Performance counter stats for 'mpirun -np 16 /opt/software/anaconda/python-3.10.9/bin/python task_1_2.py':
+
+       10441931001      cycles:u                                                              
+       16728010344      instructions:u                   #    1.60  insn per cycle            
+          44730937      cache-misses:u                                                        
+
+      14.013401151 seconds time elapsed
+
+       7.388202000 seconds user
+       8.060435000 seconds sys
+
+

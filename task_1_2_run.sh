@@ -10,7 +10,7 @@
 #SBATCH --distribution=block:block
 
 # No of cores required (max. of 16, 4GB RAM per core)
-#SBATCH --ntasks=1
+#SBATCH --ntasks=16
 
 # Runtime (hard, HH:MM:SS)
 #SBATCH --time=24:00:00
@@ -24,6 +24,8 @@
 # choose which version to load
 module load mpi 
 # Modify the line below to run your program  python3 Task1-code.py
+cd /users/kwb21127/repos/PH510_assignment4
 
-perf stat -e cycles,instructions,cache-misses mpirun -np 16 task_1_2.py
+perf stat -e cycles,instructions,cache-misses \
+mpirun -np 16 /opt/software/anaconda/python-3.10.9/bin/python task_1_2.py
 

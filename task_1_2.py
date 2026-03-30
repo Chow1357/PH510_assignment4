@@ -174,20 +174,6 @@ if __name__ == "__main__":
     total_e = total_energy(spin_lattice, J_VAL)
     mag = magnetisation(spin_lattice)
 
-    # printing results
-    print("Random spin lattice:")
-    print(spin_lattice)
-    print()
-    print(f"Total energy: {total_e}")
-    print(f"Magnetisation: {mag}")
-    print(f"Magnetisation per site: {mag / (L * L):.6f}")
-    print(f"Energy per site; {total_e / (L * L):.6f}")
-
-    ordered_spins = initialise_lattice(L, ordered=True)
-    print("Ordered lattice test:")
-    print(f"Total energy: {total_energy(ordered_spins, J_VAL)}")
-    print(f"Magnetisation: {magnetisation(ordered_spins)}")
-
     # task 2 tests
     # running simulation
     if RANK == 0:

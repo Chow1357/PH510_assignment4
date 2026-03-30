@@ -1,0 +1,18 @@
+Loading mpi version 2021.6.0
+[proxy:0:0@wee20.hpc.strath.ac.uk] HYD_spawn (../../../../../src/pm/i_hydra/libhydra/spawn/intel/hydra_spawn.c:151): execvp error on file task_1_2.py (No such file or directory)
+[mpiexec@wee20.hpc.strath.ac.uk] wait_proxies_to_terminate (../../../../../src/pm/i_hydra/mpiexec/intel/i_mpiexec.c:558): downstream from host wee20 was killed by signal 9 (Killed)
+[mpiexec@wee20.hpc.strath.ac.uk] main (../../../../../src/pm/i_hydra/mpiexec/mpiexec.c:2165): assert (pg->intel.exitcodes != NULL) failed
+[mpiexec@wee20.hpc.strath.ac.uk] HYD_sock_write (../../../../../src/pm/i_hydra/libhydra/sock/hydra_sock_intel.c:362): write error (Bad file descriptor)
+
+ Performance counter stats for 'mpirun -np 16 task_1_2.py':
+
+          26615128      cycles:u                                                              
+          33347241      instructions:u                   #    1.25  insn per cycle            
+             98953      cache-misses:u                                                        
+
+       0.211392210 seconds time elapsed
+
+       0.014665000 seconds user
+       0.050600000 seconds sys
+
+
