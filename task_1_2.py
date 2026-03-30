@@ -87,11 +87,23 @@ def metropolis_step(lattice, temperature, rng, j_val=1.0):
     i = rng.integers(0, size)
     j = rng.integers(0, size)
 
-    # energy change from flipping
+    # energy change from flipping the chosen spin site
     d_e = delta_energy(lattice, i, j, j_val)
 
-    # Metropolis
+    # accept a spin flip that lowers or
+    # leaves energy unchnaged
+    if d_e <= 0:
+        lattice[i, j] *= -1
+        return True
 
+    # sometimes accept energy increase flips
+    # based off random number compared to 
+    # acceptance probability
+    if rng.random() < np.exp(-d_e / temperature):
+        lattice[i, j] *= -1
+        return True
+
+    return False
 
 # ensuring this part will only run
 # if this file is executed directly
