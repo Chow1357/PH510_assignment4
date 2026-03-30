@@ -232,4 +232,18 @@ if __name__ == "__main__":
         burn_in=BURN_IN
     )
 
+    # converting to per-site quantities
+    local_mean_energy_per_site = local_mean_energy / (L * L)
+    local_mean_abs_mag_per_site = local_mean_abs_magnetisation / (L * L)
     
+    # reducing all results to rank 0
+    total_energy_per_site = COMM.reduce(
+        local_mean_energy_per_site, op=MPI.SUM, root=0
+    )
+    total_abs_mag_per_site = COMM.reduce(
+        local_mean_abs_mag_per_site, op=MPI.SUM, root=0
+    )
+    
+    if RANK == 0:
+        global_mean_energy_per_site = total_energy_per_site / N_RANKS
+        global_mean_abs_mag_per_site = total_abs
