@@ -243,7 +243,9 @@ if __name__ == "__main__":
     total_abs_mag_per_site = COMM.reduce(
         local_mean_abs_mag_per_site, op=MPI.SUM, root=0
     )
-    
+    # computing the global average at rank 0
     if RANK == 0:
         global_mean_energy_per_site = total_energy_per_site / N_RANKS
-        global_mean_abs_mag_per_site = total_abs
+        global_mean_abs_mag_per_site = total_abs_mag_per_site / N_RANKS
+
+
