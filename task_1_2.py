@@ -104,6 +104,23 @@ def metropolis_step(lattice, temperature, rng, j_val=1.0):
         return True
 
     return False
+# performing a full sweep through monte carlo time
+def monte_carlo_sweep(lattice, temperature, rng, j_val=1.0):
+    """
+    djdjdkd
+    """
+    size = lattice.shape[0]
+    # counts the number of accepts
+    # can be used ot find acceptance rate
+    accepted_moves = 0
+
+    # adding accepted moves to counter
+    for _ in range(size * size):
+        if metropolis_step(lattice, temperature, rng, j_val):
+            accept_moves += 1
+
+    return accepted_moves
+
 
 # ensuring this part will only run
 # if this file is executed directly
