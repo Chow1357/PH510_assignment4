@@ -121,6 +121,23 @@ def monte_carlo_sweep(lattice, temperature, rng, j_val=1.0):
 
     return accepted_moves
 
+def run_simulation(size, temperature, n_sweeps, j_vsl=1.0
+                    ordered=False, seed=1234):
+
+    rng = np.random.default_rng(seed)
+    # sets the starting configuration of the lattice
+    lattice = initialise_lattice(size, ordered=ordered, size=size)
+
+    # arrays to store variables
+    energies = []
+    magnetisations = []
+    # repeats monte carlo evolution for n_sweeps
+    for _ in range(n_sweeps):
+        monte_carlo_sweep(lattice, temperature, rng, j_val)
+        energies.append(total_energy(lattice, j_val))
+        magnetisations.append(magnetisation(lattice))
+
+    return lattice, energies, magnetisations
 
 # ensuring this part will only run
 # if this file is executed directly
@@ -149,3 +166,6 @@ if __name__ == "__main__":
     print("Ordered lattice test:")
     print(f"Total energy: {total_energy(ordered_spins, J_VAL)}")
     print(f"Magnetisation: {magnetisation(ordered_spins)}")
+
+    # task 2 tests 
+    
