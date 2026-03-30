@@ -58,10 +58,22 @@ def delta_energy(spins, i, j, j_val=1.0):
         spins[i, (j + 1) % L] +
         spins[i, (j - 1) % L]
     )
-  
+    # returning energy chnage for one spin change
     return 2.0 * j_val * s * neighbour_sum
 
 def magnetisation(spins):
     """
-    Compute the total magnitude
+    Compute the total magnetisation.
+    How alligned the entire system is.
     """
+    # adding up all the spins to check allignment
+    return np.sum(spins)
+
+# ensuring this part will only run
+# if this file is executed directly
+if __name__ == "__main__":
+    # setting parameters
+    L = 8
+    j_val = 1.0
+
+    spins = initialise_lattice(L, ordered=False, seed=1234)
