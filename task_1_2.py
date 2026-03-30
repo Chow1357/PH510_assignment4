@@ -127,7 +127,7 @@ def run_simulation(size, temperature, n_sweeps, j_val=1.0, seed=1234):
     """
     rng = np.random.default_rng(seed)
     # sets the starting configuration of the lattice
-    lattice = initialise_lattice(size, ordered=ordered, seed=seed)
+    lattice = initialise_lattice(size, ordered=False, seed=seed)
 
     # arrays to store variables
     energy_history = []
@@ -177,7 +177,6 @@ if __name__ == "__main__":
         temperature=TEMPERATURE,
         n_sweeps = N_SWEEPS,
         j_val = J_VAL,
-        ordered=False,
         seed = 1234
     )
 
