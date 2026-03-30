@@ -126,7 +126,8 @@ def monte_carlo_sweep(lattice, temperature, rng, j_val=1.0):
 
     return accepted_moves
 
-def run_simulation(size, temperature, n_sweeps, j_val=1.0, seed=1234):
+def run_simulation(size, temperature, n_sweeps, j_val=1.0, seed=1234,
+                   burn_in=20):
     """
     simulation hwich includes a loop for a selected number of sweeps
     """
@@ -137,13 +138,24 @@ def run_simulation(size, temperature, n_sweeps, j_val=1.0, seed=1234):
     # arrays to store variables
     energy_history = []
     magnetisation_history = []
-    # repeats monte carlo evolution for n_sweeps
-    for _ in range(n_sweeps):
-        monte_carlo_sweep(lattice, temperature, rng, j_val)
-        energy_history.append(total_energy(lattice, j_val))
-        magnetisation_history.append(magnetisation(lattice))
 
-    return lattice, energy_history, magnetisation_history
+    for sweep in range(n_sweeps_:
+        monte_carlo_sweep(lattice, temperature, rng, j_val)
+
+        if sweep >= burn_in:
+            energy_history.append(total_energy(lattice, j_val))
+            magnetisation_history.append(magnetisation(lattice))
+
+    mean_energy = np.mean(energy_history)
+    mean_abs_magnetisation = np.mean(np.abs(magnetisation(lattice))
+
+    return(
+        lattice,
+        energy_history,
+        magnetisation_history,
+        mean_energy,
+        mean_abs_magnetisation
+    )
 
 # ensuring this part will only run
 # if this file is executed directly
@@ -153,6 +165,7 @@ if __name__ == "__main__":
     J_VAL = 1.0
     TEMPERATURE = 3.0
     N_SWEEPS = 100
+    BURN_IN = 20
 
     # create a random lattice with a seed so reproducible
     spin_lattice = initialise_lattice(L, ordered=False, seed=1234)
@@ -177,13 +190,9 @@ if __name__ == "__main__":
 
     # task 2 tests
     # running simulation
-    final_lattice, sim_energies, sim_magnetisation = run_simulation(
-        size=L,
-        temperature=TEMPERATURE,
-        n_sweeps = N_SWEEPS,
-        j_val = J_VAL,
-        seed = 1234
-    )
+    if RANK == 0:
+        spin_lattice = initialise_lattice(L, ordered=False, seed=1234)
+
 
     # printing main results
     print("Metropolis simulation test:")
