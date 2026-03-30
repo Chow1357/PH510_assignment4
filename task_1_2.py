@@ -192,16 +192,42 @@ if __name__ == "__main__":
     # running simulation
     if RANK == 0:
         spin_lattice = initialise_lattice(L, ordered=False, seed=1234)
+        total_e = total_energy(spin_lattice, J_VAL)
+        mag = magnetisation(spin_lattice)
 
+        # printing main results
+        print("Random spin lattice:")
+        print(spin_lattice)
+        print()
+        print(f"Total energy: {total_e}")
+        print(f"Magnetisation: {mag}")
+        print(f"Magnetisation per site: {mag / (L * L):.6f}")
+        print(f"Energy per site: {total_e / (L * L):.6f}")
+        print()
 
-    # printing main results
-    print("Metropolis simulation test:")
-    print(f"Temperature: {TEMPERATURE}")
-    print(f"Number of sweeps: {N_SWEEPS}")
-    print(f"Final energy: {sim_energies[-1]}")
-    print(f"Final magnetisation: {sim_magnetisation[-1]}")
-    print(f"Final energy per site: {sim_energies[-1] / (L * L):.6f}")
-    print(
-        "Final magnetisation per site: "
-        f"{sim_magnetisation[-1] / (L * L):.6f}"
+        # ordered-lattice test
+        ordered_spins = initialise_lattice(L, ordered=True)
+        print("Ordered lattice test:")
+        print(f"Total energy: {total_energy(ordered_spins, J_VAL)}")
+        print(f"Magnetisation: {magnetisation(ordered_spins)}")
+        print()
+
+    # 
+    local_seed = 1234 + RANK
+
+    (
+        final_lattice,
+        sim_energies,
+        sim_magnetisations,
+        local_mean_energy,
+        local_mean_abs_magnetisation,
+    ) = run_simulation(
+        size=L,
+        temperature=TEMPERATURE,
+        n_sweeps=N_SWEEPS,
+        j_val=J_VAL,
+        seed=local_seed,
+        burn_in=BURN_IN
     )
+
+    
