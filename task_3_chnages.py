@@ -165,9 +165,9 @@ if __name__ == "__main__":
     # setting parameters
     L = 8
     J_VAL = 1.0
-    TEMPERATURE = np.linspace(1.0, 3.0, 11)
-    N_SWEEPS = 100
-    BURN_IN = 20
+    TEMPERATURES = np.linspace(1.0, 3.0, 11)
+    N_SWEEPS = 1000
+    BURN_IN = 200
 
     # task 2 tests
     # running simulation
@@ -229,31 +229,31 @@ if __name__ == "__main__":
         total_mean_abs_mag = COMM.reduce(local_mean_abs_magnetisation, op=MPI.SUM, root=0)
 
     # computing the global average at rank 0
-    if RANK == 0:
-        global_mean_energy = total_mean_energy / N_RANKS
-        global_mean_energy_sq = total_mean_energy_sq / N_RANKS
-        global_mean_abs_mag_per_site = total_mean_abs_mag / N_RANKS
+        if RANK == 0:
+            global_mean_energy = total_mean_energy / N_RANKS
+            global_mean_energy_sq = total_mean_energy_sq / N_RANKS
+            global_mean_abs_mag_per_site = total_mean_abs_mag / N_RANKS
         
-        # converting to per-ste quantities
-        energy_per_site = global_mean_energy / (L * L)
-        mag_per_site = global_mean_abs_mag / (L * L)
+            # converting to per-ste quantities
+            energy_per_site = global_mean_energy / (L * L)
+            mag_per_site = global_mean_abs_mag / (L * L)
 
-        # compute specific heat capacity
-        cv = (
-            global_mean_energy_sq - global_mean_energy**2
-        ) / (temperature**2)
-        cv_per_site = cv / (L * L)
+            # compute specific heat capacity
+            cv = (
+                global_mean_energy_sq - global_mean_energy**2
+            ) / (temperature**2)
+            cv_per_site = cv / (L * L)
 
-        # storing the results for plotting
-        temp_results.append(temperature)
-        energy_results.append(energy_per_site)
-        cv_results.append(cv_per_site)
-        mag_results.append(mag_per_site)
+            # storing the results for plotting
+            temp_results.append(temperature)
+            energy_results.append(energy_per_site)
+            cv_results.append(cv_per_site)
+            mag_results.append(mag_per_site)
  
-        # printing a summary of the key results for each temperature
-        print(
-            f"T = {temperature:.2f}, "
-            f"<E>/N = {energy_per_site:.6f}, "
-            f"Cv/N = {cv_per_site:.6f}, "
-            f"<|M|>/N = {mag_per_site:.6f}"
-        )
+            # printing a summary of the key results for each temperature
+            print(
+                f"T = {temperature:.2f}, "
+                f"<E>/N = {energy_per_site:.6f}, "
+                f"Cv/N = {cv_per_site:.6f}, "
+                f"<|M|>/N = {mag_per_site:.6f}"
+            )
