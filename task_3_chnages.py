@@ -239,6 +239,13 @@ if __name__ == "__main__":
         mag_per_site = global_mean_abs_mag / (L * L)
 
         # compute specific heat capacity
+        cv = (
+            global_mean_energy_sq - global_mean_energy**2
+        ) / (temperature**2)
+        cv_per_site = cv / (L * L)
+
+        # storing the results for plotting
+        temp 
         # printing the conditions for the parallel walkers
         print("Parallel Metropolis simulation:")
         print(f"Lattice size: {L} x {L}")
