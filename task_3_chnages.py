@@ -249,20 +249,11 @@ if __name__ == "__main__":
         energy_results.append(energy_per_site)
         cv_results.append(cv_per_site)
         mag_results.append(mag_per_site)
-
-        # printing the conditions for the parallel walkers
-        print("Parallel Metropolis simulation:")
-        print(f"Lattice size: {L} x {L}")
-        print(f"Temperature: {TEMPERATURE}")
-        print(f"Number of sweeps: {N_SWEEPS}")
-        print(f"Burn-in sweeps: {BURN_IN}")
-        print(f"Number of walkers: {N_RANKS}")
-        # printing the global means for energy and magnetisation
+ 
+        # printing a summary of the key results for each temperature
         print(
-            f"Mean energy per site: "
-            f"{global_mean_energy_per_site:.6f}"
-        )
-        print(
-            f"Mean |magnetisation| per site: "
-            f"{global_mean_abs_mag_per_site:.6f}"
+            f"T = {temperature:.2f}, "
+            f"<E>/N = {energy_per_site:.6f}, "
+            f"Cv/N = {cv_per_site:.6f}, "
+            f"<|M|>/N = {mag_per_site:.6f}"
         )
