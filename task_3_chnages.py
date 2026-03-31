@@ -148,7 +148,7 @@ def run_simulation(size, temperature, n_sweeps, j_val=1.0, seed=1234,
 
     mean_energy = np.mean(energy_history)
     mean_energy_sq = np.mean(np.square(energy_history))
-    mean_abs_magnetisation = np.mean(np.abs(magnetisation(lattice)))
+    mean_abs_magnetisation = np.mean(np.abs(magnetisation_history))
 
     return(
         lattice,
