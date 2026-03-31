@@ -233,7 +233,12 @@ if __name__ == "__main__":
         global_mean_energy = total_mean_energy / N_RANKS
         global_mean_energy_sq = total_mean_energy_sq / N_RANKS
         global_mean_abs_mag_per_site = total_mean_abs_mag / N_RANKS
+        
+        # converting to per-ste quantities
+        energy_per_site = global_mean_energy / (L * L)
+        mag_per_site = global_mean_abs_mag / (L * L)
 
+        # compute specific heat capacity
         # printing the conditions for the parallel walkers
         print("Parallel Metropolis simulation:")
         print(f"Lattice size: {L} x {L}")
