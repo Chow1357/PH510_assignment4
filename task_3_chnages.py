@@ -204,7 +204,8 @@ if __name__ == "__main__":
     energy_results = []
     cv_results = []
     mag_results = []
-
+    # each MPI rank runs its own walker for each temperature
+    # and returns the following data
     for temperatures in TEMPERATURES:
 
         (
@@ -222,18 +223,11 @@ if __name__ == "__main__":
             seed=local_seed,
             burn_in=BURN_IN
         )
+        # these lines send each ranks local averages to rank 0 and then sum them 
+        total_mean_energy = COMM.reduce(local_mean_energy, op=MPI.SUM, root=0)
+        total_mean_energy_sq = COMM.reduce(local_mean_energy_sq, op=MPI.SUM, root=0)
+        total_mean_abs_mag = COMM.reduce(local_mean_abs_magnetisation, op=MPI.SUM, root=0)
 
-    # converting to per-site quantities
-    local_mean_energy_per_site = local_mean_energy / (L * L)
-    local_mean_abs_mag_per_site = local_mean_abs_magnetisation / (L * L)
-
-    # reducing all results to rank 0
-    total_energy_per_site = COMM.reduce(
-        local_mean_energy_per_site, op=MPI.SUM, root=0
-    )
-    total_abs_mag_per_site = COMM.reduce(
-        local_mean_abs_mag_per_site, op=MPI.SUM, root=0
-    )
     # computing the global average at rank 0
     if RANK == 0:
         global_mean_energy_per_site = total_energy_per_site / N_RANKS
