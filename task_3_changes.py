@@ -284,3 +284,14 @@ if __name__ == "__main__":
         plt.tight_layout()
         plt.savefig("ising_cv_vs_temperature.png", dpi=300)
         plt.close()
+
+        # 
+        plt.figure()
+        plt.plot(temp_results, mag_results, marker="o")
+        plt.xlabel("Temperature (k_B T / J)")
+        plt.ylabel("Average |magnetisation| per site")
+        plt.title("2D Ising model: Magnetisation vs Temperature")
+        plt.grid(True)
+        plt.tight_layout()
+        plt.savefig("ising_magnetisation_vs_temperature.png", dpi=300)
+        plt.close()
