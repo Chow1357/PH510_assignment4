@@ -1,0 +1,254 @@
+#!/opt/software/anaconda/python-3.10.9/bin/python
+"""
+2D Ising model simulation
+
+This program implements the classical nearest-neighbour
+2D Ising model on an L x L square lattice with
+periodic boundary conditions.
+
+Tested using:
+    Python 3.10.9
+"""
+import numpy as np
+from mpi4py import MPI # pylint: disable=no-name-in-module
+
+COMM = MPI.COMM_WORLD
+RANK = COMM.Get_rank()
+N_RANKS = COMM.Get_size()
+
+#size is equivalent to L for grid size
+def initialise_lattice(size, ordered=False, seed=1234):
+    """
+    Create an LxL (sizexsize) Ising spin Lattice.
+    """
+    rng = np.random.default_rng(seed)
+
+    if ordered:
+        return np.ones((size, size), dtype=int)
+
+    return rng.choice([-1, 1], (size, size))
+
+
+def total_energy(lattice, j_val=1.0):
+    """
+    Computing total energy of the lattice using nearest-neighbour interactions
+    """
+
+    l = lattice.shape[0]
+    energy = 0.0
+
+    for i in range(l):
+        for j in range(l):
+            s = lattice[i, j]
+
+            # periodic neighbours
+            right = lattice[i, (j + 1) % l]
+            down = lattice[(i + 1) % l, j]
+
+            # implementing H = 0
+            h_field = 0.0
+            energy += -j_val * s * (right + down) - h_field * s
+
+    return energy
+
+def delta_energy(spins, i, j, j_val):
+    """
+    function which finds the value of the system
+    upon flipping one spin
+    """
+    l = spins.shape[0]
+    s = spins[i, j]
+
+    neighbour_sum = (
+        spins[(i + 1) % l, j] +
+        spins[(i - 1) % l, j] +
+        spins[i, (j + 1) % l] +
+        spins[i, (j - 1) % l]
+    )
+    # returning energy chnage for one spin change
+    return 2.0 * j_val * s * neighbour_sum
+
+def magnetisation(spin):
+    """
+    Compute the total magnetisation.
+    How alligned the entire system is.
+    """
+    # adding up all the spins to check allignment
+    return np.sum(spin)
+
+#----------------------------------------------
+# Task 2 functions for metropolis sampling
+#----------------------------------------------
+def metropolis_step(lattice, temperature, rng, j_val=1.0):
+    """
+    Attempt one metropolis spin flip.
+
+
+    """
+    # gets the number of rows in the lattice
+    size = lattice.shape[0]
+
+    # choose a random spin site
+    i = rng.integers(0, size)
+    j = rng.integers(0, size)
+
+    # energy change from flipping the chosen spin site
+    d_e = delta_energy(lattice, i, j, j_val)
+
+    # accept a spin flip that lowers or
+    # leaves energy unchnaged
+    if d_e <= 0:
+        lattice[i, j] *= -1
+        return True
+
+    # sometimes accept energy increase flips
+    # based off random number compared to
+    # acceptance probability
+    if rng.random() < np.exp(-d_e / temperature):
+        lattice[i, j] *= -1
+        return True
+
+    return False
+# performing a full sweep through monte carlo time
+def monte_carlo_sweep(lattice, temperature, rng, j_val=1.0):
+    """
+    djdjdkd
+    """
+    size = lattice.shape[0]
+    # counts the number of accepts
+    # can be used ot find acceptance rate
+    accepted_moves = 0
+
+    # adding accepted moves to counter
+    for _ in range(size * size):
+        if metropolis_step(lattice, temperature, rng, j_val):
+            accepted_moves += 1
+
+    return accepted_moves
+
+def run_simulation(size, temperature, n_sweeps, j_val=1.0, seed=1234,
+                   burn_in=20):
+    """
+    simulation which includes a loop for a selected number of sweeps
+    """
+    rng = np.random.default_rng(seed)
+    # sets the starting configuration of the lattice
+    lattice = initialise_lattice(size, ordered=False, seed=seed)
+
+    # arrays to store variables
+    energy_history = []
+    magnetisation_history = []
+
+    for sweep in range(n_sweeps):
+        monte_carlo_sweep(lattice, temperature, rng, j_val)
+
+        if sweep >= burn_in:
+            energy_history.append(total_energy(lattice, j_val))
+            magnetisation_history.append(magnetisation(lattice))
+
+    mean_energy = np.mean(energy_history)
+    mean_energy_sq = np.mean(np.square(energy_history))
+    mean_abs_magnetisation = np.mean(np.abs(magnetisation(lattice)))
+
+    return(
+        lattice,
+        energy_history,
+        magnetisation_history,
+        mean_energy,
+        mean_energy_sq,
+        mean_abs_magnetisation
+    )
+
+# ensuring this part will only run
+# if this file is executed directly
+if __name__ == "__main__":
+    # setting parameters
+    L = 8
+    J_VAL = 1.0
+    TEMPERATURE = 3.0
+    N_SWEEPS = 100
+    BURN_IN = 20
+
+    # create a random lattice with a seed so reproducible
+    spin_lattice = initialise_lattice(L, ordered=False, seed=1234)
+
+    # calling functions for magentisation and energy
+    total_e = total_energy(spin_lattice, J_VAL)
+    mag = magnetisation(spin_lattice)
+
+    # task 2 tests
+    # running simulation
+    if RANK == 0:
+        spin_lattice = initialise_lattice(L, ordered=False, seed=1234)
+        total_e = total_energy(spin_lattice, J_VAL)
+        mag = magnetisation(spin_lattice)
+
+        # printing main results
+        print("Random spin lattice:")
+        print(spin_lattice)
+        print()
+        print(f"Total energy: {total_e}")
+        print(f"Magnetisation: {mag}")
+        print(f"Magnetisation per site: {mag / (L * L):.6f}")
+        print(f"Energy per site: {total_e / (L * L):.6f}")
+        print()
+
+        # ordered-lattice test
+        ordered_spins = initialise_lattice(L, ordered=True)
+        print("Ordered lattice test:")
+        print(f"Total energy: {total_energy(ordered_spins, J_VAL)}")
+        print(f"Magnetisation: {magnetisation(ordered_spins)}")
+        print()
+
+    # each MPI process is assigned a different rank
+    # each rank runs one lattice, one metropolis
+    # using its own seed at same temp
+    local_seed = 1234 + RANK
+
+    (
+        final_lattice,
+        sim_energies,
+        sim_magnetisations,
+        local_mean_energy,
+        local_mean_abs_magnetisation,
+    ) = run_simulation(
+        size=L,
+        temperature=TEMPERATURE,
+        n_sweeps=N_SWEEPS,
+        j_val=J_VAL,
+        seed=local_seed,
+        burn_in=BURN_IN
+    )
+
+    # converting to per-site quantities
+    local_mean_energy_per_site = local_mean_energy / (L * L)
+    local_mean_abs_mag_per_site = local_mean_abs_magnetisation / (L * L)
+
+    # reducing all results to rank 0
+    total_energy_per_site = COMM.reduce(
+        local_mean_energy_per_site, op=MPI.SUM, root=0
+    )
+    total_abs_mag_per_site = COMM.reduce(
+        local_mean_abs_mag_per_site, op=MPI.SUM, root=0
+    )
+    # computing the global average at rank 0
+    if RANK == 0:
+        global_mean_energy_per_site = total_energy_per_site / N_RANKS
+        global_mean_abs_mag_per_site = total_abs_mag_per_site / N_RANKS
+
+        # printing the conditions for the parallel walkers
+        print("Parallel Metropolis simulation:")
+        print(f"Lattice size: {L} x {L}")
+        print(f"Temperature: {TEMPERATURE}")
+        print(f"Number of sweeps: {N_SWEEPS}")
+        print(f"Burn-in sweeps: {BURN_IN}")
+        print(f"Number of walkers: {N_RANKS}")
+        # printing the global means for energy and magnetisation
+        print(
+            f"Mean energy per site: "
+            f"{global_mean_energy_per_site:.6f}"
+        )
+        print(
+            f"Mean |magnetisation| per site: "
+            f"{global_mean_abs_mag_per_site:.6f}"
+        )
