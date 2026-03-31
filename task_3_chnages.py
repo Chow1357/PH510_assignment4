@@ -165,7 +165,7 @@ if __name__ == "__main__":
     # setting parameters
     L = 8
     J_VAL = 1.0
-    TEMPERATURE = 3.0
+    TEMPERATURE = np.linspace(1.0, 3.0, 11)
     N_SWEEPS = 100
     BURN_IN = 20
 
