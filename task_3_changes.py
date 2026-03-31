@@ -9,6 +9,9 @@ periodic boundary conditions.
 Tested using:
     Python 3.10.9
 """
+import matplotlib
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt
 import numpy as np
 from mpi4py import MPI # pylint: disable=no-name-in-module
 
@@ -257,3 +260,16 @@ if __name__ == "__main__":
                 f"Cv/N = {cv_per_site:.6f}, "
                 f"<|M|>/N = {mag_per_site:.6f}"
             )
+
+    if RANK == 0: 
+        # plotting the 
+        plt.figure()
+        plt.plot(temp_results, energy_results, marker="o")
+        plt.xlabel("Temperature (k_B T / J)")
+        plt.ylabel("Average energy per site")
+        plt.title("2D Ising model: Energy vs Temperature")
+        plt.grid(True)
+        plt.tight_layout()
+        plt.savefig("ising_energy_vs_temperature.png", dpi=300)
+        plt.close()
+        
