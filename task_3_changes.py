@@ -260,13 +260,13 @@ if __name__ == "__main__":
                 f"Cv/N = {cv_per_site:.6f}, "
                 f"<|M|>/N = {mag_per_site:.6f}"
             )
-
+    # plots to show temperature dependance of the key parameters
     if RANK == 0: 
         # plotting the energy vs temperature
         plt.figure()
         plt.plot(temp_results, energy_results, marker="o")
         plt.xlabel("Temperature (k_B T / J)")
-        plt.ylabel("Average energy per site")
+        plt.ylabel("Average energy per site. <E>/N")
         plt.title("2D Ising model: Energy vs Temperature")
         plt.grid(True)
         plt.tight_layout()
@@ -278,7 +278,7 @@ if __name__ == "__main__":
         plt.figure()
         plt.plot(temp_results, cv_results, marker="o")
         plt.xlabel("Temperature (k_B T / J)")
-        plt.ylabel("Specific heat per site")
+        plt.ylabel("Specific heat per site. V_v/N")
         plt.title("2D Ising model: Specific heat vs Temperature")
         plt.grid(True)
         plt.tight_layout()
@@ -289,9 +289,15 @@ if __name__ == "__main__":
         plt.figure()
         plt.plot(temp_results, mag_results, marker="o")
         plt.xlabel("Temperature (k_B T / J)")
-        plt.ylabel("Average |magnetisation| per site")
+        plt.ylabel("Average |magnetisation| per site, <|M|>/N")
         plt.title("2D Ising model: Magnetisation vs Temperature")
         plt.grid(True)
         plt.tight_layout()
         plt.savefig("ising_magnetisation_vs_temperature.png", dpi=300)
         plt.close()
+
+        # 
+        print("\nSaved plots:")
+        print("ising_energy_vs_temperature.png")
+        print("ising_cv_vs_temperature.png")
+        print("ising_magnetisation_vs_temperature.png")

@@ -1,0 +1,49 @@
+Loading mpi version 2021.6.0
+Random spin lattice:
+[[ 1  1  1 -1 -1  1 -1 -1]
+ [-1 -1  1 -1  1 -1  1 -1]
+ [ 1  1  1 -1  1 -1 -1  1]
+ [ 1  1  1  1  1  1  1  1]
+ [-1  1  1 -1  1 -1  1  1]
+ [-1 -1 -1  1 -1  1 -1  1]
+ [ 1 -1 -1  1 -1 -1 -1  1]
+ [-1 -1  1 -1  1  1 -1 -1]]
+
+Total energy: 4.0
+Magnetisation: 4
+Magnetisation per site: 0.062500
+Energy per site: 0.062500
+
+Ordered lattice test:
+Total energy: -128.0
+Magnetisation: 64
+
+T = 1.00, <E>/N = -1.994580, Cv/N = 0.120347, <|M|>/N = 0.996216
+T = 1.20, <E>/N = -1.987715, Cv/N = 0.074889, <|M|>/N = 0.996772
+T = 1.40, <E>/N = -1.968613, Cv/N = 0.138432, <|M|>/N = 0.991587
+T = 1.60, <E>/N = -1.925176, Cv/N = 0.278155, <|M|>/N = 0.978691
+T = 1.80, <E>/N = -1.857451, Cv/N = 0.454312, <|M|>/N = 0.956587
+T = 2.00, <E>/N = -1.744512, Cv/N = 0.680963, <|M|>/N = 0.911196
+T = 2.20, <E>/N = -1.567549, Cv/N = 1.054375, <|M|>/N = 0.821406
+T = 2.40, <E>/N = -1.337979, Cv/N = 1.162580, <|M|>/N = 0.680034
+T = 2.60, <E>/N = -1.122822, Cv/N = 0.951017, <|M|>/N = 0.531963
+T = 2.80, <E>/N = -0.970645, Cv/N = 0.679997, <|M|>/N = 0.428818
+T = 3.00, <E>/N = -0.851240, Cv/N = 0.502179, <|M|>/N = 0.356572
+
+Saved plots:
+ising_energy_vs_temperature.png
+ising_cv_vs_temperature.png
+ising_magnetisation_vs_temperature.png
+
+ Performance counter stats for 'mpirun -np 16 /opt/software/anaconda/python-3.10.9/bin/python task_3_changes.py':
+
+      322078392284      cycles:u                                                              
+      694070987629      instructions:u                   #    2.15  insn per cycle            
+         125868302      cache-misses:u                                                        
+
+       8.587516893 seconds time elapsed
+
+     129.503226000 seconds user
+       4.552026000 seconds sys
+
+
