@@ -1,0 +1,44 @@
+Loading mpi version 2021.6.0
+Random spin lattice:
+[[ 1  1  1 -1 -1  1 -1 -1]
+ [-1 -1  1 -1  1 -1  1 -1]
+ [ 1  1  1 -1  1 -1 -1  1]
+ [ 1  1  1  1  1  1  1  1]
+ [-1  1  1 -1  1 -1  1  1]
+ [-1 -1 -1  1 -1  1 -1  1]
+ [ 1 -1 -1  1 -1 -1 -1  1]
+ [-1 -1  1 -1  1  1 -1 -1]]
+
+Total energy: 4.0
+Magnetisation: 4
+Magnetisation per site: 0.062500
+Energy per site: 0.062500
+
+Ordered lattice test:
+Total energy: -128.0
+Magnetisation: 64
+
+T = 1.00, <E>/N = -1.997422, Cv/N = 0.020200, <|M|>/N = 0.999355
+T = 1.20, <E>/N = -1.987578, Cv/N = 0.085156, <|M|>/N = 0.996641
+T = 1.40, <E>/N = -1.968398, Cv/N = 0.132490, <|M|>/N = 0.991543
+T = 1.60, <E>/N = -1.920195, Cv/N = 0.277975, <|M|>/N = 0.976914
+T = 1.80, <E>/N = -1.860352, Cv/N = 0.423858, <|M|>/N = 0.958047
+T = 2.00, <E>/N = -1.771523, Cv/N = 0.535830, <|M|>/N = 0.926035
+T = 2.20, <E>/N = -1.587891, Cv/N = 0.922196, <|M|>/N = 0.843691
+T = 2.40, <E>/N = -1.365586, Cv/N = 1.123446, <|M|>/N = 0.704355
+T = 2.60, <E>/N = -1.139219, Cv/N = 0.977561, <|M|>/N = 0.553633
+T = 2.80, <E>/N = -0.957109, Cv/N = 0.632264, <|M|>/N = 0.422227
+T = 3.00, <E>/N = -0.833438, Cv/N = 0.498966, <|M|>/N = 0.352500
+
+ Performance counter stats for 'mpirun -np 4 /opt/software/anaconda/python-3.10.9/bin/python task_3_changes.py':
+
+       64590624618      cycles:u                                                              
+      138549636918      instructions:u                   #    2.15  insn per cycle            
+           4516331      cache-misses:u                                                        
+
+       5.261709450 seconds time elapsed
+
+      20.009792000 seconds user
+       0.582116000 seconds sys
+
+

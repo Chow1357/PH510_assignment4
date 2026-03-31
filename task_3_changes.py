@@ -166,8 +166,8 @@ if __name__ == "__main__":
     L = 8
     J_VAL = 1.0
     TEMPERATURES = np.linspace(1.0, 3.0, 11)
-    N_SWEEPS = 1000
-    BURN_IN = 200
+    N_SWEEPS = 500
+    BURN_IN = 100
 
     # task 2 tests
     # running simulation
@@ -206,7 +206,7 @@ if __name__ == "__main__":
     mag_results = []
     # each MPI rank runs its own walker for each temperature
     # and returns the following data
-    for temperatures in TEMPERATURES:
+    for temperature in TEMPERATURES:
 
         (
             final_lattice,
@@ -217,7 +217,7 @@ if __name__ == "__main__":
             local_mean_abs_magnetisation,
         ) = run_simulation(
             size=L,
-            temperature=TEMPERATURE,
+            temperature=temperature,
             n_sweeps=N_SWEEPS,
             j_val=J_VAL,
             seed=local_seed,
@@ -232,7 +232,7 @@ if __name__ == "__main__":
         if RANK == 0:
             global_mean_energy = total_mean_energy / N_RANKS
             global_mean_energy_sq = total_mean_energy_sq / N_RANKS
-            global_mean_abs_mag_per_site = total_mean_abs_mag / N_RANKS
+            global_mean_abs_mag = total_mean_abs_mag / N_RANKS
         
             # converting to per-ste quantities
             energy_per_site = global_mean_energy / (L * L)
