@@ -169,16 +169,10 @@ if __name__ == "__main__":
     N_SWEEPS = 100
     BURN_IN = 20
 
-    # create a random lattice with a seed so reproducible
-    spin_lattice = initialise_lattice(L, ordered=False, seed=1234)
-
-    # calling functions for magentisation and energy
-    total_e = total_energy(spin_lattice, J_VAL)
-    mag = magnetisation(spin_lattice)
-
     # task 2 tests
     # running simulation
     if RANK == 0:
+        # creating a random lattice 
         spin_lattice = initialise_lattice(L, ordered=False, seed=1234)
         total_e = total_energy(spin_lattice, J_VAL)
         mag = magnetisation(spin_lattice)
@@ -205,20 +199,29 @@ if __name__ == "__main__":
     # using its own seed at same temp
     local_seed = 1234 + RANK
 
-    (
-        final_lattice,
-        sim_energies,
-        sim_magnetisations,
-        local_mean_energy,
-        local_mean_abs_magnetisation,
-    ) = run_simulation(
-        size=L,
-        temperature=TEMPERATURE,
-        n_sweeps=N_SWEEPS,
-        j_val=J_VAL,
-        seed=local_seed,
-        burn_in=BURN_IN
-    )
+    # storage arrays for values from the rnage of temperatures
+    temp_results = []
+    energy_results = []
+    cv_results = []
+    mag_results = []
+
+    for temperatures in TEMPERATURES:
+
+        (
+            final_lattice,
+            sim_energies,
+            sim_magnetisations,
+            local_mean_energy,
+            local_mean_energy_sq,
+            local_mean_abs_magnetisation,
+        ) = run_simulation(
+            size=L,
+            temperature=TEMPERATURE,
+            n_sweeps=N_SWEEPS,
+            j_val=J_VAL,
+            seed=local_seed,
+            burn_in=BURN_IN
+        )
 
     # converting to per-site quantities
     local_mean_energy_per_site = local_mean_energy / (L * L)
