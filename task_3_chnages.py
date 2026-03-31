@@ -230,8 +230,9 @@ if __name__ == "__main__":
 
     # computing the global average at rank 0
     if RANK == 0:
-        global_mean_energy_per_site = total_energy_per_site / N_RANKS
-        global_mean_abs_mag_per_site = total_abs_mag_per_site / N_RANKS
+        global_mean_energy = total_mean_energy / N_RANKS
+        global_mean_energy_sq = total_mean_energy_sq / N_RANKS
+        global_mean_abs_mag_per_site = total_mean_abs_mag / N_RANKS
 
         # printing the conditions for the parallel walkers
         print("Parallel Metropolis simulation:")
