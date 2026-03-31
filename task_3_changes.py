@@ -262,7 +262,7 @@ if __name__ == "__main__":
             )
 
     if RANK == 0: 
-        # plotting the 
+        # plotting the energy vs temperature
         plt.figure()
         plt.plot(temp_results, energy_results, marker="o")
         plt.xlabel("Temperature (k_B T / J)")
@@ -273,3 +273,14 @@ if __name__ == "__main__":
         plt.savefig("ising_energy_vs_temperature.png", dpi=300)
         plt.close()
         
+        # plotting the specific heat per site against temperature 
+        # should look gaussian
+        plt.figure()
+        plt.plot(temp_results, cv_results, marker="o")
+        plt.xlabel("Temperature (k_B T / J)")
+        plt.ylabel("Specific heat per site")
+        plt.title("2D Ising model: Specific heat vs Temperature")
+        plt.grid(True)
+        plt.tight_layout()
+        plt.savefig("ising_cv_vs_temperature.png", dpi=300)
+        plt.close()
