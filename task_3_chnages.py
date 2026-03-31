@@ -245,7 +245,11 @@ if __name__ == "__main__":
         cv_per_site = cv / (L * L)
 
         # storing the results for plotting
-        temp 
+        temp_results.append(temperature)
+        energy_results.append(energy_per_site)
+        cv_results.append(cv_per_site)
+        mag_results.append(mag_per_site)
+
         # printing the conditions for the parallel walkers
         print("Parallel Metropolis simulation:")
         print(f"Lattice size: {L} x {L}")
