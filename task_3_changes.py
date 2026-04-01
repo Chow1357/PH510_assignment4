@@ -177,7 +177,6 @@ def run_simulation(size, temperature, n_sweeps, j_val=1.0, seed=1234,
         energy_history,
         magnetisation_history,
         mean_energy,
-        mean_energy_sq,
         mean_abs_magnetisation,
         specific_heat,
     )
@@ -217,20 +216,6 @@ if __name__ == "__main__":
         print(f"  Expected energy: {EXPECTED_ENERGY:.1f}")
         print(f"  Computed energy: {computed_energy:.1f}")
         print()
-
-        # ordered_lattice = initialise_lattice(L, ordered=False, seed=1234)
-        # total_e = total_energy(spin_lattice, J_VAL)
-        # mag = magnetisation(spin_lattice)
-
-        # printing main results
-        # print("Random spin lattice:")
-        # print(spin_lattice)
-        # print()
-        # print(f"Total energy: {total_e}")
-        # print(f"Magnetisation: {mag}")
-        # print(f"Magnetisation per site: {mag / (L * L):.6f}")
-        # print(f"Energy per site: {total_e / (L * L):.6f}")
-        # print()
 
     # storage arrays for values from the rnage of temperatures
     temp_results = []
