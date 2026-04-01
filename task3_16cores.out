@@ -1,0 +1,52 @@
+Loading mpi version 2021.6.0
+2D Ising Model - Metropolis Monte Carlo
+Lattice size:       16 x 16
+Temperature range:  1.00 to 3.00 kBT/J
+Temperature points: 21
+MC sweeps:          2000
+Burn-in sweeps:     500
+Parallel walkers:   16
+
+Sanity check (ordered lattice):
+  Expected energy: -512.0
+  Computed energy: -512.0
+
+T = 1.00, <E>/N = -1.967260, Cv/N = 0.642711, <|M|>/N = 0.916786
+T = 1.10, <E>/N = -1.993842, Cv/N = 0.042792, <|M|>/N = 0.998407
+T = 1.20, <E>/N = -1.982239, Cv/N = 0.339853, <|M|>/N = 0.984124
+T = 1.30, <E>/N = -1.980685, Cv/N = 0.100685, <|M|>/N = 0.994875
+T = 1.40, <E>/N = -1.968411, Cv/N = 0.141958, <|M|>/N = 0.991476
+T = 1.50, <E>/N = -1.951352, Cv/N = 0.198518, <|M|>/N = 0.986592
+T = 1.60, <E>/N = -1.929014, Cv/N = 0.264416, <|M|>/N = 0.979902
+T = 1.70, <E>/N = -1.897505, Cv/N = 0.345938, <|M|>/N = 0.969816
+T = 1.80, <E>/N = -1.859061, Cv/N = 0.426418, <|M|>/N = 0.956955
+T = 1.90, <E>/N = -1.810433, Cv/N = 0.564606, <|M|>/N = 0.938631
+T = 2.00, <E>/N = -1.743229, Cv/N = 0.765550, <|M|>/N = 0.907913
+T = 2.10, <E>/N = -1.667649, Cv/N = 0.897609, <|M|>/N = 0.874632
+T = 2.20, <E>/N = -1.562195, Cv/N = 1.189146, <|M|>/N = 0.808883
+T = 2.30, <E>/N = -1.421207, Cv/N = 1.557237, <|M|>/N = 0.687918
+T = 2.40, <E>/N = -1.250078, Cv/N = 1.302724, <|M|>/N = 0.510118
+T = 2.50, <E>/N = -1.132386, Cv/N = 1.029318, <|M|>/N = 0.388195
+T = 2.60, <E>/N = -1.038344, Cv/N = 0.754654, <|M|>/N = 0.301611
+T = 2.70, <E>/N = -0.969321, Cv/N = 0.648743, <|M|>/N = 0.251201
+T = 2.80, <E>/N = -0.908538, Cv/N = 0.525617, <|M|>/N = 0.212684
+T = 2.90, <E>/N = -0.863180, Cv/N = 0.462578, <|M|>/N = 0.191148
+T = 3.00, <E>/N = -0.818056, Cv/N = 0.405996, <|M|>/N = 0.176481
+
+Saved plots:
+ising_energy_vs_temperature.png
+ising_cv_vs_temperature.png
+ising_magnetisation_vs_temperature.png
+
+ Performance counter stats for 'mpirun -np 16 /opt/software/anaconda/python-3.10.9/bin/python task_3_changes.py':
+
+     8326569684505      cycles:u                                                              
+    17909994121688      instructions:u                   #    2.15  insn per cycle            
+         896704618      cache-misses:u                                                        
+
+     238.518278624 seconds time elapsed
+
+    3574.324420000 seconds user
+      26.046918000 seconds sys
+
+
