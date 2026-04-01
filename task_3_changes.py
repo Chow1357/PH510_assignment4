@@ -143,7 +143,7 @@ def monte_carlo_sweep(lattice, temperature, rng, j_val=1.0):
 
 # pylint: disable=too-many-arguments,too-many-positional-arguments
 def run_simulation(size, temperature, n_sweeps, j_val=1.0, seed=1234,
-                   burn_in=20):
+                   burn_in=500):
     """
     simulation which includes a loop for a selected number of sweeps
     """
@@ -185,11 +185,11 @@ def run_simulation(size, temperature, n_sweeps, j_val=1.0, seed=1234,
 # if this file is executed directly
 if __name__ == "__main__":
     # setting parameters
-    L = 8
+    L = 16
     J_VAL = 1.0
-    TEMPERATURES = np.linspace(1.0, 3.0, 11)
-    N_SWEEPS = 500
-    BURN_IN = 100
+    TEMPERATURES = np.linspace(1.0, 3.0, 21)
+    N_SWEEPS = 2000
+    BURN_IN = 500
 
 
     local_seed = 1234 + RANK
