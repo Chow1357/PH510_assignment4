@@ -191,43 +191,53 @@ if __name__ == "__main__":
     N_SWEEPS = 500
     BURN_IN = 100
 
+
+    local_seed = 1234 + RANK
+
     # task 2 tests
     # running simulation
     if RANK == 0:
-        # creating a random lattice
-        spin_lattice = initialise_lattice(L, ordered=False, seed=1234)
-        total_e = total_energy(spin_lattice, J_VAL)
-        mag = magnetisation(spin_lattice)
+
+        print("2D Ising Model - Metropolis Monte Carlo")
+        print(f"Lattice size:       {L} x {L}")
+        print(f"Temperature range:  {TEMPERATURES[0]:.2f} to "
+              f"{TEMPERATURES[-1]:.2f} kBT/J")
+        print(f"Temperature points: {len(TEMPERATURES)}")
+        print(f"MC sweeps:          {N_SWEEPS}")
+        print(f"Burn-in sweeps:     {BURN_IN}")
+        print(f"Parallel walkers:   {N_RANKS}")
+        print()
+
+        # sanity check: ordered lattice should give energy = -2*J*L^2
+        ordered_lattice = initialise_lattice(L, ordered=True)
+        expected_energy = -2.0 * J_VAL * L * L
+        computed_energy = total_energy(ordered_lattice, J_VAL)
+        print("Sanity check (ordered lattice):")
+        print(f"  Expected energy: {expected_energy:.1f}")
+        print(f"  Computed energy: {computed_energy:.1f}")
+        print()
+
+        # ordered_lattice = initialise_lattice(L, ordered=False, seed=1234)
+        # total_e = total_energy(spin_lattice, J_VAL)
+        # mag = magnetisation(spin_lattice)
 
         # printing main results
-        print("Random spin lattice:")
-        print(spin_lattice)
-        print()
-        print(f"Total energy: {total_e}")
-        print(f"Magnetisation: {mag}")
-        print(f"Magnetisation per site: {mag / (L * L):.6f}")
-        print(f"Energy per site: {total_e / (L * L):.6f}")
-        print()
-
-        # ordered-lattice test
-        ordered_spins = initialise_lattice(L, ordered=True)
-        print("Ordered lattice test:")
-        print(f"Total energy: {total_energy(ordered_spins, J_VAL)}")
-        print(f"Magnetisation: {magnetisation(ordered_spins)}")
-        print()
-
-    # each MPI process is assigned a different rank
-    # each rank runs one lattice, one metropolis
-    # using its own seed at same temp
-    local_seed = 1234 + RANK
+        # print("Random spin lattice:")
+        # print(spin_lattice)
+        # print()
+        # print(f"Total energy: {total_e}")
+        # print(f"Magnetisation: {mag}")
+        # print(f"Magnetisation per site: {mag / (L * L):.6f}")
+        # print(f"Energy per site: {total_e / (L * L):.6f}")
+        # print()
 
     # storage arrays for values from the rnage of temperatures
     temp_results = []
     energy_results = []
     cv_results = []
     mag_results = []
+
     # each MPI rank runs its own walker for each temperature
-    # and returns the following data
     for temp in TEMPERATURES:
 
         (
@@ -235,8 +245,8 @@ if __name__ == "__main__":
             sim_energies,
             sim_magnetisations,
             local_mean_energy,
-            local_mean_energy_sq,
-            local_mean_abs_magnetisation,
+            local_mean_abs_mag,
+            local_cv,
         ) = run_simulation(
             size=L,
             temperature=temp,
@@ -247,36 +257,34 @@ if __name__ == "__main__":
         )
         # these lines send each ranks local averages to rank 0 and then sum them
         total_mean_energy = COMM.reduce(local_mean_energy, op=MPI.SUM, root=0)
-        total_mean_energy_sq = COMM.reduce(local_mean_energy_sq, op=MPI.SUM, root=0)
-        total_mean_abs_mag = COMM.reduce(local_mean_abs_magnetisation, op=MPI.SUM, root=0)
+   
+        total_mean_abs_mag = COMM.reduce(local_mean_abs_mag, op=MPI.SUM, root=0)
+
+        total_cv = COMM.reduce(local_cv, op=MPI.SUM, root=0)
 
     # computing the global average at rank 0
         if RANK == 0:
             global_mean_energy = total_mean_energy / N_RANKS
-            global_mean_energy_sq = total_mean_energy_sq / N_RANKS
+            global_cv = total_cv / N_RANKS
             global_mean_abs_mag = total_mean_abs_mag / N_RANKS
 
             # converting to per-ste quantities
             energy_per_site = global_mean_energy / (L * L)
             mag_per_site = global_mean_abs_mag / (L * L)
 
-            # compute specific heat capacity
-            cv = (
-                global_mean_energy_sq - global_mean_energy**2
-            ) / (temp**2)
-            cv_per_site = cv / (L * L)
+
 
             # storing the results for plotting
             temp_results.append(temp)
             energy_results.append(energy_per_site)
-            cv_results.append(cv_per_site)
+            cv_results.append(global_cv)
             mag_results.append(mag_per_site)
 
             # printing a summary of the key results for each temperature
             print(
                 f"T = {temp:.2f}, "
                 f"<E>/N = {energy_per_site:.6f}, "
-                f"Cv/N = {cv_per_site:.6f}, "
+                f"Cv/N = {global_cv:.6f}, "
                 f"<|M|>/N = {mag_per_site:.6f}"
             )
     # plots to show temperature dependance of the key parameters
