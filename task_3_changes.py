@@ -4,16 +4,19 @@
 
 This program implements the classical nearest-neighbour
 2D Ising model on an L x L square lattice with
-periodic boundary conditions.
+periodic boundary conditions. Metropolis monte carlo 
+sampling is used to obtain thermodynamic properties 
+including the average energy per site, specific heat
+capacity and magnetisation as a function of temperature.
 
 Tested using:
     Python 3.10.9
 """
-import matplotlib
-matplotlib.use("Agg")
-import matplotlib.pyplot as plt
 import numpy as np
 from mpi4py import MPI # pylint: disable=no-name-in-module
+import matplotlib.pyplot as plt # pylint: disable=no-name-in-module
+import matplotlib
+matplotlib.use("Agg")
 
 COMM = MPI.COMM_WORLD
 RANK = COMM.Get_rank()
@@ -34,19 +37,20 @@ def initialise_lattice(size, ordered=False, seed=1234):
 
 def total_energy(lattice, j_val=1.0):
     """
-    Computing total energy of the lattice using nearest-neighbour interactions
+    Computing total energy of the lattice using 
+    nearest-neighbour interactions
     """
 
-    l = lattice.shape[0]
+    size = lattice.shape[0]
     energy = 0.0
 
-    for i in range(l):
-        for j in range(l):
+    for i in range(size):
+        for j in range(size):
             s = lattice[i, j]
 
             # periodic neighbours
-            right = lattice[i, (j + 1) % l]
-            down = lattice[(i + 1) % l, j]
+            right = lattice[i, (j + 1) % size]
+            down = lattice[(i + 1) % size, j]
 
             # implementing H = 0
             h_field = 0.0
@@ -59,32 +63,36 @@ def delta_energy(spins, i, j, j_val):
     function which finds the value of the system
     upon flipping one spin
     """
-    l = spins.shape[0]
-    s = spins[i, j]
+    size = spins.shape[0]
+    spin = spins[i, j]
 
     neighbour_sum = (
-        spins[(i + 1) % l, j] +
-        spins[(i - 1) % l, j] +
-        spins[i, (j + 1) % l] +
-        spins[i, (j - 1) % l]
+        spins[(i + 1) % size, j] +
+        spins[(i - 1) % size, j] +
+        spins[i, (j + 1) % size] +
+        spins[i, (j - 1) % size]
     )
     # returning energy chnage for one spin change
-    return 2.0 * j_val * s * neighbour_sum
+    return 2.0 * j_val * spin * neighbour_sum
 
-def magnetisation(spin):
+def magnetisation(lattice):
     """
     Compute the total magnetisation.
     How alligned the entire system is.
     """
     # adding up all the spins to check allignment
-    return np.sum(spin)
+    return np.sum(lattice)
 
 #----------------------------------------------
 # Task 2 functions for metropolis sampling
 #----------------------------------------------
 def metropolis_step(lattice, temperature, rng, j_val=1.0):
     """
-    Attempt one metropolis spin flip.
+    Attempt one metropolis spin flip on a randomly chosen lattice site.
+
+    A site is chosen at random. If flipping its spin lowers the energy
+    ,the flip is always accepted. If it raises the energy, the flip is 
+    accepted with probability exp(-delta_E / kBT),
 
 
     """
@@ -115,7 +123,11 @@ def metropolis_step(lattice, temperature, rng, j_val=1.0):
 # performing a full sweep through monte carlo time
 def monte_carlo_sweep(lattice, temperature, rng, j_val=1.0):
     """
-    djdjdkd
+    perform one full Monte Carlo sweep of the lattice.
+
+    Attempts L*L  spin flips, each at a randomly chosen site.
+    One sweep is considered one unit of Monte Carlo time.
+
     """
     size = lattice.shape[0]
     # counts the number of accepts
@@ -129,6 +141,7 @@ def monte_carlo_sweep(lattice, temperature, rng, j_val=1.0):
 
     return accepted_moves
 
+# pylint: disable=too-many-arguments,too-many-positional-arguments
 def run_simulation(size, temperature, n_sweeps, j_val=1.0, seed=1234,
                    burn_in=20):
     """
@@ -153,6 +166,12 @@ def run_simulation(size, temperature, n_sweeps, j_val=1.0, seed=1234,
     mean_energy_sq = np.mean(np.square(energy_history))
     mean_abs_magnetisation = np.mean(np.abs(magnetisation_history))
 
+    # Specific heat per site: Cv/N = 
+    # kB = 1 in units of J, N = size^2
+    specific_heat = (mean_energy_sq - mean_energy ** 2) / (
+        temperature ** 2 * size ** 2
+    )
+
     return(
         lattice,
         energy_history,
@@ -175,7 +194,7 @@ if __name__ == "__main__":
     # task 2 tests
     # running simulation
     if RANK == 0:
-        # creating a random lattice 
+        # creating a random lattice
         spin_lattice = initialise_lattice(L, ordered=False, seed=1234)
         total_e = total_energy(spin_lattice, J_VAL)
         mag = magnetisation(spin_lattice)
@@ -209,7 +228,7 @@ if __name__ == "__main__":
     mag_results = []
     # each MPI rank runs its own walker for each temperature
     # and returns the following data
-    for temperature in TEMPERATURES:
+    for temp in TEMPERATURES:
 
         (
             final_lattice,
@@ -220,13 +239,13 @@ if __name__ == "__main__":
             local_mean_abs_magnetisation,
         ) = run_simulation(
             size=L,
-            temperature=temperature,
+            temperature=temp,
             n_sweeps=N_SWEEPS,
             j_val=J_VAL,
             seed=local_seed,
             burn_in=BURN_IN
         )
-        # these lines send each ranks local averages to rank 0 and then sum them 
+        # these lines send each ranks local averages to rank 0 and then sum them
         total_mean_energy = COMM.reduce(local_mean_energy, op=MPI.SUM, root=0)
         total_mean_energy_sq = COMM.reduce(local_mean_energy_sq, op=MPI.SUM, root=0)
         total_mean_abs_mag = COMM.reduce(local_mean_abs_magnetisation, op=MPI.SUM, root=0)
@@ -236,7 +255,7 @@ if __name__ == "__main__":
             global_mean_energy = total_mean_energy / N_RANKS
             global_mean_energy_sq = total_mean_energy_sq / N_RANKS
             global_mean_abs_mag = total_mean_abs_mag / N_RANKS
-        
+
             # converting to per-ste quantities
             energy_per_site = global_mean_energy / (L * L)
             mag_per_site = global_mean_abs_mag / (L * L)
@@ -244,24 +263,24 @@ if __name__ == "__main__":
             # compute specific heat capacity
             cv = (
                 global_mean_energy_sq - global_mean_energy**2
-            ) / (temperature**2)
+            ) / (temp**2)
             cv_per_site = cv / (L * L)
 
             # storing the results for plotting
-            temp_results.append(temperature)
+            temp_results.append(temp)
             energy_results.append(energy_per_site)
             cv_results.append(cv_per_site)
             mag_results.append(mag_per_site)
- 
+
             # printing a summary of the key results for each temperature
             print(
-                f"T = {temperature:.2f}, "
+                f"T = {temp:.2f}, "
                 f"<E>/N = {energy_per_site:.6f}, "
                 f"Cv/N = {cv_per_site:.6f}, "
                 f"<|M|>/N = {mag_per_site:.6f}"
             )
     # plots to show temperature dependance of the key parameters
-    if RANK == 0: 
+    if RANK == 0:
         # plotting the energy vs temperature
         plt.figure()
         plt.plot(temp_results, energy_results, marker="o")
@@ -272,8 +291,8 @@ if __name__ == "__main__":
         plt.tight_layout()
         plt.savefig("ising_energy_vs_temperature.png", dpi=300)
         plt.close()
-        
-        # plotting the specific heat per site against temperature 
+
+        # plotting the specific heat per site against temperature
         # should look gaussian
         plt.figure()
         plt.plot(temp_results, cv_results, marker="o")
@@ -285,7 +304,7 @@ if __name__ == "__main__":
         plt.savefig("ising_cv_vs_temperature.png", dpi=300)
         plt.close()
 
-        # 
+        #
         plt.figure()
         plt.plot(temp_results, mag_results, marker="o")
         plt.xlabel("Temperature (k_B T / J)")
@@ -296,7 +315,7 @@ if __name__ == "__main__":
         plt.savefig("ising_magnetisation_vs_temperature.png", dpi=300)
         plt.close()
 
-        # 
+        #
         print("\nSaved plots:")
         print("ising_energy_vs_temperature.png")
         print("ising_cv_vs_temperature.png")
