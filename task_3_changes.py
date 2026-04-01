@@ -4,8 +4,8 @@
 
 This program implements the classical nearest-neighbour
 2D Ising model on an L x L square lattice with
-periodic boundary conditions. Metropolis monte carlo 
-sampling is used to obtain thermodynamic properties 
+periodic boundary conditions. Metropolis monte carlo
+sampling is used to obtain thermodynamic properties
 including the average energy per site, specific heat
 capacity and magnetisation as a function of temperature.
 
@@ -37,7 +37,7 @@ def initialise_lattice(size, ordered=False, seed=1234):
 
 def total_energy(lattice, j_val=1.0):
     """
-    Computing total energy of the lattice using 
+    Computing total energy of the lattice using
     nearest-neighbour interactions
     """
 
@@ -91,7 +91,7 @@ def metropolis_step(lattice, temperature, rng, j_val=1.0):
     Attempt one metropolis spin flip on a randomly chosen lattice site.
 
     A site is chosen at random. If flipping its spin lowers the energy
-    ,the flip is always accepted. If it raises the energy, the flip is 
+    ,the flip is always accepted. If it raises the energy, the flip is
     accepted with probability exp(-delta_E / kBT),
 
 
@@ -166,7 +166,7 @@ def run_simulation(size, temperature, n_sweeps, j_val=1.0, seed=1234,
     mean_energy_sq = np.mean(np.square(energy_history))
     mean_abs_magnetisation = np.mean(np.abs(magnetisation_history))
 
-    # Specific heat per site: Cv/N = 
+    # Specific heat per site: Cv/N =
     # kB = 1 in units of J, N = size^2
     specific_heat = (mean_energy_sq - mean_energy ** 2) / (
         temperature ** 2 * size ** 2
@@ -178,7 +178,8 @@ def run_simulation(size, temperature, n_sweeps, j_val=1.0, seed=1234,
         magnetisation_history,
         mean_energy,
         mean_energy_sq,
-        mean_abs_magnetisation
+        mean_abs_magnetisation,
+        specific_heat,
     )
 
 # ensuring this part will only run
@@ -210,10 +211,10 @@ if __name__ == "__main__":
 
         # sanity check: ordered lattice should give energy = -2*J*L^2
         ordered_lattice = initialise_lattice(L, ordered=True)
-        expected_energy = -2.0 * J_VAL * L * L
+        EXPECTED_ENERGY = -2.0 * J_VAL * L * L
         computed_energy = total_energy(ordered_lattice, J_VAL)
         print("Sanity check (ordered lattice):")
-        print(f"  Expected energy: {expected_energy:.1f}")
+        print(f"  Expected energy: {EXPECTED_ENERGY:.1f}")
         print(f"  Computed energy: {computed_energy:.1f}")
         print()
 
@@ -257,7 +258,7 @@ if __name__ == "__main__":
         )
         # these lines send each ranks local averages to rank 0 and then sum them
         total_mean_energy = COMM.reduce(local_mean_energy, op=MPI.SUM, root=0)
-   
+
         total_mean_abs_mag = COMM.reduce(local_mean_abs_mag, op=MPI.SUM, root=0)
 
         total_cv = COMM.reduce(local_cv, op=MPI.SUM, root=0)
