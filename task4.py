@@ -249,7 +249,18 @@ if __name__ == "__main__":
  
             energy_per_site = global_mean_energy / (L * L)
 
+            # creating lists for storage of main results
+            # needed for plotting
             temp_results.append(temp)
             energy_results.append(energy_per_site)
             cv_results.append(global_cv)
             correlation_data[round(temp, 2)] = global_correlations
+
+            # 
+            print(
+                f"T = {temp:.2f} | "
+                f"<E>/N = {energy_per_site:.4f} | "
+                f"Cv/N = {global_cv:.4f} | "
+                f"Acceptance = {global_acceptance:.2%}"
+            )
+ 
