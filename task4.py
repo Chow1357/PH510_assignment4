@@ -186,3 +186,25 @@ def run_simulation(size, temperature, n_sweeps, j_val=1.0, seed=1234,
         correlations,
         acceptance_rate,
     )
+
+if __name__ == "__main__":
+    # simulation parameters
+    L = 16
+    J_VAL = 1.0
+    TEMPERATURES = np.linspace(0.5, 1.5, 21)
+    N_SWEEPS = 2000
+    BURN_IN = 500
+
+    local_seed = 1234 + RANK
+
+    if RANK == 0:
+        print("2D XY Model - Metropolis Monte Carlo")
+        print(f"Lattice size:       {L} x {L}")
+        print(f"Temperature range:  {TEMPERATURES[0]:.2f} to "
+              f"{TEMPERATURES[-1]:.2f} kBT/J")
+        print(f"Temperature points: {len(TEMPERATURES)}")
+        print(f"MC sweeps:          {N_SWEEPS}")
+        print(f"Burn-in sweeps:     {BURN_IN}")
+        print(f"Parallel walkers:   {N_RANKS}")
+        print(f"Angle step size:    {DELTA:.4f} rad ({np.degrees(DELTA):.1f} deg)")
+        print()
