@@ -129,3 +129,24 @@ def monte_carlo_sweep(lattice, temperature, rng, j_val=1.0):
  
     return accepted_moves
 
+def spin_correlation(lattice, max_r=None):
+    """
+    Compute the spin correlation function C(r) as a function of distance.
+
+    C(r) = 
+    """
+
+    size = lattice.shape[0]
+ 
+    if max_r is None:
+        max_r = size // 2
+ 
+    r_values = np.arange(0, max_r + 1)
+    correlations = np.zeros(len(r_values))
+ 
+    for idx, r in enumerate(r_values):
+        # Shift lattice by r along x-axis (axis=1) with periodic wrapping
+        shifted = np.roll(lattice, -r, axis=1)
+        correlations[idx] = np.mean(np.cos(lattice - shifted))
+ 
+    return r_values, correlations
