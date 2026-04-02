@@ -208,3 +208,12 @@ if __name__ == "__main__":
         print(f"Parallel walkers:   {N_RANKS}")
         print(f"Angle step size:    {DELTA:.4f} rad ({np.degrees(DELTA):.1f} deg)")
         print()
+
+    # Storage for results (only populated on rank 0)
+    temp_results = []
+    energy_results = []
+    cv_results = []
+    # Store full correlation arrays for a selection of temperatures
+    correlation_data = {}
+
+
