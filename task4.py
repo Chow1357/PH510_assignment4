@@ -263,4 +263,18 @@ if __name__ == "__main__":
                 f"Cv/N = {global_cv:.4f} | "
                 f"Acceptance = {global_acceptance:.2%}"
             )
+    if RANK == 0: 
+        # Fractional lattice distance for x-axis
+        r_over_l = r_values / L
+
+        # plot: specific Heat vs temperature
+        plt.figure()
+        plt.plot(temp_results, cv_results, marker="o", color="darkorange")
+        plt.xlabel("Temperature ($k_B T / J$)")
+        plt.ylabel(r"Specific heat per site $C_v / N$")
+        plt.title("2D XY Model: Specific Heat vs Temperature")
+        plt.grid(True)
+        plt.tight_layout()
+        plt.savefig("xy_cv_vs_temperature.png", dpi=300)
+        plt.close()
  
