@@ -216,4 +216,20 @@ if __name__ == "__main__":
     # Store full correlation arrays for a selection of temperatures
     correlation_data = {}
 
+    for temp in TEMPERATURES:
+ 
+        (
+            local_mean_energy,
+            local_cv,
+            r_values,
+            local_correlations,
+            local_acceptance,
+        ) = run_simulation(
+            size=L,
+            temperature=temp,
+            n_sweeps=N_SWEEPS,
+            j_val=J_VAL,
+            seed=local_seed,
+            burn_in=BURN_IN,
+        )
 
