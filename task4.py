@@ -316,7 +316,7 @@ if __name__ == "__main__":
         plt.savefig("xy_energy_vs_temperature.png", dpi=300)
         plt.close()
 
-        print("\nPlots saved:)
+        print("\nPlots saved:")
         print("  xy_cv_vs_temperature.png")
         print("  xy_spin_correlation.png")
         print("  xy_energy_vs_temperature.png")       
