@@ -39,6 +39,7 @@ def initialise_lattice(size, ordered=False, seed=1234)
 
 def total_energy(lattice, j_val=1.0)
     """
+    compute the total energy of the XY lattice
     """
 
     # np.roll shifts the array by 1 position with periodic wrapping,
@@ -51,6 +52,39 @@ def total_energy(lattice, j_val=1.0)
         np.cos(lattice - down_neighbours)
     )
  
-    return energy    
+    return energy
+
+def delta_energy(lattice, row, col, new_angle, j_val=1.0):
+    """
+    Compute the chnage in eenrgy from updating one spin angle. 
+    only the four nearest neighbours contribute to the local energy.
+    """
+    size = lattice.shape[0]
+    old_angle = lattice[row, col]
+ 
+    # Sum contributions from all four nearest neighbours
+    neighbour_angles = (
+        lattice[(row + 1) % size, col] +
+        lattice[(row - 1) % size, col] +
+        lattice[row, (col + 1) % size] +
+        lattice[row, (col - 1) % size]
+    )
+ 
+    # Energy change = E_new - E_old for this site only
+    # Each neighbour contributes -J*cos(theta_i - theta_neighbour)
+    old_interaction = np.cos(old_angle - lattice[(row + 1) % size, col])
+    old_interaction += np.cos(old_angle - lattice[(row - 1) % size, col])
+    old_interaction += np.cos(old_angle - lattice[row, (col + 1) % size])
+    old_interaction += np.cos(old_angle - lattice[row, (col - 1) % size])
+ 
+    new_interaction = np.cos(new_angle - lattice[(row + 1) % size, col])
+    new_interaction += np.cos(new_angle - lattice[(row - 1) % size, col])
+    new_interaction += np.cos(new_angle - lattice[row, (col + 1) % size])
+    new_interaction += np.cos(new_angle - lattice[row, (col - 1) % size])
+ 
+    # Unused variable removed; neighbour_angles used implicitly above
+    _ = neighbour_angles
+ 
+    return -j_val * (new_interaction - old_interaction)
 
 
