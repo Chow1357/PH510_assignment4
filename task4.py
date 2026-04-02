@@ -102,3 +102,30 @@ def metropolis_step(lattice, temperature, rng, j_val=1.0):
     new_angle = (lattice[row, col] + perturbation) % (2 * np.pi)
  
     d_e = delta_energy(lattice, row, col, new_angle, j_val)
+
+    if d_e <= 0:
+        lattice[row, col] = new_angle
+        return True
+ 
+    if rng.random() < np.exp(-d_e / temperature):
+        lattice[row, col] = new_angle
+        return True
+ 
+    return False
+
+def monte_carlo_sweep(lattice, temperature, rng, j_val=1.0):
+    """
+    perform one full monte carlo sweep of the XY lattice.
+
+    Attempts L*L angle updates, each at a randomly chosen site.
+    One sweep is considered one unit of Monte Carlo time.
+    """
+    size = lattice.shape[0]
+    accepted_moves = 0
+ 
+    for _ in range(size * size):
+        if metropolis_step(lattice, temperature, rng, j_val):
+            accepted_moves += 1
+ 
+    return accepted_moves
+
