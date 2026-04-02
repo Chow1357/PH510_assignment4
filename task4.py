@@ -154,3 +154,16 @@ def spin_correlation(lattice, max_r=None):
 # pylint: disable=too-many-arguments,too-many-positional-arguments
 def run_simulation(size, temperature, n_sweeps, j_val=1.0, seed=1234,
                    burn_in=500):
+
+    rng = np.random.default_rng(seed)
+    lattice = initialise_lattice(size, seed=seed)
+ 
+    energy_history = []
+    total_accepted = 0
+ 
+    for sweep in range(n_sweeps):
+        accepted = monte_carlo_sweep(lattice, temperature, rng, j_val)
+        total_accepted += accepted
+ 
+        if sweep >= burn_in:
+            energy_history.append(total_energy(lattice, j_val))
