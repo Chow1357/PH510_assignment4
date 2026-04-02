@@ -28,7 +28,7 @@ N_RANKS = COMM.Get_size()
 DELTA = np.pi / 4
 
 # initialise lattice with angles
-def initialise_lattice(size, ordered=False, seed=1234):
+def initialise_lattice(size, seed=1234):
     """
     establishing a lattice of size (L x L) populated with
     different angles
@@ -154,7 +154,9 @@ def spin_correlation(lattice, max_r=None):
 # pylint: disable=too-many-arguments,too-many-positional-arguments
 def run_simulation(size, temperature, n_sweeps, j_val=1.0, seed=1234,
                    burn_in=500):
-
+    """
+    Run the XY model Metropolis simulation at a fixed temperature.
+    """
     rng = np.random.default_rng(seed)
     lattice = initialise_lattice(size, seed=seed)
 
@@ -170,15 +172,15 @@ def run_simulation(size, temperature, n_sweeps, j_val=1.0, seed=1234,
 
     mean_energy = np.mean(energy_history)
     mean_energy_sq = np.mean(np.square(energy_history))
- 
+
     specific_heat = (mean_energy_sq - mean_energy ** 2) / (
         temperature ** 2 * size ** 2
     )
- 
+
     acceptance_rate = total_accepted / (n_sweeps * size * size)
- 
+
     r_values, correlations = spin_correlation(lattice)
- 
+
     return (
         mean_energy,
         specific_heat,
@@ -217,7 +219,7 @@ if __name__ == "__main__":
     correlation_data = {}
 
     for temp in TEMPERATURES:
- 
+
         (
             local_mean_energy,
             local_cv,
@@ -237,7 +239,7 @@ if __name__ == "__main__":
         total_mean_energy = COMM.reduce(local_mean_energy, op=MPI.SUM, root=0)
         total_cv = COMM.reduce(local_cv, op=MPI.SUM, root=0)
         total_acceptance = COMM.reduce(local_acceptance, op=MPI.SUM, root=0)
- 
+
         # Reduce correlation array element-wise to rank 0
         total_correlations = COMM.reduce(local_correlations, op=MPI.SUM, root=0)
 
@@ -246,7 +248,7 @@ if __name__ == "__main__":
             global_cv = total_cv / N_RANKS
             global_acceptance = total_acceptance / N_RANKS
             global_correlations = total_correlations / N_RANKS
- 
+
             energy_per_site = global_mean_energy / (L * L)
 
             # creating lists for storage of main results
@@ -256,14 +258,14 @@ if __name__ == "__main__":
             cv_results.append(global_cv)
             correlation_data[round(temp, 2)] = global_correlations
 
-            # 
+            #
             print(
                 f"T = {temp:.2f} | "
                 f"<E>/N = {energy_per_site:.4f} | "
                 f"Cv/N = {global_cv:.4f} | "
                 f"Acceptance = {global_acceptance:.2%}"
             )
-    if RANK == 0: 
+    if RANK == 0:
         # Fractional lattice distance for x-axis
         r_over_l = r_values / L
 
@@ -295,7 +297,7 @@ if __name__ == "__main__":
                     label=f"T = {plot_temp:.2f}",
                     color=colour,
                 )
- 
+
         plt.xlabel("Fractional lattice distance $r/L$")
         plt.ylabel(r"Spin correlation $C(r) = \langle \cos(\theta_i - \theta_j) \rangle$")
         plt.title("2D XY Model: Spin Correlation vs Distance")
@@ -319,4 +321,4 @@ if __name__ == "__main__":
         print("\nPlots saved:")
         print("  xy_cv_vs_temperature.png")
         print("  xy_spin_correlation.png")
-        print("  xy_energy_vs_temperature.png")       
+        print("  xy_energy_vs_temperature.png")
