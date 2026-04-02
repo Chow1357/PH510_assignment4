@@ -56,7 +56,7 @@ def total_energy(lattice, j_val=1.0)
 
 def delta_energy(lattice, row, col, new_angle, j_val=1.0):
     """
-    Compute the chnage in eenrgy from updating one spin angle. 
+    Compute the chnage in enrgy from updating one spin angle. 
     only the four nearest neighbours contribute to the local energy.
     """
     size = lattice.shape[0]
@@ -87,4 +87,18 @@ def delta_energy(lattice, row, col, new_angle, j_val=1.0):
  
     return -j_val * (new_interaction - old_interaction)
 
-
+def metropolis_step(lattice, temperature, rng, j_val=1.0):
+    """
+    Attempt one metropolis update on a randomly chosen site.
+    """
+    size = lattice.shape[0]
+ 
+    row = rng.integers(0, size)
+    col = rng.integers(0, size)
+ 
+    # Perturb angle by a random amount in [-DELTA, +DELTA]
+    # and wrap to keep it within [0, 2*pi)
+    perturbation = rng.uniform(-DELTA, DELTA)
+    new_angle = (lattice[row, col] + perturbation) % (2 * np.pi)
+ 
+    d_e = delta_energy(lattice, row, col, new_angle, j_val)
