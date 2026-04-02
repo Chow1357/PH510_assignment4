@@ -29,12 +29,28 @@ DELTA = np.pi / 4
 
 # initialise lattice with angles 
 def initialise_lattice(size, ordered=False, seed=1234)
-"""
-establishing a lattice of size (L x L) populated with 
-different angles
+    """
+    establishing a lattice of size (L x L) populated with 
+    different angles
 
-"""
+    """
     rng = np.random.default_rng(seed)
     return rng.uniform(0, 2 * np.pi, (size, size))
+
+def total_energy(lattice, j_val=1.0)
+    """
+    """
+
+    # np.roll shifts the array by 1 position with periodic wrapping,
+    # giving us the neighbour angles at every site simultaneously.
+    right_neighbours = np.roll(lattice, -1, axis=1)
+    down_neighbours = np.roll(lattice, -1, axis=0)
+ 
+    energy = -j_val * np.sum(
+        np.cos(lattice - right_neighbours) +
+        np.cos(lattice - down_neighbours)
+    )
+ 
+    return energy    
 
 
