@@ -240,3 +240,11 @@ if __name__ == "__main__":
  
         # Reduce correlation array element-wise to rank 0
         total_correlations = COMM.reduce(local_correlations, op=MPI.SUM, root=0)
+
+        if RANK == 0:
+            global_mean_energy = total_mean_energy / N_RANKS
+            global_cv = total_cv / N_RANKS
+            global_acceptance = total_acceptance / N_RANKS
+            global_correlations = total_correlations / N_RANKS
+ 
+            energy_per_site = global_mean_energy / (L * L)
