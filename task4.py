@@ -22,3 +22,19 @@ from mpi4py import MPI  # pylint: disable=no-name-in-module
 COMM = MPI.COMM_WORLD
 RANK = COMM.Get_rank()
 N_RANKS = COMM.Get_size()
+
+# step size for metropolis angle pertubation 
+# pi/4 gives approximatley 50% acceptance rate
+DELTA = np.pi / 4
+
+# initialise lattice with angles 
+def initialise_lattice(size, ordered=False, seed=1234)
+"""
+establishing a lattice of size (L x L) populated with 
+different angles
+
+"""
+    rng = np.random.default_rng(seed)
+    return rng.uniform(0, 2 * np.pi, (size, size))
+
+
