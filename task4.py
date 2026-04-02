@@ -150,3 +150,7 @@ def spin_correlation(lattice, max_r=None):
         correlations[idx] = np.mean(np.cos(lattice - shifted))
  
     return r_values, correlations
+
+# pylint: disable=too-many-arguments,too-many-positional-arguments
+def run_simulation(size, temperature, n_sweeps, j_val=1.0, seed=1234,
+                   burn_in=500):
