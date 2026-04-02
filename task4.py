@@ -277,4 +277,30 @@ if __name__ == "__main__":
         plt.tight_layout()
         plt.savefig("xy_cv_vs_temperature.png", dpi=300)
         plt.close()
+
+        # plot: Spin Correlation vs Fractionl distance
+        # plotting for a selection of temperaturs to show
+        # chnage in behaviour
+        plt.figure()
+        plot_temps = [0.5, 0.75, 1.0, 1.25, 1.5]
+        colours = ["navy", "steelblue", "seagreen", "darkorange", "crimson"]
+
+        for plot_temp, colour in zip(plot_temps, colours):
+            key = round(plot_temp, 2)
+            if key in correlation_data:
+                plt.plot(
+                    r_over_l,
+                    correlation_data[key],
+                    marker="o",
+                    label=f"T = {plot_temp:.2f}",
+                    color=colour,
+                )
  
+        plt.xlabel("Fractional lattice distance $r/L$")
+        plt.ylabel(r"Spin correlation $C(r) = \langle \cos(\theta_i - \theta_j) \rangle$")
+        plt.title("2D XY Model: Spin Correlation vs Distance")
+        plt.legend()
+        plt.grid(True)
+        plt.tight_layout()
+        plt.savefig("xy_spin_correlation.png", dpi=300)
+        plt.close()
