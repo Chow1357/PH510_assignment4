@@ -248,3 +248,8 @@ if __name__ == "__main__":
             global_correlations = total_correlations / N_RANKS
  
             energy_per_site = global_mean_energy / (L * L)
+
+            temp_results.append(temp)
+            energy_results.append(energy_per_site)
+            cv_results.append(global_cv)
+            correlation_data[round(temp, 2)] = global_correlations
