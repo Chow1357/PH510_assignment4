@@ -304,3 +304,14 @@ if __name__ == "__main__":
         plt.tight_layout()
         plt.savefig("xy_spin_correlation.png", dpi=300)
         plt.close()
+
+        # plot: Energy vs Temperature
+        plt.figure()
+        plt.plot(temp_results, energy_results, marker="o", color="steelblue")
+        plt.xlabel("Temperature ($k_B T / J$)")
+        plt.ylabel(r"Average energy per site $\langle E \rangle / N$")
+        plt.title("2D XY Model: Energy vs Temperature")
+        plt.grid(True)
+        plt.tight_layout()
+        plt.savefig("xy_energy_vs_temperature.png", dpi=300)
+        plt.close()
