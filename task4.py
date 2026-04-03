@@ -56,7 +56,7 @@ def total_energy(lattice, j_val=1.0):
 
 def delta_energy(lattice, row, col, new_angle, j_val=1.0):
     """
-    Compute the chnage in enrgy from updating one spin angle.
+    Compute the change in enrgy from updating one spin angle.
     only the four nearest neighbours contribute to the local energy.
     """
     size = lattice.shape[0]
@@ -141,15 +141,15 @@ def spin_correlation(lattice, max_r=None):
     if max_r is None:
         max_r = size // 2
 
-    r_values = np.arange(0, max_r + 1)
-    correlations = np.zeros(len(r_values))
+    distances = np.arange(0, max_r + 1)
+    correlations = np.zeros(len(distances))
 
-    for idx, r in enumerate(r_values):
+    for idx, r in enumerate(distances):
         # Shift lattice by r along x-axis (axis=1) with periodic wrapping
         shifted = np.roll(lattice, -r, axis=1)
         correlations[idx] = np.mean(np.cos(lattice - shifted))
 
-    return r_values, correlations
+    return distances, correlations
 
 # pylint: disable=too-many-arguments,too-many-positional-arguments
 def run_simulation(size, temperature, n_sweeps, j_val=1.0, seed=1234,
@@ -179,12 +179,12 @@ def run_simulation(size, temperature, n_sweeps, j_val=1.0, seed=1234,
 
     acceptance_rate = total_accepted / (n_sweeps * size * size)
 
-    r_values, correlations = spin_correlation(lattice)
+    distances, correlations = spin_correlation(lattice)
 
     return (
         mean_energy,
         specific_heat,
-        r_values,
+        distances,
         correlations,
         acceptance_rate,
     )
@@ -206,7 +206,7 @@ if __name__ == "__main__":
 
     if RANK == 0:
         print("2D XY Model - Metropolis Monte Carlo")
-        print(f"Lattice size:       {L} x {L}")
+        print(f"Lattice size:       {LATTICE_SIZES}")
         print(f"Temperature range:  {TEMPERATURES[0]:.2f} to "
               f"{TEMPERATURES[-1]:.2f} kBT/J")
         print(f"Temperature points: {len(TEMPERATURES)}")
@@ -224,7 +224,7 @@ if __name__ == "__main__":
     all_correlations = {}
 
     for lattice_size in LATTICE_SIZES:
- 
+
         if RANK == 0:
             print(f"--- Simulating L = {lattice_size} ---")
         # Storage for results (only populated on rank 0)
@@ -235,7 +235,7 @@ if __name__ == "__main__":
         correlation_data = {}
 
         for temp in TEMPERATURES:
- 
+
             (
                 local_mean_energy,
                 local_cv,
@@ -259,7 +259,7 @@ if __name__ == "__main__":
             total_acceptance = COMM.reduce(
                 local_acceptance, op=MPI.SUM, root=0
             )
- 
+
             # Reduce correlation array element-wise to rank 0
             total_correlations = COMM.reduce(
                 local_correlations, op=MPI.SUM, root=0
@@ -270,14 +270,14 @@ if __name__ == "__main__":
                 global_cv = total_cv / N_RANKS
                 global_acceptance = total_acceptance / N_RANKS
                 global_correlations = total_correlations / N_RANKS
- 
+
                 energy_per_site = global_mean_energy / (lattice_size * lattice_size)
- 
+
                 temp_results.append(temp)
                 cv_results.append(global_cv)
                 energy_results.append(energy_per_site)
                 correlation_data[round(temp, 2)] = global_correlations
- 
+
                 print(
                     f"L = {lattice_size}, T = {temp:.2f} | "
                     f"<E>/N = {energy_per_site:.4f} | "
@@ -305,7 +305,7 @@ if __name__ == "__main__":
                 marker="o",
                 label=f"L = {lattice_size}",
                 color=colour,
-            )       
+            )
         plt.xlabel("Temperature ($k_B T / J$)")
         plt.ylabel(r"Specific heat per site $C_v / N$")
         plt.title("2D XY Model: Specific Heat vs Temperature")
