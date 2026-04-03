@@ -195,28 +195,6 @@ if __name__ == "__main__":
  
     local_seed = 1234 + RANK
 
-    # running simulation
-    if RANK == 0:
-
-        print("2D Ising Model - Metropolis Monte Carlo")
-        print(f"Lattice size:       {L} x {L}")
-        print(f"Temperature range:  {TEMPERATURES[0]:.2f} to "
-              f"{TEMPERATURES[-1]:.2f} kBT/J")
-        print(f"Temperature points: {len(TEMPERATURES)}")
-        print(f"MC sweeps:          {N_SWEEPS}")
-        print(f"Burn-in sweeps:     {BURN_IN}")
-        print(f"Parallel walkers:   {N_RANKS}")
-        print()
-
-        # sanity check: ordered lattice should give energy = -2*J*L^2
-        ordered_lattice = initialise_lattice(L, ordered=True)
-        EXPECTED_ENERGY = -2.0 * J_VAL * L * L
-        computed_energy = total_energy(ordered_lattice, J_VAL)
-        print("Sanity check (ordered lattice):")
-        print(f"  Expected energy: {EXPECTED_ENERGY:.1f}")
-        print(f"  Computed energy: {computed_energy:.1f}")
-        print()
-
     # storage arrays for values from the range of temperatures
     all_temp_results = {}
     all_energy_results = {}
@@ -224,6 +202,28 @@ if __name__ == "__main__":
     all_mag_results = {}
 
     for lattice_size in LATTICE_SIZES:
+
+        # running simulation
+        if RANK == 0:
+
+            print("2D Ising Model - Metropolis Monte Carlo")
+            print(f"Lattice size:       {lattice_size} x {lattice_size}")
+            print(f"Temperature range:  {TEMPERATURES[0]:.2f} to "
+                  f"{TEMPERATURES[-1]:.2f} kBT/J")
+            print(f"Temperature points: {len(TEMPERATURES)}")
+            print(f"MC sweeps:          {N_SWEEPS}")
+            print(f"Burn-in sweeps:     {BURN_IN}")
+            print(f"Parallel walkers:   {N_RANKS}")
+            print()
+
+            # sanity check: ordered lattice should give energy = -2*J*L^2
+            ordered_lattice = initialise_lattice(lattice_size, ordered=True)
+            EXPECTED_ENERGY = -2.0 * J_VAL * lattice_size * lattice_size
+            computed_energy = total_energy(ordered_lattice, J_VAL)
+            print("Sanity check (ordered lattice):")
+            print(f"  Expected energy: {EXPECTED_ENERGY:.1f}")
+            print(f"  Computed energy: {computed_energy:.1f}")
+            print()
 
         if RANK == 0:
             print(f"--- Simulating L = {lattice_size} ---")
@@ -244,7 +244,7 @@ if __name__ == "__main__":
                 local_mean_abs_mag,
                 local_cv,
             ) = run_simulation(
-                size=L,
+                size=lattice_size,
                 temperature=temp,
                 n_sweeps=N_SWEEPS,
                 j_val=J_VAL,
@@ -319,8 +319,8 @@ if __name__ == "__main__":
         plt.figure()
         for lattice_size, colour in zip(LATTICE_SIZES, colours):
             plt.plot(
-                all_temp_results[lattice_sizes],
-                all_cv_results[lattice_sizes],
+                all_temp_results[lattice_size],
+                all_cv_results[lattice_size],
                 marker="o",
                 label=f"L = {lattice_sizes}",
                 color=colour,
@@ -338,8 +338,8 @@ if __name__ == "__main__":
         plt.figure()
         for lattice_size, colour in zip(LATTICE_SIZES, colours):
             plt.plot(
-                all_temp_results[lattice_sizes],
-                all_mag_results[lattice_sizes],
+                all_temp_results[lattice_size],
+                all_mag_results[lattice_size],
                 marker="o",
                 label=f"L = {lattice_size}",
                 color=colour,
