@@ -218,10 +218,10 @@ if __name__ == "__main__":
         print()
 
     # storage arrays for values from the range of temperatures
-    all_temp_results = []
-    all_energy_results = []
-    all_cv_results = []
-    all_mag_results = []
+    all_temp_results = {}
+    all_energy_results = {}
+    all_cv_results = {}
+    all_mag_results = {}
 
     for lattice_size in LATTICE_SIZES:
 
@@ -265,8 +265,8 @@ if __name__ == "__main__":
                 global_mean_abs_mag = total_mean_abs_mag / N_RANKS
 
                 # converting to per-ste quantities
-                energy_per_site = global_mean_energy / (L * L)
-                mag_per_site = global_mean_abs_mag / (L * L)
+                energy_per_site = global_mean_energy / (lattice_size * lattice_size)
+                mag_per_site = global_mean_abs_mag / (lattice_size * lattice_size)
 
 
 
@@ -300,7 +300,7 @@ if __name__ == "__main__":
         for lattice_size, colour in zip(LATTICE_SIZES, colours):
             plt.plot(
                 all_temp_results[lattice_size],
-                all_energy_results,
+                all_energy_results[lattice_size],
                 marker="o",
                 label=f"L = {lattice_size}",
                 color=colour,
@@ -319,8 +319,8 @@ if __name__ == "__main__":
         plt.figure()
         for lattice_size, colour in zip(LATTICE_SIZES, colours):
             plt.plot(
-                all_temp_results[lattice_sizes,
-                all_cv_results,
+                all_temp_results[lattice_sizes],
+                all_cv_results[lattice_sizes],
                 marker="o",
                 label=f"L = {lattice_sizes}",
                 color=colour,
