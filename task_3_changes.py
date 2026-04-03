@@ -195,7 +195,6 @@ if __name__ == "__main__":
  
     local_seed = 1234 + RANK
 
-    # task 2 tests
     # running simulation
     if RANK == 0:
 
@@ -218,70 +217,98 @@ if __name__ == "__main__":
         print(f"  Computed energy: {computed_energy:.1f}")
         print()
 
-    # storage arrays for values from the rnage of temperatures
-    temp_results = []
-    energy_results = []
-    cv_results = []
-    mag_results = []
+    # storage arrays for values from the range of temperatures
+    all_temp_results = []
+    all_energy_results = []
+    all_cv_results = []
+    all_mag_results = []
 
-    # each MPI rank runs its own walker for each temperature
-    for temp in TEMPERATURES:
+    for lattice_size in LATTICE_SIZES:
 
-        (
-            final_lattice,
-            sim_energies,
-            sim_magnetisations,
-            local_mean_energy,
-            local_mean_abs_mag,
-            local_cv,
-        ) = run_simulation(
-            size=L,
-            temperature=temp,
-            n_sweeps=N_SWEEPS,
-            j_val=J_VAL,
-            seed=local_seed,
-            burn_in=BURN_IN
-        )
-        # these lines send each ranks local averages to rank 0 and then sum them
-        total_mean_energy = COMM.reduce(local_mean_energy, op=MPI.SUM, root=0)
-
-        total_mean_abs_mag = COMM.reduce(local_mean_abs_mag, op=MPI.SUM, root=0)
-
-        total_cv = COMM.reduce(local_cv, op=MPI.SUM, root=0)
-
-    # computing the global average at rank 0
         if RANK == 0:
-            global_mean_energy = total_mean_energy / N_RANKS
-            global_cv = total_cv / N_RANKS
-            global_mean_abs_mag = total_mean_abs_mag / N_RANKS
+            print(f"--- Simulating L = {lattice_size} ---")
+        # Initialize storage lists for this lattice size
+        temp_results = []
+        energy_results = []
+        cv_results = []
+        mag_results = []
+     
+        # each MPI rank runs its own walker for each temperature
+        for temp in TEMPERATURES:
 
-            # converting to per-ste quantities
-            energy_per_site = global_mean_energy / (L * L)
-            mag_per_site = global_mean_abs_mag / (L * L)
-
-
-
-            # storing the results for plotting
-            temp_results.append(temp)
-            energy_results.append(energy_per_site)
-            cv_results.append(global_cv)
-            mag_results.append(mag_per_site)
-
-            # printing a summary of the key results for each temperature
-            print(
-                f"T = {temp:.2f}, "
-                f"<E>/N = {energy_per_site:.6f}, "
-                f"Cv/N = {global_cv:.6f}, "
-                f"<|M|>/N = {mag_per_site:.6f}"
+            (
+                final_lattice,
+                sim_energies,
+                sim_magnetisations,
+                local_mean_energy,
+                local_mean_abs_mag,
+                local_cv,
+            ) = run_simulation(
+                size=L,
+                temperature=temp,
+                n_sweeps=N_SWEEPS,
+                j_val=J_VAL,
+                seed=local_seed,
+                burn_in=BURN_IN
             )
+            # these lines send each ranks local averages to rank 0 and then sum them
+            total_mean_energy = COMM.reduce(local_mean_energy, op=MPI.SUM, root=0)
+
+            total_mean_abs_mag = COMM.reduce(local_mean_abs_mag, op=MPI.SUM, root=0)
+
+            total_cv = COMM.reduce(local_cv, op=MPI.SUM, root=0)
+
+            # computing the global average at rank 0
+            if RANK == 0:
+                global_mean_energy = total_mean_energy / N_RANKS
+                global_cv = total_cv / N_RANKS
+                global_mean_abs_mag = total_mean_abs_mag / N_RANKS
+
+                # converting to per-ste quantities
+                energy_per_site = global_mean_energy / (L * L)
+                mag_per_site = global_mean_abs_mag / (L * L)
+
+
+
+                # storing the results for plotting
+                temp_results.append(temp)
+                energy_results.append(energy_per_site)
+                cv_results.append(global_cv)
+                mag_results.append(mag_per_site)
+
+                # printing a summary of the key results for each temperature
+                print(
+                    f"T = {temp:.2f}, "
+                    f"<E>/N = {energy_per_site:.6f}, "
+                    f"Cv/N = {global_cv:.6f}, "
+                    f"<|M|>/N = {mag_per_site:.6f}"
+                )
+
+        # Store results for this lattice size for later plotting
+        if RANK == 0:
+            all_cv_results[lattice_size] = cv_results
+            all_temp_results[lattice_size] = temp_results
+            all_energy_results[lattice_size] = energy_results
+            all_mag_results[lattice_size] = mag_results
+            print()
     # plots to show temperature dependance of the key parameters
     if RANK == 0:
-        # plotting the energy vs temperature
+        colours = ["steelblue", "darkorange", "seagreen", "crimson"]
+
+        # energy plot
         plt.figure()
-        plt.plot(temp_results, energy_results, marker="o")
+        for lattice_size, colour in zip(LATTICE_SIZES, colours):
+            plt.plot(
+                all_temp_results[lattice_size],
+                all_energy_results,
+                marker="o",
+                label=f"L = {lattice_size}",
+                color=colour,
+            )
         plt.xlabel("Temperature (k_B T / J)")
         plt.ylabel("Average energy per site. <E>/N")
         plt.title("2D Ising model: Energy vs Temperature")
+        plt.legend()
         plt.grid(True)
         plt.tight_layout()
         plt.savefig("ising_energy_vs_temperature.png", dpi=300)
@@ -290,10 +317,18 @@ if __name__ == "__main__":
         # plotting the specific heat per site against temperature
         # should look gaussian
         plt.figure()
-        plt.plot(temp_results, cv_results, marker="o")
+        for lattice_size, colour in zip(LATTICE_SIZES, colours):
+            plt.plot(
+                all_temp_results[lattice_sizes,
+                all_cv_results,
+                marker="o",
+                label=f"L = {lattice_sizes}",
+                color=colour,
+            )
         plt.xlabel("Temperature (k_B T / J)")
         plt.ylabel("Specific heat per site. V_v/N")
         plt.title("2D Ising model: Specific heat vs Temperature")
+        plt.legend()
         plt.grid(True)
         plt.tight_layout()
         plt.savefig("ising_cv_vs_temperature.png", dpi=300)
@@ -301,10 +336,18 @@ if __name__ == "__main__":
 
         #
         plt.figure()
-        plt.plot(temp_results, mag_results, marker="o")
+        for lattice_size, colour in zip(LATTICE_SIZES, colours):
+            plt.plot(
+                all_temp_results[lattice_sizes],
+                all_mag_results[lattice_sizes],
+                marker="o",
+                label=f"L = {lattice_size}",
+                color=colour,
+            )
         plt.xlabel("Temperature (k_B T / J)")
         plt.ylabel("Average |magnetisation| per site, <|M|>/N")
         plt.title("2D Ising model: Magnetisation vs Temperature")
+        plt.legend()
         plt.grid(True)
         plt.tight_layout()
         plt.savefig("ising_magnetisation_vs_temperature.png", dpi=300)
