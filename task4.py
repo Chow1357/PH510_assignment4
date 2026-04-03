@@ -251,13 +251,19 @@ if __name__ == "__main__":
                 burn_in=BURN_IN,
             )
 
-        # Reduce scalar quantities to rank 0
-        total_mean_energy = COMM.reduce(local_mean_energy, op=MPI.SUM, root=0)
-        total_cv = COMM.reduce(local_cv, op=MPI.SUM, root=0)
-        total_acceptance = COMM.reduce(local_acceptance, op=MPI.SUM, root=0)
-
-        # Reduce correlation array element-wise to rank 0
-        total_correlations = COMM.reduce(local_correlations, op=MPI.SUM, root=0)
+            # Reduce scalar quantities to rank 0
+            total_mean_energy = COMM.reduce(
+                local_mean_energy, op=MPI.SUM, root=0
+            )
+            total_cv = COMM.reduce(local_cv, op=MPI.SUM, root=0)
+            total_acceptance = COMM.reduce(
+                local_acceptance, op=MPI.SUM, root=0
+            )
+ 
+            # Reduce correlation array element-wise to rank 0
+            total_correlations = COMM.reduce(
+                local_correlations, op=MPI.SUM, root=0
+            )
 
         if RANK == 0:
             global_mean_energy = total_mean_energy / N_RANKS
