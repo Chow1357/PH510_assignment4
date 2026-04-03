@@ -296,15 +296,20 @@ if __name__ == "__main__":
     if RANK == 0:
         colours = ["steelblue", "darkorange", "seagreen", "crimson"]
 
-        # Fractional lattice distance for x-axis
-        r_over_l = r_values / L
-
         # plot: specific Heat vs temperature
         plt.figure()
-        plt.plot(temp_results, cv_results, marker="o", color="darkorange")
+        for lattice_size, colour in zip(LATTICE_SIZES, colours):
+            plt.plot(
+                all_temp_results[lattice_size],
+                all_cv_results[lattice_size],
+                marker="o",
+                label=f"L = {lattice_size}",
+                color=colour,
+            )       
         plt.xlabel("Temperature ($k_B T / J$)")
         plt.ylabel(r"Specific heat per site $C_v / N$")
         plt.title("2D XY Model: Specific Heat vs Temperature")
+        plt.legend()
         plt.grid(True)
         plt.tight_layout()
         plt.savefig("xy_cv_vs_temperature.png", dpi=300)
@@ -312,29 +317,32 @@ if __name__ == "__main__":
 
         # plot: Spin Correlation vs Fractionl distance
         # plotting for a selection of temperaturs to show
-        # chnage in behaviour
+        # change in behaviour
         plt.figure()
-        plot_temps = [0.5, 0.75, 1.0, 1.25, 1.5]
-        colours = ["navy", "steelblue", "seagreen", "darkorange", "crimson"]
-
-        for plot_temp, colour in zip(plot_temps, colours):
-            key = round(plot_temp, 2)
-            if key in correlation_data:
+        for lattice_size, colour in zip(LATTICE_SIZES, colours):
+            corr = all_correlations[lattice_size].get(
+                round(CORRELATION_TEMP, 2), None
+            )
+            if corr is not None:
+                # Fractional distance r/L is consistent across sizes
+                r_over_l = np.arange(len(corr)) / lattice_size
                 plt.plot(
                     r_over_l,
-                    correlation_data[key],
+                    corr,
                     marker="o",
-                    label=f"T = {plot_temp:.2f}",
+                    label=f"L = {lattice_size}",
                     color=colour,
                 )
-
         plt.xlabel("Fractional lattice distance $r/L$")
-        plt.ylabel(r"Spin correlation $C(r) = \langle \cos(\theta_i - \theta_j) \rangle$")
-        plt.title("2D XY Model: Spin Correlation vs Distance")
+        plt.ylabel(r"Spin correlation $C(r)$")
+        plt.title(
+            f"2D XY Model: Spin Correlation at T = {CORRELATION_TEMP:.2f} "
+            "for Multiple Lattice Sizes"
+        )
         plt.legend()
         plt.grid(True)
         plt.tight_layout()
-        plt.savefig("xy_spin_correlation.png", dpi=300)
+        plt.savefig("xy_correlation_finite_size.png", dpi=300)
         plt.close()
 
         # plot: Energy vs Temperature
