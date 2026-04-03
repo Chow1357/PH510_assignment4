@@ -185,13 +185,14 @@ def run_simulation(size, temperature, n_sweeps, j_val=1.0, seed=1234,
 # if this file is executed directly
 if __name__ == "__main__":
     # setting parameters
-    L = 16
     J_VAL = 1.0
     TEMPERATURES = np.linspace(1.0, 3.0, 21)
     N_SWEEPS = 2000
     BURN_IN = 500
 
-
+    # range of lattice sizes
+    LATTICE_SIZES = [16, 32]
+ 
     local_seed = 1234 + RANK
 
     # task 2 tests
