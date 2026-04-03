@@ -285,8 +285,17 @@ if __name__ == "__main__":
                     f"Acceptance = {global_acceptance:.2%}"
                 )
 
+        # Store all results for this lattice size
+        if RANK == 0:
+            all_cv_results[lattice_size] = cv_results
+            all_temp_results[lattice_size] = temp_results
+            all_energy_results[lattice_size] = energy_results
+            all_correlations[lattice_size] = correlation_data
+            print()
 
     if RANK == 0:
+        colours = ["steelblue", "darkorange", "seagreen", "crimson"]
+
         # Fractional lattice distance for x-axis
         r_over_l = r_values / L
 
