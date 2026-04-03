@@ -191,11 +191,16 @@ def run_simulation(size, temperature, n_sweeps, j_val=1.0, seed=1234,
 
 if __name__ == "__main__":
     # simulation parameters
-    L = 16
     J_VAL = 1.0
     TEMPERATURES = np.linspace(0.5, 1.5, 21)
     N_SWEEPS = 2000
     BURN_IN = 500
+
+    # lattice sizes to simulate for finite size scaling
+    LATTICE_SIZES = [16, 32, 64]
+
+    # Temperature to examine correlation behaviour across sizes
+    CORRELATION_TEMP = 1.0
 
     local_seed = 1234 + RANK
 
@@ -211,29 +216,40 @@ if __name__ == "__main__":
         print(f"Angle step size:    {DELTA:.4f} rad ({np.degrees(DELTA):.1f} deg)")
         print()
 
-    # Storage for results (only populated on rank 0)
-    temp_results = []
-    energy_results = []
-    cv_results = []
-    # Store full correlation arrays for a selection of temperatures
-    correlation_data = {}
+    # Storage dictionaries keyed by lattice size
+    all_cv_results = {}
+    all_temp_results = {}
+    all_energy_results = {}
+    # Correlation arrays stored per size and temperature
+    all_correlations = {}
 
-    for temp in TEMPERATURES:
+    for lattice_size in LATTICE_SIZES:
+ 
+        if RANK == 0:
+            print(f"--- Simulating L = {lattice_size} ---")
+        # Storage for results (only populated on rank 0)
+        temp_results = []
+        energy_results = []
+        cv_results = []
+        # Store full correlation arrays for a selection of temperatures
+        correlation_data = {}
 
-        (
-            local_mean_energy,
-            local_cv,
-            r_values,
-            local_correlations,
-            local_acceptance,
-        ) = run_simulation(
-            size=L,
-            temperature=temp,
-            n_sweeps=N_SWEEPS,
-            j_val=J_VAL,
-            seed=local_seed,
-            burn_in=BURN_IN,
-        )
+        for temp in TEMPERATURES:
+ 
+            (
+                local_mean_energy,
+                local_cv,
+                r_values,
+                local_correlations,
+                local_acceptance,
+            ) = run_simulation(
+                size=lattice_size,
+                temperature=temp,
+                n_sweeps=N_SWEEPS,
+                j_val=J_VAL,
+                seed=local_seed,
+                burn_in=BURN_IN,
+            )
 
         # Reduce scalar quantities to rank 0
         total_mean_energy = COMM.reduce(local_mean_energy, op=MPI.SUM, root=0)
