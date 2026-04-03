@@ -265,28 +265,27 @@ if __name__ == "__main__":
                 local_correlations, op=MPI.SUM, root=0
             )
 
-        if RANK == 0:
-            global_mean_energy = total_mean_energy / N_RANKS
-            global_cv = total_cv / N_RANKS
-            global_acceptance = total_acceptance / N_RANKS
-            global_correlations = total_correlations / N_RANKS
+            if RANK == 0:
+                global_mean_energy = total_mean_energy / N_RANKS
+                global_cv = total_cv / N_RANKS
+                global_acceptance = total_acceptance / N_RANKS
+                global_correlations = total_correlations / N_RANKS
+ 
+                energy_per_site = global_mean_energy / (lattice_size * lattice_size)
+ 
+                temp_results.append(temp)
+                cv_results.append(global_cv)
+                energy_results.append(energy_per_site)
+                correlation_data[round(temp, 2)] = global_correlations
+ 
+                print(
+                    f"L = {lattice_size}, T = {temp:.2f} | "
+                    f"<E>/N = {energy_per_site:.4f} | "
+                    f"Cv/N = {global_cv:.4f} | "
+                    f"Acceptance = {global_acceptance:.2%}"
+                )
 
-            energy_per_site = global_mean_energy / (L * L)
 
-            # creating lists for storage of main results
-            # needed for plotting
-            temp_results.append(temp)
-            energy_results.append(energy_per_site)
-            cv_results.append(global_cv)
-            correlation_data[round(temp, 2)] = global_correlations
-
-            #
-            print(
-                f"T = {temp:.2f} | "
-                f"<E>/N = {energy_per_site:.4f} | "
-                f"Cv/N = {global_cv:.4f} | "
-                f"Acceptance = {global_acceptance:.2%}"
-            )
     if RANK == 0:
         # Fractional lattice distance for x-axis
         r_over_l = r_values / L
