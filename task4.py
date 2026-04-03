@@ -1,7 +1,6 @@
 #!/opt/software/anaconda/python-3.10.9/bin/python
 """
 2D XY model simulation
-
 This program implements the classical nearest-neighbour
 2D XY model on an L x L square lattice with periodic
 boundary conditions. Each spin is a continuous angle
@@ -12,6 +11,15 @@ as a function of temperature.
 
 Tested using:
     Python 3.10.9
+License:
+    MIT License
+
+    Copyright (c) 2026 Callum Howie
+
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files...
+
+    (See full license in the LICENSE file in this repository)
 """
 from mpi4py import MPI  # pylint: disable=no-name-in-module
 import numpy as np
