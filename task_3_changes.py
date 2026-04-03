@@ -14,9 +14,10 @@ Tested using:
 """
 import numpy as np
 from mpi4py import MPI # pylint: disable=no-name-in-module
-import matplotlib.pyplot as plt # pylint: disable=no-name-in-module
 import matplotlib
 matplotlib.use("Agg")
+import matplotlib.pyplot as plt # pylint: disable=no-name-in-module
+
 
 COMM = MPI.COMM_WORLD
 RANK = COMM.Get_rank()
@@ -191,8 +192,8 @@ if __name__ == "__main__":
     BURN_IN = 500
 
     # range of lattice sizes
-    LATTICE_SIZES = [16, 32]
- 
+    LATTICE_SIZES = [16, 32, 64]
+
     local_seed = 1234 + RANK
 
     # storage arrays for values from the range of temperatures
@@ -232,7 +233,7 @@ if __name__ == "__main__":
         energy_results = []
         cv_results = []
         mag_results = []
-     
+
         # each MPI rank runs its own walker for each temperature
         for temp in TEMPERATURES:
 
@@ -322,7 +323,7 @@ if __name__ == "__main__":
                 all_temp_results[lattice_size],
                 all_cv_results[lattice_size],
                 marker="o",
-                label=f"L = {lattice_sizes}",
+                label=f"L = {lattice_size}",
                 color=colour,
             )
         plt.xlabel("Temperature (k_B T / J)")

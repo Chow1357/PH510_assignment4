@@ -1,0 +1,89 @@
+Loading mpi version 2021.6.0
+2D Ising Model - Metropolis Monte Carlo
+Lattice size:       16 x 16
+Temperature range:  1.00 to 3.00 kBT/J
+Temperature points: 21
+MC sweeps:          2000
+Burn-in sweeps:     500
+Parallel walkers:   16
+
+Sanity check (ordered lattice):
+  Expected energy: -512.0
+  Computed energy: -512.0
+
+--- Simulating L = 16 ---
+T = 1.00, <E>/N = -1.967260, Cv/N = 0.642711, <|M|>/N = 0.916786
+T = 1.10, <E>/N = -1.993842, Cv/N = 0.042792, <|M|>/N = 0.998407
+T = 1.20, <E>/N = -1.982239, Cv/N = 0.339853, <|M|>/N = 0.984124
+T = 1.30, <E>/N = -1.980685, Cv/N = 0.100685, <|M|>/N = 0.994875
+T = 1.40, <E>/N = -1.968411, Cv/N = 0.141958, <|M|>/N = 0.991476
+T = 1.50, <E>/N = -1.951352, Cv/N = 0.198518, <|M|>/N = 0.986592
+T = 1.60, <E>/N = -1.929014, Cv/N = 0.264416, <|M|>/N = 0.979902
+T = 1.70, <E>/N = -1.897505, Cv/N = 0.345938, <|M|>/N = 0.969816
+T = 1.80, <E>/N = -1.859061, Cv/N = 0.426418, <|M|>/N = 0.956955
+T = 1.90, <E>/N = -1.810433, Cv/N = 0.564606, <|M|>/N = 0.938631
+T = 2.00, <E>/N = -1.743229, Cv/N = 0.765550, <|M|>/N = 0.907913
+T = 2.10, <E>/N = -1.667649, Cv/N = 0.897609, <|M|>/N = 0.874632
+T = 2.20, <E>/N = -1.562195, Cv/N = 1.189146, <|M|>/N = 0.808883
+T = 2.30, <E>/N = -1.421207, Cv/N = 1.557237, <|M|>/N = 0.687918
+T = 2.40, <E>/N = -1.250078, Cv/N = 1.302724, <|M|>/N = 0.510118
+T = 2.50, <E>/N = -1.132386, Cv/N = 1.029318, <|M|>/N = 0.388195
+T = 2.60, <E>/N = -1.038344, Cv/N = 0.754654, <|M|>/N = 0.301611
+T = 2.70, <E>/N = -0.969321, Cv/N = 0.648743, <|M|>/N = 0.251201
+T = 2.80, <E>/N = -0.908538, Cv/N = 0.525617, <|M|>/N = 0.212684
+T = 2.90, <E>/N = -0.863180, Cv/N = 0.462578, <|M|>/N = 0.191148
+T = 3.00, <E>/N = -0.818056, Cv/N = 0.405996, <|M|>/N = 0.176481
+
+2D Ising Model - Metropolis Monte Carlo
+Lattice size:       32 x 32
+Temperature range:  1.00 to 3.00 kBT/J
+Temperature points: 21
+MC sweeps:          2000
+Burn-in sweeps:     500
+Parallel walkers:   16
+
+Sanity check (ordered lattice):
+  Expected energy: -2048.0
+  Computed energy: -2048.0
+
+--- Simulating L = 32 ---
+T = 1.00, <E>/N = -1.935450, Cv/N = 0.584663, <|M|>/N = 0.724828
+T = 1.10, <E>/N = -1.957796, Cv/N = 0.836381, <|M|>/N = 0.838844
+T = 1.20, <E>/N = -1.966661, Cv/N = 0.780908, <|M|>/N = 0.903186
+T = 1.30, <E>/N = -1.948571, Cv/N = 0.798805, <|M|>/N = 0.858846
+T = 1.40, <E>/N = -1.932009, Cv/N = 0.645670, <|M|>/N = 0.834642
+T = 1.50, <E>/N = -1.909248, Cv/N = 0.464836, <|M|>/N = 0.802088
+T = 1.60, <E>/N = -1.927101, Cv/N = 0.347244, <|M|>/N = 0.975949
+T = 1.70, <E>/N = -1.862068, Cv/N = 0.921817, <|M|>/N = 0.831176
+T = 1.80, <E>/N = -1.851625, Cv/N = 0.798543, <|M|>/N = 0.931053
+T = 1.90, <E>/N = -1.808785, Cv/N = 0.569895, <|M|>/N = 0.937599
+T = 2.00, <E>/N = -1.736916, Cv/N = 0.907104, <|M|>/N = 0.883967
+T = 2.10, <E>/N = -1.665047, Cv/N = 0.911987, <|M|>/N = 0.871651
+T = 2.20, <E>/N = -1.546015, Cv/N = 1.366025, <|M|>/N = 0.783156
+T = 2.30, <E>/N = -1.381653, Cv/N = 1.767508, <|M|>/N = 0.580814
+T = 2.40, <E>/N = -1.213661, Cv/N = 1.304260, <|M|>/N = 0.314145
+T = 2.50, <E>/N = -1.105795, Cv/N = 0.834183, <|M|>/N = 0.203568
+T = 2.60, <E>/N = -1.030078, Cv/N = 0.708579, <|M|>/N = 0.150634
+T = 2.70, <E>/N = -0.963843, Cv/N = 0.599774, <|M|>/N = 0.123838
+T = 2.80, <E>/N = -0.908811, Cv/N = 0.515137, <|M|>/N = 0.106619
+T = 2.90, <E>/N = -0.859906, Cv/N = 0.455030, <|M|>/N = 0.093868
+T = 3.00, <E>/N = -0.817616, Cv/N = 0.399359, <|M|>/N = 0.084216
+
+
+Saved plots:
+ising_energy_vs_temperature.png
+ising_cv_vs_temperature.png
+ising_magnetisation_vs_temperature.png
+
+ Performance counter stats for 'mpirun -np 16 /opt/software/anaconda/python-3.10.9/bin/python task_3_changes.py':
+
+    39774793811867      cycles:u                                                              
+    85919598718188      instructions:u                   #    2.16  insn per cycle            
+         135265264      cache-misses:u                                                        
+
+     990.799984623 seconds time elapsed
+
+   15663.971275000 seconds user
+      48.166773000 seconds sys
+
+
