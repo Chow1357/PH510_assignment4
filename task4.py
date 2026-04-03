@@ -347,16 +347,26 @@ if __name__ == "__main__":
 
         # plot: Energy vs Temperature
         plt.figure()
-        plt.plot(temp_results, energy_results, marker="o", color="steelblue")
+        for lattice_size, colour in zip(LATTICE_SIZES, colours):
+            plt.plot(
+                all_temp_results[lattice_size],
+                all_energy_results[lattice_size],
+                marker="o",
+                label=f"L = {lattice_size}",
+                color=colour,
+            )
         plt.xlabel("Temperature ($k_B T / J$)")
         plt.ylabel(r"Average energy per site $\langle E \rangle / N$")
-        plt.title("2D XY Model: Energy vs Temperature")
+        plt.title(
+            "2D XY Model: Finite Size Scaling of Energy"
+        )
+        plt.legend()
         plt.grid(True)
         plt.tight_layout()
-        plt.savefig("xy_energy_vs_temperature.png", dpi=300)
+        plt.savefig("xy_energy_finite_size.png", dpi=300)
         plt.close()
 
-        print("\nPlots saved:")
-        print("  xy_cv_vs_temperature.png")
-        print("  xy_spin_correlation.png")
-        print("  xy_energy_vs_temperature.png")
+        print("Plots saved:")
+        print("  xy_cv_finite_size.png")
+        print("  xy_correlation_finite_size.png")
+        print("  xy_energy_finite_size.png")
