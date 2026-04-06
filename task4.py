@@ -23,9 +23,9 @@ License:
 """
 from mpi4py import MPI  # pylint: disable=no-name-in-module
 import numpy as np
-import matplotlib.pyplot as plt
 import matplotlib
 matplotlib.use("Agg")
+import matplotlib.pyplot as plt
 
 COMM = MPI.COMM_WORLD
 RANK = COMM.Get_rank()
@@ -70,14 +70,6 @@ def delta_energy(lattice, row, col, new_angle, j_val=1.0):
     size = lattice.shape[0]
     old_angle = lattice[row, col]
 
-    # Sum contributions from all four nearest neighbours
-    neighbour_angles = (
-        lattice[(row + 1) % size, col] +
-        lattice[(row - 1) % size, col] +
-        lattice[row, (col + 1) % size] +
-        lattice[row, (col - 1) % size]
-    )
-
     # Energy change = E_new - E_old for this site only
     # Each neighbour contributes -J*cos(theta_i - theta_neighbour)
     old_interaction = np.cos(old_angle - lattice[(row + 1) % size, col])
@@ -89,9 +81,6 @@ def delta_energy(lattice, row, col, new_angle, j_val=1.0):
     new_interaction += np.cos(new_angle - lattice[(row - 1) % size, col])
     new_interaction += np.cos(new_angle - lattice[row, (col + 1) % size])
     new_interaction += np.cos(new_angle - lattice[row, (col - 1) % size])
-
-    # Unused variable removed; neighbour_angles used implicitly above
-    _ = neighbour_angles
 
     return -j_val * (new_interaction - old_interaction)
 
