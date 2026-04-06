@@ -34,20 +34,20 @@ def total_energy(lattice, j_val=1.0):
     Computing total energy of the lattice using nearest-neighbour interactions
     """
 
-    l = lattice.shape[0]
+    size = lattice.shape[0]
     energy = 0.0
 
-    for i in range(l):
-        for j in range(l):
-            s = lattice[i, j]
+    for i in range(size):
+        for j in range(size):
+            spin = lattice[i, j]
 
             # periodic neighbours
-            right = lattice[i, (j + 1) % l]
-            down = lattice[(i + 1) % l, j]
+            right = lattice[i, (j + 1) % size]
+            down = lattice[(i + 1) % size, j]
 
             # implementing H = 0
             h_field = 0.0
-            energy += -j_val * s * (right + down) - h_field * s
+            energy += -j_val * spin * (right + down) - h_field * spin
 
     return energy
 
@@ -56,17 +56,17 @@ def delta_energy(spins, i, j, j_val):
     function which finds the value of the system
     upon flipping one spin
     """
-    l = spins.shape[0]
-    s = spins[i, j]
+    size = spins.shape[0]
+    spin = spins[i, j]
 
     neighbour_sum = (
-        spins[(i + 1) % l, j] +
-        spins[(i - 1) % l, j] +
-        spins[i, (j + 1) % l] +
-        spins[i, (j - 1) % l]
+        spins[(i + 1) % size, j] +
+        spins[(i - 1) % size, j] +
+        spins[i, (j + 1) % size] +
+        spins[i, (j - 1) % size]
     )
     # returning energy chnage for one spin change
-    return 2.0 * j_val * s * neighbour_sum
+    return 2.0 * j_val * spin * neighbour_sum
 
 def magnetisation(spin):
     """
