@@ -1,0 +1,96 @@
+Loading mpi version 2021.6.0
+2D XY Model - Metropolis Monte Carlo
+Lattice size:       [16, 32, 64]
+Temperature range:  0.50 to 1.50 kBT/J
+Temperature points: 21
+MC sweeps:          2000
+Burn-in sweeps:     500
+Parallel walkers:   16
+Angle step size:    0.7854 rad (45.0 deg)
+
+--- Simulating L = 16 ---
+L = 16, T = 0.50 | <E>/N = -1.7304 | Cv/N = 0.6437 | Acceptance = 61.91%
+L = 16, T = 0.55 | <E>/N = -1.7009 | Cv/N = 0.6155 | Acceptance = 63.65%
+L = 16, T = 0.60 | <E>/N = -1.6601 | Cv/N = 0.7674 | Acceptance = 65.36%
+L = 16, T = 0.65 | <E>/N = -1.6324 | Cv/N = 0.8671 | Acceptance = 66.73%
+L = 16, T = 0.70 | <E>/N = -1.6047 | Cv/N = 0.6806 | Acceptance = 67.94%
+L = 16, T = 0.75 | <E>/N = -1.5644 | Cv/N = 0.8061 | Acceptance = 69.20%
+L = 16, T = 0.80 | <E>/N = -1.5289 | Cv/N = 0.8319 | Acceptance = 70.43%
+L = 16, T = 0.85 | <E>/N = -1.4822 | Cv/N = 1.0454 | Acceptance = 71.60%
+L = 16, T = 0.90 | <E>/N = -1.4325 | Cv/N = 1.1320 | Acceptance = 72.73%
+L = 16, T = 0.95 | <E>/N = -1.3847 | Cv/N = 1.1089 | Acceptance = 73.77%
+L = 16, T = 1.00 | <E>/N = -1.3320 | Cv/N = 1.1099 | Acceptance = 74.88%
+L = 16, T = 1.05 | <E>/N = -1.2611 | Cv/N = 1.3286 | Acceptance = 76.11%
+L = 16, T = 1.10 | <E>/N = -1.1910 | Cv/N = 1.2869 | Acceptance = 77.23%
+L = 16, T = 1.15 | <E>/N = -1.1236 | Cv/N = 1.2561 | Acceptance = 78.33%
+L = 16, T = 1.20 | <E>/N = -1.0553 | Cv/N = 1.2073 | Acceptance = 79.41%
+L = 16, T = 1.25 | <E>/N = -0.9986 | Cv/N = 1.1002 | Acceptance = 80.29%
+L = 16, T = 1.30 | <E>/N = -0.9477 | Cv/N = 1.0093 | Acceptance = 81.19%
+L = 16, T = 1.35 | <E>/N = -0.8946 | Cv/N = 0.8303 | Acceptance = 82.05%
+L = 16, T = 1.40 | <E>/N = -0.8548 | Cv/N = 0.8218 | Acceptance = 82.74%
+L = 16, T = 1.45 | <E>/N = -0.8093 | Cv/N = 0.6847 | Acceptance = 83.48%
+L = 16, T = 1.50 | <E>/N = -0.7815 | Cv/N = 0.6554 | Acceptance = 84.05%
+
+--- Simulating L = 32 ---
+L = 32, T = 0.50 | <E>/N = -1.7137 | Cv/N = 1.4707 | Acceptance = 62.09%
+L = 32, T = 0.55 | <E>/N = -1.6832 | Cv/N = 1.0346 | Acceptance = 63.81%
+L = 32, T = 0.60 | <E>/N = -1.6506 | Cv/N = 1.0290 | Acceptance = 65.40%
+L = 32, T = 0.65 | <E>/N = -1.6141 | Cv/N = 0.9109 | Acceptance = 66.85%
+L = 32, T = 0.70 | <E>/N = -1.5855 | Cv/N = 1.0308 | Acceptance = 68.14%
+L = 32, T = 0.75 | <E>/N = -1.5436 | Cv/N = 0.9805 | Acceptance = 69.43%
+L = 32, T = 0.80 | <E>/N = -1.5085 | Cv/N = 0.9532 | Acceptance = 70.59%
+L = 32, T = 0.85 | <E>/N = -1.4614 | Cv/N = 1.0309 | Acceptance = 71.78%
+L = 32, T = 0.90 | <E>/N = -1.4149 | Cv/N = 1.1873 | Acceptance = 72.92%
+L = 32, T = 0.95 | <E>/N = -1.3561 | Cv/N = 1.2030 | Acceptance = 74.09%
+L = 32, T = 1.00 | <E>/N = -1.3040 | Cv/N = 1.2391 | Acceptance = 75.14%
+L = 32, T = 1.05 | <E>/N = -1.2307 | Cv/N = 1.2296 | Acceptance = 76.35%
+L = 32, T = 1.10 | <E>/N = -1.1708 | Cv/N = 1.2125 | Acceptance = 77.41%
+L = 32, T = 1.15 | <E>/N = -1.1056 | Cv/N = 1.2692 | Acceptance = 78.48%
+L = 32, T = 1.20 | <E>/N = -1.0443 | Cv/N = 1.1471 | Acceptance = 79.48%
+L = 32, T = 1.25 | <E>/N = -0.9931 | Cv/N = 0.9094 | Acceptance = 80.39%
+L = 32, T = 1.30 | <E>/N = -0.9380 | Cv/N = 0.8796 | Acceptance = 81.27%
+L = 32, T = 1.35 | <E>/N = -0.8962 | Cv/N = 0.8298 | Acceptance = 82.02%
+L = 32, T = 1.40 | <E>/N = -0.8558 | Cv/N = 0.7882 | Acceptance = 82.74%
+L = 32, T = 1.45 | <E>/N = -0.8127 | Cv/N = 0.7288 | Acceptance = 83.45%
+L = 32, T = 1.50 | <E>/N = -0.7785 | Cv/N = 0.6123 | Acceptance = 84.09%
+
+--- Simulating L = 64 ---
+L = 64, T = 0.50 | <E>/N = -1.7096 | Cv/N = 1.3531 | Acceptance = 62.11%
+L = 64, T = 0.55 | <E>/N = -1.6766 | Cv/N = 1.4443 | Acceptance = 63.86%
+L = 64, T = 0.60 | <E>/N = -1.6474 | Cv/N = 1.2930 | Acceptance = 65.41%
+L = 64, T = 0.65 | <E>/N = -1.6137 | Cv/N = 1.2082 | Acceptance = 66.87%
+L = 64, T = 0.70 | <E>/N = -1.5789 | Cv/N = 1.1893 | Acceptance = 68.19%
+L = 64, T = 0.75 | <E>/N = -1.5422 | Cv/N = 1.1955 | Acceptance = 69.44%
+L = 64, T = 0.80 | <E>/N = -1.5031 | Cv/N = 1.2060 | Acceptance = 70.63%
+L = 64, T = 0.85 | <E>/N = -1.4609 | Cv/N = 1.2082 | Acceptance = 71.78%
+L = 64, T = 0.90 | <E>/N = -1.4131 | Cv/N = 1.2761 | Acceptance = 72.90%
+L = 64, T = 0.95 | <E>/N = -1.3563 | Cv/N = 1.4421 | Acceptance = 74.07%
+L = 64, T = 1.00 | <E>/N = -1.2992 | Cv/N = 1.3318 | Acceptance = 75.17%
+L = 64, T = 1.05 | <E>/N = -1.2380 | Cv/N = 1.3153 | Acceptance = 76.27%
+L = 64, T = 1.10 | <E>/N = -1.1727 | Cv/N = 1.1168 | Acceptance = 77.39%
+L = 64, T = 1.15 | <E>/N = -1.1102 | Cv/N = 1.2728 | Acceptance = 78.44%
+L = 64, T = 1.20 | <E>/N = -1.0481 | Cv/N = 1.0589 | Acceptance = 79.45%
+L = 64, T = 1.25 | <E>/N = -0.9922 | Cv/N = 0.9971 | Acceptance = 80.39%
+L = 64, T = 1.30 | <E>/N = -0.9390 | Cv/N = 0.8892 | Acceptance = 81.26%
+L = 64, T = 1.35 | <E>/N = -0.8946 | Cv/N = 0.8356 | Acceptance = 82.04%
+L = 64, T = 1.40 | <E>/N = -0.8528 | Cv/N = 0.8305 | Acceptance = 82.76%
+L = 64, T = 1.45 | <E>/N = -0.8121 | Cv/N = 0.7439 | Acceptance = 83.46%
+L = 64, T = 1.50 | <E>/N = -0.7783 | Cv/N = 0.6417 | Acceptance = 84.07%
+
+Plots saved:
+  xy_cv_finite_size.png
+  xy_correlation_finite_size.png
+  xy_energy_finite_size.png
+
+ Performance counter stats for 'mpirun -np 16 /opt/software/anaconda/python-3.10.9/bin/python task4.py':
+
+   342137628003445      cycles:u                                                              
+   756028827403562      instructions:u                   #    2.21  insn per cycle            
+         593896290      cache-misses:u                                                        
+
+    8874.458490899 seconds time elapsed
+
+  140422.534423000 seconds user
+    1013.614829000 seconds sys
+
+
