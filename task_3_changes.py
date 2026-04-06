@@ -23,9 +23,9 @@ License:
 """
 import numpy as np
 from mpi4py import MPI # pylint: disable=no-name-in-module
+import matplotlib.pyplot as plt # pylint: disable=no-name-in-module
 import matplotlib
 matplotlib.use("Agg")
-import matplotlib.pyplot as plt # pylint: disable=no-name-in-module
 
 
 COMM = MPI.COMM_WORLD
