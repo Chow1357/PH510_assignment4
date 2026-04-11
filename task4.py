@@ -234,9 +234,14 @@ def run_simulation(size, temperature, n_sweeps, j_val=1.0, seed=1234,
 if __name__ == "__main__":
     # simulation parameters
     J_VAL = 1.0
-    TEMPERATURES = np.linspace(0.5, 1.5, 21)
-    N_SWEEPS = 2000
-    BURN_IN = 500
+    # Use finer spacing near Tc
+    TEMPERATURES = np.concatenate([
+        np.linspace(0.5, 0.75, 5),    # coarse below transition
+        np.linspace(0.75, 1.25, 21)[1:],   # fine near peak
+        np.linspace(1.25, 1.5, 3)[1:]     # coarse above transition
+    ])
+    N_SWEEPS = 10000
+    BURN_IN = 1000
 
     # lattice sizes to simulate for finite size scaling
     LATTICE_SIZES = [16, 32, 64]
@@ -264,6 +269,7 @@ if __name__ == "__main__":
     all_energy_results = {}
     # Correlation arrays stored per size and temperature
     all_correlations = {}
+    all_vortex_results = {}
 
     for lattice_size in LATTICE_SIZES:
 
@@ -275,6 +281,7 @@ if __name__ == "__main__":
         cv_results = []
         # Store full correlation arrays for a selection of temperatures
         correlation_data = {}
+        vortex_results = []
 
         for temp in TEMPERATURES:
 
@@ -284,6 +291,7 @@ if __name__ == "__main__":
                 r_values,
                 local_correlations,
                 local_acceptance,
+                local_vortex_density,
             ) = run_simulation(
                 size=lattice_size,
                 temperature=temp,
@@ -306,12 +314,18 @@ if __name__ == "__main__":
             total_correlations = COMM.reduce(
                 local_correlations, op=MPI.SUM, root=0
             )
+            # MPI reduction for the vortex density calculations
+            total_vortex_density = COMM.reduce(
+                local_vortex_density, op=MPI.SUM, root=0
+            )
 
             if RANK == 0:
+                # global averages across the lattice
                 global_mean_energy = total_mean_energy / N_RANKS
                 global_cv = total_cv / N_RANKS
                 global_acceptance = total_acceptance / N_RANKS
                 global_correlations = total_correlations / N_RANKS
+                global_vortex_density = total_vortex_density / N_RANKS
 
                 energy_per_site = global_mean_energy / (lattice_size * lattice_size)
 
@@ -319,6 +333,7 @@ if __name__ == "__main__":
                 cv_results.append(global_cv)
                 energy_results.append(energy_per_site)
                 correlation_data[round(temp, 2)] = global_correlations
+                vortex_results.append(global_vortex_density)
 
                 print(
                     f"L = {lattice_size}, T = {temp:.2f} | "
