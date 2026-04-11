@@ -39,7 +39,7 @@ DELTA = np.pi / 4
 def initialise_lattice(size, seed=1234):
     """
     establishing a lattice of size (L x L) populated with
-    different angles
+    random angles.
 
     """
     rng = np.random.default_rng(seed)
@@ -130,7 +130,9 @@ def spin_correlation(lattice, max_r=None):
     """
     Compute the spin correlation function C(r) as a function of distance.
 
-    C(r) =
+    C(r) = <cos(theta_i - theta_j)> averaged across all pairs separated 
+    by distance r along the x-axis. Measures how spin alignment decays
+    with distance. Computed up to r = L//2 to avoid periodic image effects.
     """
 
     size = lattice.shape[0]
@@ -196,6 +198,11 @@ def run_simulation(size, temperature, n_sweeps, j_val=1.0, seed=1234,
                    burn_in=500):
     """
     Run the XY model Metropolis simulation at a fixed temperature.
+
+    Performs n_sweeps Monte Carlo sweeps discarding the first burn_in sweeps
+    as equilibration. Computes specific heat from the variance of the energy
+    history, spin correlation from the final lattice configuration and
+    vortex density fromt the plaquette circulation. 
     """
     rng = np.random.default_rng(seed)
     lattice = initialise_lattice(size, seed=seed)
