@@ -220,6 +220,7 @@ def run_simulation(size, temperature, n_sweeps, j_val=1.0, seed=1234,
     acceptance_rate = total_accepted / (n_sweeps * size * size)
 
     distances, correlations = spin_correlation(lattice)
+    vortex_density = count_vortices(lattice)
 
     return (
         mean_energy,
@@ -227,6 +228,7 @@ def run_simulation(size, temperature, n_sweeps, j_val=1.0, seed=1234,
         distances,
         correlations,
         acceptance_rate,
+        vortex_density,
     )
 
 if __name__ == "__main__":
