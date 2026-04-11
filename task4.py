@@ -148,6 +148,49 @@ def spin_correlation(lattice, max_r=None):
 
     return distances, correlations
 
+def count_vortices(lattice):
+    """
+    Count the vortex density in the XY lattice.
+
+    A vortex is detected by computing the circulation of
+    angles around each elementary plaquette. A circulation
+    of +2*pi indicates a vortex and -2*pi an anti-vortex.
+    Both are counted as they both disrupt long-range order.
+
+    Args:
+        lattice (numpy.ndarray): Current spin angle configuration.
+
+    Returns:
+        float: Vortex density — number of vortices per lattice site.
+    """
+    size = lattice.shape[0]
+    n_vortices = 0
+
+    for row in range(size):
+        for col in range(size):
+            # Angle differences around plaquette clockwise
+            d1 = lattice[row, (col + 1) % size] - lattice[row, col]
+            d2 = (lattice[(row + 1) % size, (col + 1) % size] -
+                  lattice[row, (col + 1) % size])
+            d3 = (lattice[(row + 1) % size, col] -
+                  lattice[(row + 1) % size, (col + 1) % size])
+            d4 = lattice[row, col] - lattice[(row + 1) % size, col]
+
+            # Wrap each difference to [-pi, pi]
+            d1 = (d1 + np.pi) % (2 * np.pi) - np.pi
+            d2 = (d2 + np.pi) % (2 * np.pi) - np.pi
+            d3 = (d3 + np.pi) % (2 * np.pi) - np.pi
+            d4 = (d4 + np.pi) % (2 * np.pi) - np.pi
+
+            # Total circulation around plaquette
+            circulation = d1 + d2 + d3 + d4
+
+            # Vortex or anti-vortex if |circulation| > pi
+            if abs(circulation) > np.pi:
+                n_vortices += 1
+
+    return n_vortices / (size * size)
+
 # pylint: disable=too-many-arguments,too-many-positional-arguments
 def run_simulation(size, temperature, n_sweeps, j_val=1.0, seed=1234,
                    burn_in=500):
