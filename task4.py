@@ -425,6 +425,43 @@ if __name__ == "__main__":
         plt.savefig("xy_energy_finite_size.png", dpi=300)
         plt.close()
 
+        # Plot: Spin correlation vs fractional distance
+        # at multiple temperatures for L=16
+        # Shows change from power-law to exponential decay
+        # across the BKT transition
+        PLOT_TEMPS = [0.5, 0.75, 1.0, 1.25, 1.5]
+        temp_colours = ["navy", "steelblue", "seagreen",
+                        "darkorange", "crimson"]
+
+        plt.figure()
+        target_size = LATTICE_SIZES[0]
+
+        for plot_temp, temp_colour in zip(PLOT_TEMPS, temp_colours):
+            key = round(plot_temp, 2)
+            corr = all_correlations[target_size].get(key, None)
+            if corr is not None:
+                r_over_l = np.arange(len(corr)) / target_size
+                plt.plot(
+                    r_over_l,
+                    corr,
+                    marker="o",
+                    label=f"T = {plot_temp:.2f}",
+                    color=temp_colour,
+                )
+
+        plt.xlabel("Fractional lattice distance $r/L$")
+        plt.ylabel(
+            r"Spin correlation $C(r) = "
+            r"\langle \cos(\theta_i - \theta_j) \rangle$"
+        )
+        plt.title("2D XY Model: Spin Correlation vs Distance")
+        plt.legend()
+        plt.grid(True)
+        plt.tight_layout()
+        plt.savefig("xy_spin_correlation_temps.png", dpi=300)
+        plt.close()
+
+     
         print("Plots saved:")
         print("  xy_cv_finite_size.png")
         print("  xy_correlation_finite_size.png")
