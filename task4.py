@@ -481,7 +481,10 @@ if __name__ == "__main__":
         plt.tight_layout()
         plt.savefig("xy_vortex_density.png", dpi=300)
         plt.close()
+
         print("Plots saved:")
-        print("  xy_cv_finite_size.png")
+        print("  xy_cv_vs_temperature.png")
         print("  xy_correlation_finite_size.png")
         print("  xy_energy_finite_size.png")
+        print("  xy_spin_correlation_temps.png")
+        print("  xy_vortex_density.png")
