@@ -461,7 +461,26 @@ if __name__ == "__main__":
         plt.savefig("xy_spin_correlation_temps.png", dpi=300)
         plt.close()
 
-     
+        # Plot: Vortex density vs temperature
+        # Low density below Tc increases sharply above Tc
+        # consistent with BKT vortex pair unbinding
+        plt.figure()
+        for lattice_size, colour in zip(LATTICE_SIZES, colours):
+            plt.plot(
+                all_temp_results[lattice_size],
+                all_vortex_results[lattice_size],
+                marker="o",
+                label=f"L = {lattice_size}",
+                color=colour,
+            )
+        plt.xlabel("Temperature ($k_B T / J$)")
+        plt.ylabel("Vortex density (vortices per site)")
+        plt.title("2D XY Model: Vortex Density vs Temperature")
+        plt.legend()
+        plt.grid(True)
+        plt.tight_layout()
+        plt.savefig("xy_vortex_density.png", dpi=300)
+        plt.close()
         print("Plots saved:")
         print("  xy_cv_finite_size.png")
         print("  xy_correlation_finite_size.png")
