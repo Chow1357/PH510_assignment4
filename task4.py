@@ -23,9 +23,9 @@ License:
 """
 from mpi4py import MPI  # pylint: disable=no-name-in-module
 import numpy as np
+import matplotlib.pyplot as plt
 import matplotlib
 matplotlib.use("Agg")
-import matplotlib.pyplot as plt
 
 COMM = MPI.COMM_WORLD
 RANK = COMM.Get_rank()
@@ -441,13 +441,13 @@ if __name__ == "__main__":
                         "darkorange", "crimson"]
 
         plt.figure()
-        target_size = LATTICE_SIZES[0]
+        TARGET_SIZE = LATTICE_SIZES[0]
 
         for plot_temp, temp_colour in zip(PLOT_TEMPS, temp_colours):
             key = round(plot_temp, 2)
             corr = all_correlations[target_size].get(key, None)
             if corr is not None:
-                r_over_l = np.arange(len(corr)) / target_size
+                r_over_l = np.arange(len(corr)) / TARGET_SIZE
                 plt.plot(
                     r_over_l,
                     corr,
