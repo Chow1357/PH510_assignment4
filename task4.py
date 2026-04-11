@@ -339,7 +339,8 @@ if __name__ == "__main__":
                     f"L = {lattice_size}, T = {temp:.2f} | "
                     f"<E>/N = {energy_per_site:.4f} | "
                     f"Cv/N = {global_cv:.4f} | "
-                    f"Acceptance = {global_acceptance:.2%}"
+                    f"Acceptance = {global_acceptance:.2%} | "
+                    f"Vortex density = {global_vortex_density:.4f}"
                 )
 
         # Store all results for this lattice size
@@ -348,6 +349,7 @@ if __name__ == "__main__":
             all_temp_results[lattice_size] = temp_results
             all_energy_results[lattice_size] = energy_results
             all_correlations[lattice_size] = correlation_data
+            all_vortex_results[lattice_size] = vortex_results
             print()
 
     if RANK == 0:
