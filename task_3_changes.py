@@ -196,7 +196,11 @@ def run_simulation(size, temperature, n_sweeps, j_val=1.0, seed=1234,
 if __name__ == "__main__":
     # setting parameters
     J_VAL = 1.0
-    TEMPERATURES = np.linspace(1.0, 3.0, 21)
+    # Use finer spacing near Tc
+    TEMPERATURES = np.concatenate([
+        np.linspace(1.0, 1.8, 5),    # coarse below transition
+        np.linspace(1.8, 2.8, 21)[1:],   # fine near peak
+        np.linspace(2.8, 3.0, 3)[1:]     # coarse above transition 
     N_SWEEPS = 2000
     BURN_IN = 500
 
