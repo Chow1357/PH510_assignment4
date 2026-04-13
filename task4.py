@@ -23,9 +23,9 @@ License:
 """
 from mpi4py import MPI  # pylint: disable=no-name-in-module
 import numpy as np
+import matplotlib.pyplot as plt
 import matplotlib
 matplotlib.use("Agg")
-import matplotlib.pyplot as plt
 
 COMM = MPI.COMM_WORLD
 RANK = COMM.Get_rank()
