@@ -27,7 +27,7 @@ this READ.ME file can be used to navigate the files in the git repository.
 ### task 4 output files (initial tests) :
 #### first_task4.out 
 #### task5_XY_out_16-64.out 
-### main XY task 5 output files: 
+### XY model task 5 output files: 
 #### xy_modelk_10K.out (main output used for final plots) 
 #### xy_correlation_finite_size.png 
 #### xy_cv_vs_temperature.png 
