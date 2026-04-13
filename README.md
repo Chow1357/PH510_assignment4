@@ -4,5 +4,15 @@ The following git repository contains the python programs, jobs scripts and outp
 ### program - task_1_2.py 
 ### job script - task_1_2_run.sh
 ### output files: 
-#### Task1_2_Temp_1.0.out, Task1_2_Temp_2.0.out, Task1_2_Temp_3.0.out, task1_first.out
+#### Task1_2_Temp_1.0.out, Task1_2_Temp_2.0.out, Task1_2_Temp_3.0.out, task1_first.out, 16_diff_walkers_task1_2.out
+
+### ising model files: 
+### program - task_3_chnages.py (main ising model program file) 
+### job script - task_3.sh
+### task 3 output files (initial tests) :
+#### Task3_firstattempt.out 
+#### task3_initial_test_4cores.out
+#### task3_16cores.out
+### task 5 ising output files:
+####
 
