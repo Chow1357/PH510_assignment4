@@ -201,7 +201,7 @@ if __name__ == "__main__":
         np.linspace(1.0, 1.8, 5),    # coarse below transition
         np.linspace(1.8, 2.8, 21)[1:],   # fine near peak
         np.linspace(2.8, 3.0, 3)[1:]    # coarse above transition
-    ]) 
+    ])
     N_SWEEPS = 2000
     BURN_IN = 500
 
