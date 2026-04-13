@@ -1,0 +1,116 @@
+Loading mpi version 2021.6.0
+2D XY Model - Metropolis Monte Carlo
+Lattice size:       [16, 32, 64]
+Temperature range:  0.50 to 1.50 kBT/J
+Temperature points: 27
+MC sweeps:          10000
+Burn-in sweeps:     1000
+Parallel walkers:   16
+Angle step size:    0.7854 rad (45.0 deg)
+
+--- Simulating L = 16 ---
+L = 16, T = 0.50 | <E>/N = -1.7308 | Cv/N = 0.5903 | Acceptance = 61.69% | Vortex density = 0.0000
+L = 16, T = 0.56 | <E>/N = -1.6928 | Cv/N = 0.6249 | Acceptance = 63.82% | Vortex density = 0.0010
+L = 16, T = 0.62 | <E>/N = -1.6537 | Cv/N = 0.6569 | Acceptance = 65.71% | Vortex density = 0.0000
+L = 16, T = 0.69 | <E>/N = -1.6110 | Cv/N = 0.7038 | Acceptance = 67.44% | Vortex density = 0.0000
+L = 16, T = 0.75 | <E>/N = -1.5678 | Cv/N = 0.7359 | Acceptance = 68.99% | Vortex density = 0.0005
+L = 16, T = 0.78 | <E>/N = -1.5481 | Cv/N = 0.7874 | Acceptance = 69.60% | Vortex density = 0.0034
+L = 16, T = 0.80 | <E>/N = -1.5294 | Cv/N = 0.7886 | Acceptance = 70.18% | Vortex density = 0.0044
+L = 16, T = 0.82 | <E>/N = -1.5096 | Cv/N = 0.8350 | Acceptance = 70.74% | Vortex density = 0.0044
+L = 16, T = 0.85 | <E>/N = -1.4886 | Cv/N = 0.8675 | Acceptance = 71.30% | Vortex density = 0.0073
+L = 16, T = 0.88 | <E>/N = -1.4663 | Cv/N = 0.8952 | Acceptance = 71.85% | Vortex density = 0.0059
+L = 16, T = 0.90 | <E>/N = -1.4419 | Cv/N = 0.9914 | Acceptance = 72.42% | Vortex density = 0.0098
+L = 16, T = 0.93 | <E>/N = -1.4191 | Cv/N = 1.0215 | Acceptance = 72.94% | Vortex density = 0.0093
+L = 16, T = 0.95 | <E>/N = -1.3903 | Cv/N = 1.1129 | Acceptance = 73.54% | Vortex density = 0.0146
+L = 16, T = 0.97 | <E>/N = -1.3652 | Cv/N = 1.1316 | Acceptance = 74.06% | Vortex density = 0.0186
+L = 16, T = 1.00 | <E>/N = -1.3375 | Cv/N = 1.2042 | Acceptance = 74.61% | Vortex density = 0.0166
+L = 16, T = 1.02 | <E>/N = -1.3021 | Cv/N = 1.3377 | Acceptance = 75.21% | Vortex density = 0.0229
+L = 16, T = 1.05 | <E>/N = -1.2666 | Cv/N = 1.3912 | Acceptance = 75.83% | Vortex density = 0.0376
+L = 16, T = 1.07 | <E>/N = -1.2375 | Cv/N = 1.4274 | Acceptance = 76.36% | Vortex density = 0.0400
+L = 16, T = 1.10 | <E>/N = -1.2034 | Cv/N = 1.4688 | Acceptance = 76.93% | Vortex density = 0.0376
+L = 16, T = 1.12 | <E>/N = -1.1603 | Cv/N = 1.4267 | Acceptance = 77.60% | Vortex density = 0.0591
+L = 16, T = 1.15 | <E>/N = -1.1309 | Cv/N = 1.3798 | Acceptance = 78.12% | Vortex density = 0.0649
+L = 16, T = 1.18 | <E>/N = -1.0867 | Cv/N = 1.3439 | Acceptance = 78.77% | Vortex density = 0.0635
+L = 16, T = 1.20 | <E>/N = -1.0589 | Cv/N = 1.2549 | Acceptance = 79.25% | Vortex density = 0.0771
+L = 16, T = 1.23 | <E>/N = -1.0219 | Cv/N = 1.1544 | Acceptance = 79.83% | Vortex density = 0.0742
+L = 16, T = 1.25 | <E>/N = -0.9999 | Cv/N = 1.1480 | Acceptance = 80.21% | Vortex density = 0.0796
+L = 16, T = 1.38 | <E>/N = -0.8705 | Cv/N = 0.8403 | Acceptance = 82.38% | Vortex density = 0.1221
+L = 16, T = 1.50 | <E>/N = -0.7786 | Cv/N = 0.6601 | Acceptance = 84.04% | Vortex density = 0.1377
+
+--- Simulating L = 32 ---
+L = 32, T = 0.50 | <E>/N = -1.7288 | Cv/N = 0.7071 | Acceptance = 61.73% | Vortex density = 0.0000
+L = 32, T = 0.56 | <E>/N = -1.6906 | Cv/N = 0.7111 | Acceptance = 63.87% | Vortex density = 0.0000
+L = 32, T = 0.62 | <E>/N = -1.6490 | Cv/N = 0.8271 | Acceptance = 65.78% | Vortex density = 0.0001
+L = 32, T = 0.69 | <E>/N = -1.6072 | Cv/N = 0.8660 | Acceptance = 67.50% | Vortex density = 0.0002
+L = 32, T = 0.75 | <E>/N = -1.5629 | Cv/N = 0.8646 | Acceptance = 69.05% | Vortex density = 0.0018
+L = 32, T = 0.78 | <E>/N = -1.5423 | Cv/N = 0.9134 | Acceptance = 69.67% | Vortex density = 0.0023
+L = 32, T = 0.80 | <E>/N = -1.5246 | Cv/N = 0.8867 | Acceptance = 70.23% | Vortex density = 0.0034
+L = 32, T = 0.82 | <E>/N = -1.5021 | Cv/N = 1.0049 | Acceptance = 70.82% | Vortex density = 0.0026
+L = 32, T = 0.85 | <E>/N = -1.4832 | Cv/N = 0.9832 | Acceptance = 71.36% | Vortex density = 0.0065
+L = 32, T = 0.88 | <E>/N = -1.4606 | Cv/N = 1.0200 | Acceptance = 71.92% | Vortex density = 0.0056
+L = 32, T = 0.90 | <E>/N = -1.4359 | Cv/N = 1.0875 | Acceptance = 72.49% | Vortex density = 0.0103
+L = 32, T = 0.93 | <E>/N = -1.4119 | Cv/N = 1.1330 | Acceptance = 73.03% | Vortex density = 0.0092
+L = 32, T = 0.95 | <E>/N = -1.3834 | Cv/N = 1.2261 | Acceptance = 73.62% | Vortex density = 0.0145
+L = 32, T = 0.97 | <E>/N = -1.3545 | Cv/N = 1.2704 | Acceptance = 74.18% | Vortex density = 0.0172
+L = 32, T = 1.00 | <E>/N = -1.3204 | Cv/N = 1.3528 | Acceptance = 74.79% | Vortex density = 0.0212
+L = 32, T = 1.02 | <E>/N = -1.2906 | Cv/N = 1.3831 | Acceptance = 75.34% | Vortex density = 0.0280
+L = 32, T = 1.05 | <E>/N = -1.2521 | Cv/N = 1.4789 | Acceptance = 75.99% | Vortex density = 0.0336
+L = 32, T = 1.07 | <E>/N = -1.2134 | Cv/N = 1.5078 | Acceptance = 76.61% | Vortex density = 0.0437
+L = 32, T = 1.10 | <E>/N = -1.1785 | Cv/N = 1.3878 | Acceptance = 77.19% | Vortex density = 0.0468
+L = 32, T = 1.12 | <E>/N = -1.1434 | Cv/N = 1.3730 | Acceptance = 77.78% | Vortex density = 0.0547
+L = 32, T = 1.15 | <E>/N = -1.1088 | Cv/N = 1.2668 | Acceptance = 78.33% | Vortex density = 0.0626
+L = 32, T = 1.18 | <E>/N = -1.0749 | Cv/N = 1.2064 | Acceptance = 78.88% | Vortex density = 0.0674
+L = 32, T = 1.20 | <E>/N = -1.0478 | Cv/N = 1.1767 | Acceptance = 79.36% | Vortex density = 0.0760
+L = 32, T = 1.23 | <E>/N = -1.0172 | Cv/N = 1.0726 | Acceptance = 79.86% | Vortex density = 0.0803
+L = 32, T = 1.25 | <E>/N = -0.9901 | Cv/N = 1.0225 | Acceptance = 80.32% | Vortex density = 0.0912
+L = 32, T = 1.38 | <E>/N = -0.8721 | Cv/N = 0.8227 | Acceptance = 82.37% | Vortex density = 0.1185
+L = 32, T = 1.50 | <E>/N = -0.7794 | Cv/N = 0.6517 | Acceptance = 84.04% | Vortex density = 0.1422
+
+--- Simulating L = 64 ---
+L = 64, T = 0.50 | <E>/N = -1.7235 | Cv/N = 1.0789 | Acceptance = 61.78% | Vortex density = 0.0001
+L = 64, T = 0.56 | <E>/N = -1.6828 | Cv/N = 0.9848 | Acceptance = 63.94% | Vortex density = 0.0004
+L = 64, T = 0.62 | <E>/N = -1.6440 | Cv/N = 0.9579 | Acceptance = 65.82% | Vortex density = 0.0004
+L = 64, T = 0.69 | <E>/N = -1.6040 | Cv/N = 0.9496 | Acceptance = 67.52% | Vortex density = 0.0009
+L = 64, T = 0.75 | <E>/N = -1.5572 | Cv/N = 0.9568 | Acceptance = 69.10% | Vortex density = 0.0023
+L = 64, T = 0.78 | <E>/N = -1.5367 | Cv/N = 0.9520 | Acceptance = 69.71% | Vortex density = 0.0026
+L = 64, T = 0.80 | <E>/N = -1.5174 | Cv/N = 1.0119 | Acceptance = 70.29% | Vortex density = 0.0037
+L = 64, T = 0.82 | <E>/N = -1.4975 | Cv/N = 1.1087 | Acceptance = 70.87% | Vortex density = 0.0046
+L = 64, T = 0.85 | <E>/N = -1.4772 | Cv/N = 1.0771 | Acceptance = 71.42% | Vortex density = 0.0058
+L = 64, T = 0.88 | <E>/N = -1.4552 | Cv/N = 1.1417 | Acceptance = 71.97% | Vortex density = 0.0076
+L = 64, T = 0.90 | <E>/N = -1.4306 | Cv/N = 1.2355 | Acceptance = 72.53% | Vortex density = 0.0085
+L = 64, T = 0.93 | <E>/N = -1.4028 | Cv/N = 1.2616 | Acceptance = 73.12% | Vortex density = 0.0117
+L = 64, T = 0.95 | <E>/N = -1.3765 | Cv/N = 1.3919 | Acceptance = 73.68% | Vortex density = 0.0141
+L = 64, T = 0.97 | <E>/N = -1.3470 | Cv/N = 1.3916 | Acceptance = 74.25% | Vortex density = 0.0187
+L = 64, T = 1.00 | <E>/N = -1.3156 | Cv/N = 1.4538 | Acceptance = 74.83% | Vortex density = 0.0239
+L = 64, T = 1.02 | <E>/N = -1.2813 | Cv/N = 1.4211 | Acceptance = 75.43% | Vortex density = 0.0306
+L = 64, T = 1.05 | <E>/N = -1.2448 | Cv/N = 1.3441 | Acceptance = 76.04% | Vortex density = 0.0358
+L = 64, T = 1.07 | <E>/N = -1.2093 | Cv/N = 1.3916 | Acceptance = 76.64% | Vortex density = 0.0417
+L = 64, T = 1.10 | <E>/N = -1.1754 | Cv/N = 1.3045 | Acceptance = 77.22% | Vortex density = 0.0490
+L = 64, T = 1.12 | <E>/N = -1.1418 | Cv/N = 1.3296 | Acceptance = 77.78% | Vortex density = 0.0566
+L = 64, T = 1.15 | <E>/N = -1.1089 | Cv/N = 1.2706 | Acceptance = 78.33% | Vortex density = 0.0634
+L = 64, T = 1.18 | <E>/N = -1.0781 | Cv/N = 1.2308 | Acceptance = 78.85% | Vortex density = 0.0704
+L = 64, T = 1.20 | <E>/N = -1.0467 | Cv/N = 1.1729 | Acceptance = 79.37% | Vortex density = 0.0742
+L = 64, T = 1.23 | <E>/N = -1.0175 | Cv/N = 1.1215 | Acceptance = 79.86% | Vortex density = 0.0804
+L = 64, T = 1.25 | <E>/N = -0.9917 | Cv/N = 1.0498 | Acceptance = 80.31% | Vortex density = 0.0860
+L = 64, T = 1.38 | <E>/N = -0.8728 | Cv/N = 0.8338 | Acceptance = 82.37% | Vortex density = 0.1143
+L = 64, T = 1.50 | <E>/N = -0.7791 | Cv/N = 0.6653 | Acceptance = 84.04% | Vortex density = 0.1347
+
+Plots saved:
+  xy_cv_vs_temperature.png
+  xy_correlation_finite_size.png
+  xy_energy_finite_size.png
+  xy_spin_correlation_temps.png
+  xy_vortex_density.png
+
+ Performance counter stats for 'mpirun -np 16 /opt/software/anaconda/python-3.10.9/bin/python -u task4.py':
+
+  2062744050974291      cycles:u                                                              
+  4568606392036107      instructions:u                   #    2.21  insn per cycle            
+        2881746206      cache-misses:u                                                        
+
+   54805.204730675 seconds time elapsed
+
+  869229.918907000 seconds user
+    4555.641768000 seconds sys
+
+

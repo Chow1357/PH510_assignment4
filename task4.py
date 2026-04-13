@@ -23,9 +23,9 @@ License:
 """
 from mpi4py import MPI  # pylint: disable=no-name-in-module
 import numpy as np
-import matplotlib.pyplot as plt
 import matplotlib
 matplotlib.use("Agg")
+import matplotlib.pyplot as plt
 
 COMM = MPI.COMM_WORLD
 RANK = COMM.Get_rank()
@@ -193,7 +193,7 @@ def count_vortices(lattice):
 
     return n_vortices / (size * size)
 
-# pylint: disable=too-many-arguments,too-many-positional-arguments
+# pylint: disable=too-many-arguments,too-many-positional-arguments,too-many-locals
 def run_simulation(size, temperature, n_sweeps, j_val=1.0, seed=1234,
                    burn_in=500):
     """
@@ -202,7 +202,7 @@ def run_simulation(size, temperature, n_sweeps, j_val=1.0, seed=1234,
     Performs n_sweeps Monte Carlo sweeps discarding the first burn_in sweeps
     as equilibration. Computes specific heat from the variance of the energy
     history, spin correlation from the final lattice configuration and
-    vortex density fromt the plaquette circulation. 
+    vortex density from the plaquette circulation. 
     """
     rng = np.random.default_rng(seed)
     lattice = initialise_lattice(size, seed=seed)
@@ -445,7 +445,7 @@ if __name__ == "__main__":
 
         for plot_temp, temp_colour in zip(PLOT_TEMPS, temp_colours):
             key = round(plot_temp, 2)
-            corr = all_correlations[target_size].get(key, None)
+            corr = all_correlations[TARGET_SIZE].get(key, None)
             if corr is not None:
                 r_over_l = np.arange(len(corr)) / TARGET_SIZE
                 plt.plot(

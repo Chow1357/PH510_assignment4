@@ -27,5 +27,5 @@ module load mpi
 cd /users/kwb21127/repos/PH510_assignment4
 
 perf stat -e cycles,instructions,cache-misses \
-mpirun -np 16 /opt/software/anaconda/python-3.10.9/bin/python task4.py
+mpirun -np 16 /opt/software/anaconda/python-3.10.9/bin/python -u task4.py
 

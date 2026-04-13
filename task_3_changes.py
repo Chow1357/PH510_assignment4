@@ -200,7 +200,8 @@ if __name__ == "__main__":
     TEMPERATURES = np.concatenate([
         np.linspace(1.0, 1.8, 5),    # coarse below transition
         np.linspace(1.8, 2.8, 21)[1:],   # fine near peak
-        np.linspace(2.8, 3.0, 3)[1:]     # coarse above transition 
+        np.linspace(2.8, 3.0, 3)[1:]    # coarse above transition
+    ]) 
     N_SWEEPS = 2000
     BURN_IN = 500
 
@@ -325,7 +326,7 @@ if __name__ == "__main__":
         plt.legend()
         plt.grid(True)
         plt.tight_layout()
-        plt.savefig("ising_energy_vs_temperature.png", dpi=300)
+        plt.savefig("ising_energy_vs_temperature_moretemps.png", dpi=300)
         plt.close()
 
         # plotting the specific heat per site against temperature
@@ -345,7 +346,7 @@ if __name__ == "__main__":
         plt.legend()
         plt.grid(True)
         plt.tight_layout()
-        plt.savefig("ising_cv_vs_temperature.png", dpi=300)
+        plt.savefig("ising_cv_vs_temperature_moretemps.png", dpi=300)
         plt.close()
 
         #
@@ -364,11 +365,11 @@ if __name__ == "__main__":
         plt.legend()
         plt.grid(True)
         plt.tight_layout()
-        plt.savefig("ising_magnetisation_vs_temperature.png", dpi=300)
+        plt.savefig("ising_magnetisation_vs_temperature_moretemps.png", dpi=300)
         plt.close()
 
         #
         print("\nSaved plots:")
-        print("ising_energy_vs_temperature.png")
-        print("ising_cv_vs_temperature.png")
-        print("ising_magnetisation_vs_temperature.png")
+        print("ising_energy_vs_temperature_moretemps.png")
+        print("ising_cv_vs_temperature_moretemps.png")
+        print("ising_magnetisation_vs_temperature_moretemps.png")
