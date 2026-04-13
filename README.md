@@ -23,5 +23,15 @@ this READ.ME file can be used to navigate the files in the git repository.
 
 ### XY model files: 
 ### program - task4.py (main XY model program file)
-### job script - 
+### job script - task_4.sh 
+### task 4 output files (initial tests) :
+#### first_task4.out 
+#### task5_XY_out_16-64.out 
+### main XY task 5 output files: 
+#### xy_modelk_10K.out (main output used for final plots) 
+#### xy_correlation_finite_size.png 
+#### xy_cv_vs_temperature.png 
+#### xy_energy_finite_size.png
+#### xy_spin_correlation_temps.png
+#### xy_vortex_density.png 
 
