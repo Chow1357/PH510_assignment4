@@ -14,5 +14,10 @@ The following git repository contains the python programs, jobs scripts and outp
 #### task3_initial_test_4cores.out
 #### task3_16cores.out
 ### task 5 ising output files:
-####
+#### ising_model_final.out (main output used for plots) 
+### plots: 
+#### ising_cv_vs_temperature_moretemps.png
+#### ising_energy_vs_temperature_moretemps.png
+#### ising_magnetisation_vs_temperature_moretemps.png
+
 
