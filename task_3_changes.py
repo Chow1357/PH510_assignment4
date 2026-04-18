@@ -77,7 +77,7 @@ def delta_energy(spins, i, j, j_val):
     size = spins.shape[0]
     spin = spins[i, j]
     # only four nearest neighbours contribute
-    # to the local energy chnage when one spin 
+    # to the local energy chnage when one spin
     # is flipped. other spins unaffected by local update.
     neighbour_sum = (
         spins[(i + 1) % size, j] +
@@ -214,7 +214,7 @@ if __name__ == "__main__":
 
     # range of lattice sizes
     LATTICE_SIZES = [16, 32, 64]
-    # Each MPI ranks uses a different random seed so 
+    # Each MPI ranks uses a different random seed so
     # walkers sample independently from different starting
     # confugurations, avoiding correlated results
     local_seed = 1234 + RANK
@@ -359,7 +359,7 @@ if __name__ == "__main__":
         plt.savefig("ising_cv_vs_temperature_moretemps.png", dpi=300)
         plt.close()
 
-        #
+
         plt.figure()
         for lattice_size, colour in zip(LATTICE_SIZES, colours):
             plt.plot(
@@ -378,7 +378,6 @@ if __name__ == "__main__":
         plt.savefig("ising_magnetisation_vs_temperature_moretemps.png", dpi=300)
         plt.close()
 
-        #
         print("\nSaved plots:")
         print("ising_energy_vs_temperature_moretemps.png")
         print("ising_cv_vs_temperature_moretemps.png")
