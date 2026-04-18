@@ -58,7 +58,8 @@ def total_energy(lattice, j_val=1.0):
         for j in range(size):
             s = lattice[i, j]
 
-            # periodic neighbours
+            # only count right and down neighbour
+            # to avoid double counting each pair
             right = lattice[i, (j + 1) % size]
             down = lattice[(i + 1) % size, j]
 
@@ -75,7 +76,9 @@ def delta_energy(spins, i, j, j_val):
     """
     size = spins.shape[0]
     spin = spins[i, j]
-
+    # only four nearest neighbours contribute
+    # to the local energy chnage when one spin 
+    # is flipped. other spins unaffected by local update.
     neighbour_sum = (
         spins[(i + 1) % size, j] +
         spins[(i - 1) % size, j] +
@@ -167,7 +170,9 @@ def run_simulation(size, temperature, n_sweeps, j_val=1.0, seed=1234,
 
     for sweep in range(n_sweeps):
         monte_carlo_sweep(lattice, temperature, rng, j_val)
-
+        # only record measurments after burn-in period
+        # ensuring system has reached thermal equilibrium
+        # before collecting statistics
         if sweep >= burn_in:
             energy_history.append(total_energy(lattice, j_val))
             magnetisation_history.append(magnetisation(lattice))
@@ -178,6 +183,8 @@ def run_simulation(size, temperature, n_sweeps, j_val=1.0, seed=1234,
 
     # Specific heat per site: Cv/N =
     # kB = 1 in units of J, N = size^2
+    # computed from energy fluctuations
+    # Cv = (<E^2> - <E>^2) / (kB * T^2 * N)
     specific_heat = (mean_energy_sq - mean_energy ** 2) / (
         temperature ** 2 * size ** 2
     )
@@ -196,7 +203,7 @@ def run_simulation(size, temperature, n_sweeps, j_val=1.0, seed=1234,
 if __name__ == "__main__":
     # setting parameters
     J_VAL = 1.0
-    # Use finer spacing near Tc
+    # Use finer spacing near Tc to better resolve peak
     TEMPERATURES = np.concatenate([
         np.linspace(1.0, 1.8, 5),    # coarse below transition
         np.linspace(1.8, 2.8, 21)[1:],   # fine near peak
@@ -207,7 +214,9 @@ if __name__ == "__main__":
 
     # range of lattice sizes
     LATTICE_SIZES = [16, 32, 64]
-
+    # Each MPI ranks uses a different random seed so 
+    # walkers sample independently from different starting
+    # confugurations, avoiding correlated results
     local_seed = 1234 + RANK
 
     # storage arrays for values from the range of temperatures
@@ -267,6 +276,7 @@ if __name__ == "__main__":
                 burn_in=BURN_IN
             )
             # these lines send each ranks local averages to rank 0 and then sum them
+            # MPI.reduce collects values from all walkers and sums them at rank 0
             total_mean_energy = COMM.reduce(local_mean_energy, op=MPI.SUM, root=0)
 
             total_mean_abs_mag = COMM.reduce(local_mean_abs_mag, op=MPI.SUM, root=0)
