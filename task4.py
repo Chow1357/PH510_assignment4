@@ -52,6 +52,7 @@ def total_energy(lattice, j_val=1.0):
 
     # np.roll shifts the array by 1 position with periodic wrapping,
     # giving us the neighbour angles at every site simultaneously.
+    # avoiding double counting by only counting right and down neighbours
     right_neighbours = np.roll(lattice, -1, axis=1)
     down_neighbours = np.roll(lattice, -1, axis=0)
 
@@ -100,10 +101,13 @@ def metropolis_step(lattice, temperature, rng, j_val=1.0):
 
     d_e = delta_energy(lattice, row, col, new_angle, j_val)
 
+    # Always accept moves that lower or maintain energy
     if d_e <= 0:
         lattice[row, col] = new_angle
         return True
 
+    # Accept energy-raising moves with Boltzmann probability
+    # allows system to escape local energy minima
     if rng.random() < np.exp(-d_e / temperature):
         lattice[row, col] = new_angle
         return True
@@ -138,6 +142,9 @@ def spin_correlation(lattice, max_r=None):
     size = lattice.shape[0]
 
     if max_r is None:
+        # Limit to L//2 to avoid periodic image effects
+        # Beyond this distance the correlation wraps around
+        # and measurments become unreliable
         max_r = size // 2
 
     distances = np.arange(0, max_r + 1)
@@ -179,6 +186,8 @@ def count_vortices(lattice):
             d4 = lattice[row, col] - lattice[(row + 1) % size, col]
 
             # Wrap each difference to [-pi, pi]
+            # This correctly handles the periodic nature of angles
+            # and identifies the shortest angular path between spins
             d1 = (d1 + np.pi) % (2 * np.pi) - np.pi
             d2 = (d2 + np.pi) % (2 * np.pi) - np.pi
             d3 = (d3 + np.pi) % (2 * np.pi) - np.pi
@@ -214,16 +223,22 @@ def run_simulation(size, temperature, n_sweeps, j_val=1.0, seed=1234,
         accepted = monte_carlo_sweep(lattice, temperature, rng, j_val)
         total_accepted += accepted
 
+        # only recording measurments after burn-in period
+        # ensures system has reached thermal equilibrium
         if sweep >= burn_in:
             energy_history.append(total_energy(lattice, j_val))
 
     mean_energy = np.mean(energy_history)
     mean_energy_sq = np.mean(np.square(energy_history))
 
+    # Specific heat from energy fluctuations:
+    # Cv/N = (<E^2> - <E>^2) / (kB * T^2 * N)
+    # kB = 1 in natural units, N = size^2
     specific_heat = (mean_energy_sq - mean_energy ** 2) / (
         temperature ** 2 * size ** 2
     )
 
+    # Acceptance rate measures sampling efficiency
     acceptance_rate = total_accepted / (n_sweeps * size * size)
 
     distances, correlations = spin_correlation(lattice)
@@ -256,6 +271,9 @@ if __name__ == "__main__":
     # Temperature to examine correlation behaviour across sizes
     CORRELATION_TEMP = 1.0
 
+    # unique local seed for each MPI rank
+    # ensures independent sampling
+    # from different initial configurations
     local_seed = 1234 + RANK
 
     if RANK == 0:
@@ -309,6 +327,7 @@ if __name__ == "__main__":
             )
 
             # Reduce scalar quantities to rank 0
+            # Summing across all walkers then dividing gives the mean
             total_mean_energy = COMM.reduce(
                 local_mean_energy, op=MPI.SUM, root=0
             )
