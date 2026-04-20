@@ -8,7 +8,7 @@ this READ.ME file can be used to navigate the files in the git repository.
 #### Task1_2_Temp_1.0.out, Task1_2_Temp_2.0.out, Task1_2_Temp_3.0.out, task1_first.out, 16_diff_walkers_task1_2.out
 
 ### ising model files: 
-### program - task_3_chnages.py (main ising model program file) 
+### program - task_3_changes.py (main ising model program file) 
 ### job script - task_3.sh
 ### task 3 output files (initial tests) :
 #### Task3_firstattempt.out 
